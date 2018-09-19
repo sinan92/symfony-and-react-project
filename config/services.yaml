@@ -31,4 +31,4 @@ services:
     # please note that last definitions always *replace* previous ones
 
     App\Model\Connection:
-        arguments: ['mysql:host=localhost;dbname=bulletinboard','root','']
+        arguments: ['mysql:host=localhost;dbname=bulletinboard','root','root']

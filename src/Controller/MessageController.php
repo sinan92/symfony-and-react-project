@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Model\IMessageModel;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MessageController extends Controller
@@ -36,11 +37,11 @@ class MessageController extends Controller
     /**
      * @Route("/messages", methods={"GET"}, name="getAll")
      */
-    public function GetAll(){
+    public function getAll(){
         $statuscode = 200;
         $messages = [];
         try {
-            $messages = $this->messageModel->GetAll();
+            $messages = $this->messageModel->getAll();
         } catch (\PDOException $exception) {
             var_dump($exception);
             $statuscode = 500;
@@ -49,22 +50,54 @@ class MessageController extends Controller
     }
 
 
-
-    public function GetById($messageId)
+    /**
+     * @Route("/messages/{messageId}", methods={"GET"}, name="getById")
+     */
+    public function getById($messageId)
     {
         $statuscode = 200;
-        $message = null;
+        $messages = [];
         try {
-            $message = $this->messageModel->GetById($messageId);
-            if ($message == null) {
-                $statuscode = 404;
-            }
-        } catch (\InvalidArgumentException $exception) {
-            $statuscode = 400;
+            $messages = $this->messageModel->getById($messageId);
         } catch (\PDOException $exception) {
+            var_dump($exception);
             $statuscode = 500;
         }
-        return new JsonResponse($message, $statuscode);
+        return new JsonResponse($messages, $statuscode);
+    }
+
+
+    /**
+     * @Route("/messages/search/content/{search}", methods={"GET"}, name="saerchByContent")
+     */
+    public function searchByContent($search)
+    {
+        $statuscode = 200;
+        $messages = [];
+        try {
+            $messages = $this->messageModel->searchByContent($search);
+        } catch (\PDOException $exception) {
+            var_dump($exception);
+            $statuscode = 500;
+        }
+        return new JsonResponse($messages, $statuscode);
+    }
+
+
+    /**
+     * @Route("/messages/search/content-and-category/{search}", methods={"GET"}, name="searchByContentAndCategory")
+     */
+    public function searchByContentAndCategory($search)
+    {
+        $statuscode = 200;
+        $messages = [];
+        try {
+            $messages = $this->messageModel->searchByContentAndCategory($search);
+        } catch (\PDOException $exception) {
+            var_dump($exception);
+            $statuscode = 500;
+        }
+        return new JsonResponse($messages, $statuscode);
     }
 
 }
