@@ -12,7 +12,7 @@ class PDOMessageModel implements IMessageModel
 
     public function getAll()
     {
-        $statement = $this->connection->getPDO()->prepare('SELECT * FROM message');
+        $statement = $this->connection->getPDO()->prepare('SELECT * FROM messages');
         $statement->execute();
         $statement->bindColumn(1, $id, \PDO::PARAM_INT);
         $statement->bindColumn(2, $content, \PDO::PARAM_STR);
@@ -30,7 +30,7 @@ class PDOMessageModel implements IMessageModel
 
     public function getById($messageId)
     {
-        $statement = $this->connection->getPDO()->prepare('SELECT * FROM message WHERE id=?');
+        $statement = $this->connection->getPDO()->prepare('SELECT * FROM messages WHERE id=?');
         $statement->bindValue(1, $messageId);
         $statement->execute();
         $statement->bindColumn(2, $content, \PDO::PARAM_STR);
@@ -48,7 +48,7 @@ class PDOMessageModel implements IMessageModel
 
     public function searchByContent($search)
     {
-        $statement = $this->connection->getPDO()->prepare("SELECT * FROM message WHERE content LIKE ?");
+        $statement = $this->connection->getPDO()->prepare("SELECT * FROM messages WHERE content LIKE ?");
         $statement->bindValue(1, "%" . $search . "%", \PDO::PARAM_STR);
         $statement->execute();
         $statement->bindColumn(1, $id, \PDO::PARAM_INT);
@@ -67,7 +67,7 @@ class PDOMessageModel implements IMessageModel
 
     public function searchByContentAndCategory($search)
     {
-        $statement = $this->connection->getPDO()->prepare("SELECT * FROM message WHERE content LIKE ? OR  category LIKE ?");
+        $statement = $this->connection->getPDO()->prepare("SELECT * FROM messages WHERE content LIKE ? OR  category LIKE ?");
         $statement->bindValue(1, "%" . $search . "%", \PDO::PARAM_STR);
         $statement->bindValue(2, "%" . $search . "%", \PDO::PARAM_STR);
         $statement->execute();
