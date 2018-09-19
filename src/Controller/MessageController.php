@@ -120,4 +120,38 @@ class MessageController extends Controller
         return new JsonResponse($response, $statuscode);
     }
 
+
+    /**
+     * @Route("/messages/upvote/{messageId}", methods={"PUT"}, name="upVoteMessage")
+     */
+    public function upVoteMessage($messageId)
+    {
+        $statuscode = 200;
+        $response = null;
+        try {
+            $response = $this->messageModel->upVoteMessage($messageId);
+        } catch (\PDOException $exception) {
+            var_dump($exception);
+            $statuscode = 500;
+        }
+        return new JsonResponse($response, $statuscode);
+    }
+
+
+    /**
+     * @Route("/messages/downvote/{messageId}", methods={"PUT"}, name="downVoteMessage")
+     */
+    public function downVoteMessage($messageId)
+    {
+        $statuscode = 200;
+        $response = null;
+        try {
+            $response = $this->messageModel->downVoteMessage($messageId);
+        } catch (\PDOException $exception) {
+            var_dump($exception);
+            $statuscode = 500;
+        }
+        return new JsonResponse($response, $statuscode);
+    }
+
 }
