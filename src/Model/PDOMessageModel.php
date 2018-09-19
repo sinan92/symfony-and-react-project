@@ -88,6 +88,14 @@ class PDOMessageModel implements IMessageModel
     public function postComment($messageId, $comment)
     {
         // TODO: Implement postComment() method.
+        $token = $this->generateToken();
+        $statement = $this->connection->getPDO()->prepare("INSERT INTO comments (message_id, content, token) VALUES (?, ?, ?)");
+        $statement->bindValue(1, $messageId, \PDO::PARAM_INT);
+        $statement->bindValue(2, $comment, \PDO::PARAM_STR);
+        $statement->bindValue(3, $token, \PDO::PARAM_STR);
+        $statement->execute();
+
+        return $token;
     }
 
     public function upVoteMessage($messageId)
@@ -98,5 +106,24 @@ class PDOMessageModel implements IMessageModel
     public function downVoteMessage($messageId)
     {
         // TODO: Implement downVoteMessage() method.
+    }
+
+    private function generateToken(){
+        $unique = false;
+        $token = null;
+
+        while(!$unique){
+            $token = substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 10);
+
+            $statement = $this->connection->getPDO()->prepare("SELECT * FROM comments WHERE token = ?");
+            $statement->bindValue(1, $token, \PDO::PARAM_STR);
+            $statement->execute();
+
+            if($statement->rowCount() == 0){
+                $unique = true;
+            }
+        }
+
+        return $token;
     }
 }

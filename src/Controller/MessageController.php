@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Model\IMessageModel;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MessageController extends Controller
@@ -98,6 +99,25 @@ class MessageController extends Controller
             $statuscode = 500;
         }
         return new JsonResponse($messages, $statuscode);
+    }
+
+
+    /**
+     * @Route("/messages/comment/post/", methods={"POST"}, name="postComment")
+     */
+    public function postComment(Request $request)
+    {
+        $statuscode = 200;
+        $response = null;
+        $messageId = $request->request->get("messageId");
+        $comment = $request->request->get("comment");
+        try {
+            $response = $this->messageModel->postComment($messageId, $comment);
+        } catch (\PDOException $exception) {
+            var_dump($exception);
+            $statuscode = 500;
+        }
+        return new JsonResponse($response, $statuscode);
     }
 
 }
