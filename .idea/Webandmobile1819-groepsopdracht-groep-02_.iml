@@ -98,5 +98,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="SymfonyRest" />
+    <orderEntry type="module" module-name="SymfonyClient" />
   </component>
 </module>
