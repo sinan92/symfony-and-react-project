@@ -43,7 +43,7 @@ class MessageController extends Controller
         $messages = [];
         try {
             $messages = $this->messageModel->getAll();
-        } catch (\PDOException $exception) {
+        } catch (\IllegalArgumentExceptions $exception) {
             var_dump($exception);
             $statuscode = 500;
         }
@@ -60,7 +60,7 @@ class MessageController extends Controller
         $messages = [];
         try {
             $messages = $this->messageModel->getById($messageId);
-        } catch (\PDOException $exception) {
+        } catch (\IllegalArgumentExceptions $exception) {
             var_dump($exception);
             $statuscode = 500;
         }
@@ -77,7 +77,7 @@ class MessageController extends Controller
         $messages = [];
         try {
             $messages = $this->messageModel->searchByContent($search);
-        } catch (\PDOException $exception) {
+        } catch (\IllegalArgumentExceptions $exception) {
             var_dump($exception);
             $statuscode = 500;
         }
@@ -94,7 +94,7 @@ class MessageController extends Controller
         $messages = [];
         try {
             $messages = $this->messageModel->searchByContentAndCategory($search);
-        } catch (\PDOException $exception) {
+        } catch (\IllegalArgumentExceptions $exception) {
             var_dump($exception);
             $statuscode = 500;
         }
@@ -113,7 +113,7 @@ class MessageController extends Controller
         $comment = $request->request->get("comment");
         try {
             $response = $this->messageModel->postComment($messageId, $comment);
-        } catch (\PDOException $exception) {
+        } catch (\IllegalArgumentExceptions $exception) {
             var_dump($exception);
             $statuscode = 500;
         }
@@ -130,7 +130,7 @@ class MessageController extends Controller
         $response = null;
         try {
             $response = $this->messageModel->upVoteMessage($messageId);
-        } catch (\PDOException $exception) {
+        } catch (\IllegalArgumentExceptions $exception) {
             var_dump($exception);
             $statuscode = 500;
         }
@@ -147,7 +147,7 @@ class MessageController extends Controller
         $response = null;
         try {
             $response = $this->messageModel->downVoteMessage($messageId);
-        } catch (\PDOException $exception) {
+        } catch (\IllegalArgumentExceptions $exception) {
             var_dump($exception);
             $statuscode = 500;
         }
