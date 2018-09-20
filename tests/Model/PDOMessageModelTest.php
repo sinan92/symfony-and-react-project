@@ -1,11 +1,12 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
+use App\Model\PDOMessageModel;
 
 class PDOMessageModelTest extends TestCase {
     public function setUp()
     {
-        $this->connection = new PDO('sqlite::memory');
+        $this->connection = new PDO('sqlite::memory:');
         $this->connection->setAttribute(
             PDO::ATTR_ERRMODE,
             PDO::ERRMODE_EXCEPTION
@@ -18,7 +19,7 @@ class PDOMessageModelTest extends TestCase {
           upvotes INT(10),
           downvotes INT(10),
           PRIMARY KEY (id)
-        ),
+        );
         CREATE TABLE comments(
           id INT,
           message_id INT(11),
@@ -36,11 +37,16 @@ class PDOMessageModelTest extends TestCase {
         }
         $comments = $this->providerComments();
         foreach($comments as $comment){
-            $this->connection->exec("INSERT INTO messages (id, message_id, content, token)
-                        VALUES (".$message['id'].", ".$message['message_id'].", '".$message['content']."',
-                        '".$message['token']."')");
+            $this->connection->exec("INSERT INTO comments (id, message_id, content, token)
+                        VALUES (".$comment['id'].", ".$comment['message_id'].", '".$comment['content']."',
+                        '".$comment['token']."')");
         }
     }
+
+    public function tearDown(){
+        $this->connection = null;
+    }
+
     public function providerMessages()
     {
         return [['id' => 1, 'content' => $this->generateRandomString(), 'category' => $this->generateRandomString(), 'date' => date("Y-m-d H:i:s", mt_rand(1262055681,1262055681)), 'upvotes' => mt_rand(0,5000), 'downvotes' => mt_rand(0,5000)],
@@ -74,5 +80,11 @@ class PDOMessageModelTest extends TestCase {
             $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
         return $randomString;
+    }
+
+    public function testGetById_messagesInDatabase(){
+        $messagesModel = new PDOMessageModel($this->connection);
+        $actualMessage = $messagesModel->getById(1);
+        $expectedMessage = $this->providerMessages()[0];
     }
 }
