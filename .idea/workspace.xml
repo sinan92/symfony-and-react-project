@@ -17,7 +17,6 @@
       <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,54 +26,118 @@
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <executablePath>composer</executablePath>
   </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="-459988934">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.0" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="php" value="6" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="PHP" value="6" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="php" value="863" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="PHP" value="863" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.php.composer.command.options" />
+      <usages-collector id="statistics.js.language.service.starts" />
+      <usages-collector id="statistics.php.new.test" />
+      <usages-collector id="statistics.vcs.git.usages" />
+      <usages-collector id="statistics.php.new.class" />
+      <usages-collector id="statistics.php.rename.constructor" />
+      <usages-collector id="statistics.php.composer.actions" />
+    </session>
+  </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="composer.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/composer.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="41" selection-start-line="41" selection-end-line="50" selection-end-column="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MessageController.php" pinned="false" current-in-tab="true">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Controller/MessageController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1343">
-              <caret line="83" column="27" selection-start-line="83" selection-start-column="27" selection-end-line="83" selection-end-column="27" />
+            <state relative-caret-position="192">
+              <caret line="95" column="45" selection-start-line="95" selection-start-column="45" selection-end-line="95" selection-end-column="45" />
+              <folding>
+                <element signature="e#34#62#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Connection.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Model/Connection.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="14" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PDOMessageModel.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Model/PDOMessageModel.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="14" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IMessageModel.php" pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Model/IMessageModel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="14" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
+            <state relative-caret-position="136">
+              <caret line="8" column="46" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="46" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Model/PDOMessageModel.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="203">
+              <caret line="50" column="105" lean-forward="true" selection-start-line="50" selection-start-column="105" selection-end-line="50" selection-end-column="105" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Model/Connection.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="18" column="20" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/tests/Model/PDOMessageModelTest.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="345">
+              <caret line="139" selection-start-line="139" selection-end-line="139" />
+              <folding>
+                <element signature="e#7#38#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vendor/symfony/phpunit-bridge/DeprecationErrorHandler.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="200">
+              <caret line="107" selection-start-line="107" selection-end-line="107" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Kernel.php">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>ge</find>
+      <find>post</find>
+      <find>connection</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -85,8 +148,9 @@
         <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/src/Controller/MessageController.php" />
         <option value="$PROJECT_DIR$/src/Model/Connection.php" />
-        <option value="$PROJECT_DIR$/src/Model/PDOMessageModel.php" />
         <option value="$PROJECT_DIR$/src/Model/IMessageModel.php" />
+        <option value="$PROJECT_DIR$/src/Model/PDOMessageModel.php" />
+        <option value="$PROJECT_DIR$/tests/Model/PDOMessageModelTest.php" />
       </list>
     </option>
   </component>
@@ -96,10 +160,10 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="NodePackageJsonFileManager">
-    <packageJsonPaths />
+  <component name="PhpServers">
+    <servers />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration">
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 7.2">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/symfony/flex" />
       <path value="$PROJECT_DIR$/vendor/ocramius/package-versions" />
@@ -221,8 +285,8 @@
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-7" />
-    <option name="width" value="1040" />
-    <option name="height" value="735" />
+    <option name="width" value="974" />
+    <option name="height" value="1057" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -233,36 +297,54 @@
         <subPane>
           <expand>
             <path>
-              <item name="BulletinBoard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BulletinBoard" type="462c0819:PsiDirectoryNode" />
+              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="BulletinBoard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BulletinBoard" type="462c0819:PsiDirectoryNode" />
+              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="BulletinBoard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BulletinBoard" type="462c0819:PsiDirectoryNode" />
+              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Controller" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="BulletinBoard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BulletinBoard" type="462c0819:PsiDirectoryNode" />
+              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Entity" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Migrations" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Model" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="BulletinBoard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BulletinBoard" type="462c0819:PsiDirectoryNode" />
-              <item name="vendor" type="462c0819:PsiDirectoryNode" />
+              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Repository" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="BulletinBoard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BulletinBoard" type="462c0819:PsiDirectoryNode" />
-              <item name="vendor" type="462c0819:PsiDirectoryNode" />
-              <item name="composer" type="462c0819:PsiDirectoryNode" />
+              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+              <item name="Model" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -289,6 +371,44 @@
       </list>
     </option>
   </component>
+  <component name="RunManager" selected="PHPUnit.PDOMessageModelTest.testIdExists_existingId_True">
+    <configuration name="PDOMessageModelTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="PDOMessageModelTest" file="$PROJECT_DIR$/tests/Model/PDOMessageModelTest.php" scope="Class" />
+      <method v="2" />
+    </configuration>
+    <configuration name="PDOMessageModelTest.testIdExists_existingId_True" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="PDOMessageModelTest" file="$PROJECT_DIR$/tests/Model/PDOMessageModelTest.php" method="testIdExists_existingId_True" scope="Method" />
+      <method v="2" />
+    </configuration>
+    <configuration name="PDOMessageModelTest.testPostComment_commentInDatabase" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="PDOMessageModelTest" file="$PROJECT_DIR$/tests/Model/PDOMessageModelTest.php" method="testPostComment_commentInDatabase" scope="Method" />
+      <method v="2" />
+    </configuration>
+    <configuration name="PDOMessageModelTest.testSearchByCategory_messagesInDatabase" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="PDOMessageModelTest" file="$PROJECT_DIR$/tests/Model/PDOMessageModelTest.php" method="testSearchByCategory_messagesInDatabase" scope="Method" />
+      <method v="2" />
+    </configuration>
+    <configuration name="PDOMessageModelTest.testSearchByContentOrCategory_SearchByCategory_messagesNotInDatabase" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="PDOMessageModelTest" file="$PROJECT_DIR$/tests/Model/PDOMessageModelTest.php" method="testSearchByContentOrCategory_SearchByCategory_messagesNotInDatabase" scope="Method" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="PHPUnit.PDOMessageModelTest.testSearchByContentOrCategory_SearchByCategory_messagesNotInDatabase" />
+      <item itemvalue="PHPUnit.PDOMessageModelTest" />
+      <item itemvalue="PHPUnit.PDOMessageModelTest.testSearchByCategory_messagesInDatabase" />
+      <item itemvalue="PHPUnit.PDOMessageModelTest.testPostComment_commentInDatabase" />
+      <item itemvalue="PHPUnit.PDOMessageModelTest.testIdExists_existingId_True" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="PHPUnit.PDOMessageModelTest.testIdExists_existingId_True" />
+        <item itemvalue="PHPUnit.PDOMessageModelTest.testPostComment_commentInDatabase" />
+        <item itemvalue="PHPUnit.PDOMessageModelTest.testSearchByCategory_messagesInDatabase" />
+        <item itemvalue="PHPUnit.PDOMessageModelTest" />
+        <item itemvalue="PHPUnit.PDOMessageModelTest.testSearchByContentOrCategory_SearchByCategory_messagesNotInDatabase" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -303,32 +423,73 @@
     </task>
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="PDOMessageModelTest_testSearchByCategory_messagesNotInDatabase - 2018.09.25 at 12h 23m 11s.xml">
+      <configuration name="PDOMessageModelTest.testSearchByCategory_messagesNotInDatabase" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="PDOMessageModelTest_testSearchByContentOrCategory_SearchByCategory_messagesNotInDatabase - 2018.09.25 at 12h 24m 00s.xml">
+      <configuration name="PDOMessageModelTest.testSearchByContentOrCategory_SearchByCategory_messagesNotInDatabase" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="PDOMessageModelTest - 2018.09.25 at 12h 36m 09s.xml">
+      <configuration name="PDOMessageModelTest" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="PDOMessageModelTest - 2018.09.25 at 12h 42m 06s.xml">
+      <configuration name="PDOMessageModelTest" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="PDOMessageModelTest_testSearchByCategory_messagesInDatabase - 2018.09.25 at 12h 42m 23s.xml">
+      <configuration name="PDOMessageModelTest.testSearchByCategory_messagesInDatabase" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="PDOMessageModelTest_testSearchByCategory_messagesInDatabase - 2018.09.25 at 12h 42m 32s.xml">
+      <configuration name="PDOMessageModelTest.testSearchByCategory_messagesInDatabase" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="PDOMessageModelTest_testSearchByCategory_messagesInDatabase - 2018.09.25 at 12h 42m 44s.xml">
+      <configuration name="PDOMessageModelTest.testSearchByCategory_messagesInDatabase" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="PDOMessageModelTest_testSearchByCategory_messagesInDatabase - 2018.09.25 at 12h 42m 54s.xml">
+      <configuration name="PDOMessageModelTest.testSearchByCategory_messagesInDatabase" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="PDOMessageModelTest_testPostComment_commentInDatabase - 2018.09.25 at 12h 42m 57s.xml">
+      <configuration name="PDOMessageModelTest.testPostComment_commentInDatabase" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="PDOMessageModelTest_testIdExists_existingId_True - 2018.09.25 at 12h 43m 06s.xml">
+      <configuration name="PDOMessageModelTest.testIdExists_existingId_True" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+  </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1255000" />
+    <option name="totallyTimeSpent" value="6082000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24963397" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="right" id="Database" />
-      <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Version Control" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15405117" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info id="Favorites" side_tool="true" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32939914" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39914164" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32939914" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.32939914" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="11" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -338,9 +499,7 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/vendor/autoload.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/autoload.php" />
     <entry file="file://$PROJECT_DIR$/composer.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -348,31 +507,51 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/Connection.php">
+    <entry file="file://$PROJECT_DIR$/src/Controller/MessageController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="14" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/PDOMessageModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="14" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
+        <state relative-caret-position="192">
+          <caret line="95" column="45" selection-start-line="95" selection-start-column="45" selection-end-line="95" selection-end-column="45" />
+          <folding>
+            <element signature="e#34#62#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Model/IMessageModel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="14" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
+        <state relative-caret-position="136">
+          <caret line="8" column="46" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="46" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/MessageController.php">
+    <entry file="file://$PROJECT_DIR$/vendor/symfony/phpunit-bridge/DeprecationErrorHandler.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1343">
-          <caret line="83" column="27" selection-start-line="83" selection-start-column="27" selection-end-line="83" selection-end-column="27" />
+        <state relative-caret-position="200">
+          <caret line="107" selection-start-line="107" selection-end-line="107" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/Connection.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="20" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/PDOMessageModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="50" column="105" lean-forward="true" selection-start-line="50" selection-start-column="105" selection-end-line="50" selection-end-column="105" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Model/PDOMessageModelTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="139" selection-start-line="139" selection-end-line="139" />
+          <folding>
+            <element signature="e#7#38#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
