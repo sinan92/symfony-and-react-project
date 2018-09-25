@@ -41,7 +41,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Model\\": "src/Model"
+            "App\\": "src/"
         }
     },
     "autoload-dev": {

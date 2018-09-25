@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../SymfonyClient/.idea/SymfonyClient.iml" filepath="$PROJECT_DIR$/../SymfonyClient/.idea/SymfonyClient.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../SymfonyRest/.idea/SymfonyRest.iml" filepath="$PROJECT_DIR$/../SymfonyRest/.idea/SymfonyRest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/Webandmobile1819-groepsopdracht-groep-02_.iml" filepath="$PROJECT_DIR$/.idea/Webandmobile1819-groepsopdracht-groep-02_.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/BulletinBoard.iml" filepath="$PROJECT_DIR$/.idea/BulletinBoard.iml" />
     </modules>
   </component>
 </project>
