@@ -2,19 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="62ae6b3c-4275-4aaf-8c55-d43540054cc4" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/BulletinBoard.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/BulletinBoard.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Webandmobile1819-groepsopdracht-groep-02_.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer-backup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Connection.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Connection.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/IMessageModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/IMessageModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/PDOMessageModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/PDOMessageModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Model/PDOMessageModelTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Model/PDOMessageModelTest.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -38,11 +27,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MessageController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MessageController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Controller/MessageController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1343">
-              <caret line="83" column="27" selection-start-line="83" selection-start-column="27" selection-end-line="83" selection-end-column="27" />
+            <state relative-caret-position="-306">
+              <caret line="17" column="7" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -65,6 +54,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="PDOMessageModelTest.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/tests/Model/PDOMessageModelTest.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="65" column="147" selection-start-line="65" selection-start-column="147" selection-end-line="65" selection-end-column="147" />
+              <caret line="68" column="147" selection-start-line="68" selection-start-column="147" selection-end-line="68" selection-end-column="147" />
+              <caret line="67" column="147" selection-start-line="67" selection-start-column="147" selection-end-line="67" selection-end-column="147" />
+              <caret line="66" column="147" selection-start-line="66" selection-start-column="147" selection-end-line="66" selection-end-column="147" />
+              <folding>
+                <element signature="e#7#38#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="IMessageModel.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Model/IMessageModel.php">
           <provider selected="true" editor-type-id="text-editor">
@@ -78,6 +82,11 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="getAllFeature" />
+      </map>
+    </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -87,6 +96,7 @@
         <option value="$PROJECT_DIR$/src/Model/Connection.php" />
         <option value="$PROJECT_DIR$/src/Model/PDOMessageModel.php" />
         <option value="$PROJECT_DIR$/src/Model/IMessageModel.php" />
+        <option value="$PROJECT_DIR$/tests/Model/PDOMessageModelTest.php" />
       </list>
     </option>
   </component>
@@ -99,7 +109,7 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration">
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/symfony/flex" />
       <path value="$PROJECT_DIR$/vendor/ocramius/package-versions" />
@@ -256,6 +266,17 @@
             <path>
               <item name="BulletinBoard" type="b2602c69:ProjectViewProjectNode" />
               <item name="BulletinBoard" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BulletinBoard" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BulletinBoard" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+              <item name="Model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BulletinBoard" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BulletinBoard" type="462c0819:PsiDirectoryNode" />
               <item name="vendor" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -289,6 +310,16 @@
       </list>
     </option>
   </component>
+  <component name="RunManager">
+    <configuration name="tests" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner directory="$PROJECT_DIR$/tests" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="PHPUnit.tests" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -299,24 +330,35 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1537865666480</updated>
-      <workItem from="1537865669094" duration="1255000" />
+      <workItem from="1537865669094" duration="2207000" />
     </task>
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="tests - 2018.09.25 at 11h 27m 38s.xml">
+      <configuration name="tests" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="tests - 2018.09.25 at 11h 28m 26s.xml">
+      <configuration name="tests" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="tests - 2018.09.25 at 11h 29m 13s.xml">
+      <configuration name="tests" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+  </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1255000" />
+    <option name="totallyTimeSpent" value="2207000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24963397" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24963397" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="right" id="Database" />
       <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3290938" />
       <window_info anchor="bottom" id="Version Control" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" />
@@ -355,13 +397,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/PDOMessageModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="14" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Model/IMessageModel.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -371,8 +406,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/MessageController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1343">
-          <caret line="83" column="27" selection-start-line="83" selection-start-column="27" selection-end-line="83" selection-end-column="27" />
+        <state relative-caret-position="-306">
+          <caret line="17" column="7" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/PDOMessageModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="14" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Model/PDOMessageModelTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="65" column="147" selection-start-line="65" selection-start-column="147" selection-end-line="65" selection-end-column="147" />
+          <caret line="68" column="147" selection-start-line="68" selection-start-column="147" selection-end-line="68" selection-end-column="147" />
+          <caret line="67" column="147" selection-start-line="67" selection-start-column="147" selection-end-line="67" selection-end-column="147" />
+          <caret line="66" column="147" selection-start-line="66" selection-start-column="147" selection-end-line="66" selection-end-column="147" />
+          <folding>
+            <element signature="e#7#38#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
