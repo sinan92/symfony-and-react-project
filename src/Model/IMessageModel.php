@@ -1,5 +1,5 @@
 <?php 
-namespace App\Model;
+namespace Model;
 
 interface IMessageModel {
     public function getAll();
