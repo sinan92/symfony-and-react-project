@@ -25,7 +25,7 @@ class PDOMessageModelTest extends TestCase {
           token VARCHAR(10),
           date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
           PRIMARY KEY (id)
-        )
+        );
         ');
 
         $messages = $this->providerMessages();
@@ -34,12 +34,19 @@ class PDOMessageModelTest extends TestCase {
                         VALUES (".$message['id'].", '".$message['content']."', '".$message['category']."',
                         ".$message['upVotes'].", ".$message['downVotes'].", '".$message['date']."')");
         }
+
+
         $comments = $this->providerComments();
         foreach($comments as $comment){
             $this->connection->getPDO()->exec("INSERT INTO comments (id, message_id, content, token)
                         VALUES (".$comment['id'].", ".$comment['message_id'].", '".$comment['content']."',
                         '".$comment['token']."')");
         }
+    }
+
+    protected function tearDown()/* The :void return type declaration that should be here would cause a BC issue */
+    {
+        $this->connection = null;
     }
 
     public function providerMessages()
@@ -50,7 +57,6 @@ class PDOMessageModelTest extends TestCase {
             ['id' => 3, 'content' => 'Test3', 'category' => 'Thriller', 'date' => date("Y-m-d H:i:s", mktime(0, 0, 0, 10, 30, 2010)), 'upVotes' => 30, 'downVotes' => 10]
         ];
     }
-
     public function providerComments()
     {
         return [['id'=> 1,'message_id'=> 1, 'content' => "Content1", 'token' => 10001001, 'date' => date("Y-m-d H:i:s", mktime(3, 0, 0, 7, 1, 2000))],
@@ -69,16 +75,6 @@ class PDOMessageModelTest extends TestCase {
             ['id' => 14,'message_id'=> 3, 'content' => "Content14", 'token' => 11001000, 'date' => date("Y-m-d H:i:s", mktime(3, 0, 0, 7, 1, 2000))]];
     }
 
-    function generateRandomString($length = 10) {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $charactersLength = strlen($characters);
-        $randomString = '';
-        for ($i = 0; $i < $length; $i++) {
-            $randomString .= $characters[rand(0, $charactersLength - 1)];
-        }
-        return $randomString;
-    }
-
     public function testGetById_messagesInDatabase(){
         $messagesModel = new PDOMessageModel($this->connection);
         $actualMessage = $messagesModel->getById(1);
@@ -86,4 +82,20 @@ class PDOMessageModelTest extends TestCase {
         $this->assertEquals('array', gettype($actualMessage));
         $this->assertEquals($expectedMessage[0], $actualMessage[0]);
     }
+
+    public function testPostComment_commentInDatabase(){
+        $messagesModel = new PDOMessageModel($this->connection);
+        $actualMessage = $messagesModel->postComment(10, 'Hello');
+
+        //Comments uit de database ophalen
+        $statement = $this->connection->getPDO()->prepare('SELECT * FROM comments WHERE message_id = 10');
+        $statement->execute();
+        $comments = $statement->fetch();
+
+
+        $expectedMessage = $comments['token'];
+        $this->assertEquals('string', gettype($actualMessage));
+        $this->assertEquals($expectedMessage, $actualMessage);
+    }
+
 }
