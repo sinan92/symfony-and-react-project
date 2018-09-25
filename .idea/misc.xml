@@ -5,22 +5,32 @@
       <usages-collector id="statistics.php.composer.actions">
         <counts>
 <<<<<<< HEAD
+<<<<<<< HEAD
           <entry key="addDependencyDialog_from_MainMenu" value="1" />
           <entry key="require_from_AddDependencyDialog" value="2" />
 =======
           <entry key="addDependencyDialog_from_MainMenu" value="7" />
           <entry key="require_from_AddDependencyDialog" value="18" />
 >>>>>>> 1f619fe1a5434e2796e5133c524fd4e9a64e9556
+=======
+          <entry key="addDependencyDialog_from_MainMenu" value="4" />
+          <entry key="install_from_MainMenu" value="2" />
+          <entry key="require_from_AddDependencyDialog" value="7" />
+>>>>>>> 2c74c776a751ecb1420f5f2f4be664e23c22f6aa
         </counts>
       </usages-collector>
       <usages-collector id="statistics.php.composer.command.options">
         <counts>
+<<<<<<< HEAD
 <<<<<<< HEAD
           <entry key="require_with_--ansi_--no-interaction_--no-progress.default" value="2" />
 =======
           <entry key="require_with_--ansi_--disable-tls_--no-interaction_--no-progress" value="3" />
           <entry key="require_with_--ansi_--no-interaction_--no-progress.default" value="15" />
 >>>>>>> 1f619fe1a5434e2796e5133c524fd4e9a64e9556
+=======
+          <entry key="require_with_--ansi_--no-interaction_--no-progress.default" value="7" />
+>>>>>>> 2c74c776a751ecb1420f5f2f4be664e23c22f6aa
         </counts>
       </usages-collector>
     </session>

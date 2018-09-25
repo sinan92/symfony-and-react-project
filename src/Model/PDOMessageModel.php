@@ -1,5 +1,5 @@
 <?php
-namespace App\Model;
+namespace Model;
 
 class PDOMessageModel implements IMessageModel
 {
@@ -35,7 +35,7 @@ class PDOMessageModel implements IMessageModel
         $statement->execute();
         $statement->bindColumn(2, $content, \PDO::PARAM_STR);
         $statement->bindColumn(3, $category, \PDO::PARAM_STR);
-        $statement->bindColumn(4, $date, \PDO::PARAM_INT);
+        $statement->bindColumn(4, $date, \PDO::PARAM_STR);
         $statement->bindColumn(5, $upVotes, \PDO::PARAM_INT);
         $statement->bindColumn(6, $downVotes, \PDO::PARAM_INT);
 
