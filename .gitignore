@@ -1,7 +1,5 @@
-<<<<<<< HEAD
 /config/services.yaml/
-=======
->>>>>>> 1f619fe1a5434e2796e5133c524fd4e9a64e9556
+
 ###> symfony/framework-bundle ###
 /.env
 /public/bundles/
@@ -16,13 +14,8 @@
 
 ###> symfony/web-server-bundle ###
 /.web-server-pid
-###< symfony/web-server-bundle ###
-<<<<<<< HEAD
 ###< phpstorm ###
 /.idea
-=======
 
 ###> phpunit/phpunit ###
 /phpunit.xml
-###< phpunit/phpunit ###
->>>>>>> 1f619fe1a5434e2796e5133c524fd4e9a64e9556
