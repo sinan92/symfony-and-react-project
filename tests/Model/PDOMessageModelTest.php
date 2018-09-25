@@ -51,14 +51,17 @@ class PDOMessageModelTest extends TestCase {
     }
 
     public function testGetById_messagesInDatabase(){
+        //Comments ophalen uit sqlite database
         $messagesModel = new PDOMessageModel($this->connection);
         $actualMessage = $messagesModel->getById(1);
+
         $expectedMessage = $this->providerMessages();
         $this->assertEquals('array', gettype($actualMessage));
         $this->assertEquals($expectedMessage[0], $actualMessage[0]);
     }
 
     public function testPostComment_commentInDatabase(){
+        //Comment posten in sqlite database
         $messagesModel = new PDOMessageModel($this->connection);
         $actualMessage = $messagesModel->postComment(10, 'Hello');
 
