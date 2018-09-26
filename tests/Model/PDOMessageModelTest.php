@@ -1,10 +1,11 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use Model\PDOMessageModel;
-use Model\Connection;
+use App\Model\PDOMessageModel;
+use App\Model\Connection;
 
-class PDOMessageModelTest extends TestCase {
+class PDOMessageModelTest extends TestCase
+{
     public function setUp()
     {
         $this->connection = new Connection('sqlite::memory:');
@@ -29,16 +30,16 @@ class PDOMessageModelTest extends TestCase {
         ');
 
         $messages = $this->providerMessages();
-        foreach($messages as $message){
+        foreach ($messages as $message) {
             $this->connection->getPDO()->exec("INSERT INTO messages (id, content, category, upVotes, downVotes, `date`)
-                        VALUES (".$message['id'].", '".$message['content']."', '".$message['category']."',
-                        ".$message['upVotes'].", ".$message['downVotes'].", '".$message['date']."')");
+                        VALUES (" . $message['id'] . ", '" . $message['content'] . "', '" . $message['category'] . "',
+                        " . $message['upVotes'] . ", " . $message['downVotes'] . ", '" . $message['date'] . "')");
         }
         $comments = $this->providerComments();
-        foreach($comments as $comment){
+        foreach ($comments as $comment) {
             $this->connection->getPDO()->exec("INSERT INTO comments (id, message_id, content, token)
-                        VALUES (".$comment['id'].", ".$comment['message_id'].", '".$comment['content']."',
-                        '".$comment['token']."')");
+                        VALUES (" . $comment['id'] . ", " . $comment['message_id'] . ", '" . $comment['content'] . "',
+                        '" . $comment['token'] . "')");
         }
     }
 
@@ -53,23 +54,24 @@ class PDOMessageModelTest extends TestCase {
 
     public function providerComments()
     {
-        return [['id'=> 1,'message_id'=> 1, 'content' => "Content1", 'token' => 10001001, 'date' => date("Y-m-d H:i:s", "2000-05-13 12:25:33")],
-            ['id' => 2,'message_id'=> 1, 'content' => "Content2", 'token' => 10001011, 'date' => date("Y-m-d H:i:s", "2000-05-13 12:25:33")],
-            ['id' => 3,'message_id'=> 1, 'content' => "Content3", 'token' => 10001100, 'date' => date("Y-m-d H:i:s", "2000-05-13 12:25:33")],
-            ['id' => 4,'message_id'=> 1, 'content' => "Content4", 'token' => 10001010, 'date' => date("Y-m-d H:i:s", "2000-05-13 12:25:33")],
-            ['id' => 5,'message_id'=> 2, 'content' => "Content5", 'token' => 10001000, 'date' => date("Y-m-d H:i:s", "2000-05-13 12:25:33")],
-            ['id' => 6,'message_id'=> 2, 'content' => "Content6", 'token' => 10101000, 'date' => date("Y-m-d H:i:s", "2000-05-13 12:25:33")],
-            ['id' => 7,'message_id'=> 2, 'content' => "Content7", 'token' => 10001010, 'date' => date("Y-m-d H:i:s", "2000-05-13 12:25:33")],
-            ['id' => 8,'message_id'=> 2, 'content' => "Content8", 'token' => 10001000, 'date' => date("Y-m-d H:i:s", "2000-05-13 12:25:33")],
-            ['id' => 9,'message_id'=> 3, 'content' => "Content9", 'token' => 10001010, 'date' => date("Y-m-d H:i:s", "2000-05-13 12:25:33")],
-            ['id' => 10,'message_id'=> 3, 'content' => "Content10", 'token' => 10001000, 'date' => date("Y-m-d H:i:s", "2000-05-13 12:25:33")],
-            ['id' => 11,'message_id'=> 3, 'content' => "Content11", 'token' => 10001100, 'date' => date("Y-m-d H:i:s", "2000-05-13 12:25:33")],
-            ['id' => 12,'message_id'=> 3, 'content' => "Content12", 'token' => 10011000, 'date' => date("Y-m-d H:i:s", "2000-05-13 12:25:33")],
-            ['id' => 13,'message_id'=> 3, 'content' => "Content13", 'token' => 10101000, 'date' => date("Y-m-d H:i:s", "2000-05-13 12:25:33")],
-            ['id' => 14,'message_id'=> 3, 'content' => "Content14", 'token' => 11001000, 'date' => date("Y-m-d H:i:s", "2000-05-13 12:25:33")]];
+        return [['id' => 1, 'message_id' => 1, 'content' => "Content1", 'token' => 10001001, 'date' => date("Y-m-d H:i:s", mktime(3, 0, 0, 7, 1, 2000))],
+            ['id' => 2, 'message_id' => 1, 'content' => "Content2", 'token' => 10001011, 'date' => date("Y-m-d H:i:s", mktime(3, 0, 0, 7, 1, 2000))],
+            ['id' => 3, 'message_id' => 1, 'content' => "Content3", 'token' => 10001100, 'date' => date("Y-m-d H:i:s", mktime(3, 0, 0, 7, 1, 2000))],
+            ['id' => 4, 'message_id' => 1, 'content' => "Content4", 'token' => 10001010, 'date' => date("Y-m-d H:i:s", mktime(3, 0, 0, 7, 1, 2000))],
+            ['id' => 5, 'message_id' => 2, 'content' => "Content5", 'token' => 10001000, 'date' => date("Y-m-d H:i:s", mktime(3, 0, 0, 7, 1, 2000))],
+            ['id' => 6, 'message_id' => 2, 'content' => "Content6", 'token' => 10101000, 'date' => date("Y-m-d H:i:s", mktime(3, 0, 0, 7, 1, 2000))],
+            ['id' => 7, 'message_id' => 2, 'content' => "Content7", 'token' => 10001010, 'date' => date("Y-m-d H:i:s", mktime(3, 0, 0, 7, 1, 2000))],
+            ['id' => 8, 'message_id' => 2, 'content' => "Content8", 'token' => 10001000, 'date' => date("Y-m-d H:i:s", mktime(3, 0, 0, 7, 1, 2000))],
+            ['id' => 9, 'message_id' => 3, 'content' => "Content9", 'token' => 10001010, 'date' => date("Y-m-d H:i:s", mktime(3, 0, 0, 7, 1, 2000))],
+            ['id' => 10, 'message_id' => 3, 'content' => "Content10", 'token' => 10001000, 'date' => date("Y-m-d H:i:s", mktime(3, 0, 0, 7, 1, 2000))],
+            ['id' => 11, 'message_id' => 3, 'content' => "Content11", 'token' => 10001100, 'date' => date("Y-m-d H:i:s", mktime(3, 0, 0, 7, 1, 2000))],
+            ['id' => 12, 'message_id' => 3, 'content' => "Content12", 'token' => 10011000, 'date' => date("Y-m-d H:i:s", mktime(3, 0, 0, 7, 1, 2000))],
+            ['id' => 13, 'message_id' => 3, 'content' => "Content13", 'token' => 10101000, 'date' => date("Y-m-d H:i:s", mktime(3, 0, 0, 7, 1, 2000))],
+            ['id' => 14, 'message_id' => 3, 'content' => "Content14", 'token' => 11001000, 'date' => date("Y-m-d H:i:s", mktime(3, 0, 0, 7, 1, 2000))]];
     }
 
-    function generateRandomString($length = 10) {
+    function generateRandomString($length = 10)
+    {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';
@@ -79,11 +81,53 @@ class PDOMessageModelTest extends TestCase {
         return $randomString;
     }
 
-    public function testGetById_messagesInDatabase(){
+    public function testGetById_messagesInDatabase()
+    {
         $messagesModel = new PDOMessageModel($this->connection);
         $actualMessage = $messagesModel->getById(1);
         $expectedMessage = $this->providerMessages();
         $this->assertEquals('array', gettype($actualMessage));
         $this->assertEquals($expectedMessage[0], $actualMessage[0]);
+    }
+
+    public function testGetAll_messagesInDatabase()
+    {
+        $messagesModel = new PDOMessageModel($this->connection);
+        $actualMessage = $messagesModel->getAll();
+        $expectedMessage = $this->providerMessages();
+        $this->assertEquals('array', gettype($actualMessage));
+        $this->assertEquals($expectedMessage, $actualMessage);
+    }
+
+    public function testUpVoteMessage_upVotesInDatabase()
+    {
+        $messagesModel = new PDOMessageModel($this->connection);
+        $messagesModel->upVoteMessage(1);
+
+        $expectedUpVotes = $this->providerMessages()[0]['upVotes'];
+        $expectedUpVotes++;
+
+        $statement = $this->connection->getPDO()->prepare('SELECT * FROM comments WHERE message_id = 1');
+        $statement->execute();
+        $actualUpVotesMessage = $statement->fetch();
+        $actualUpVotes = $actualUpVotesMessage[5];
+
+        $this->assertEquals($expectedUpVotes, $actualUpVotes);
+    }
+
+    public function testDownVoteMessage_downVotesInDatabase()
+    {
+        $messagesModel = new PDOMessageModel($this->connection);
+        $messagesModel->upVoteMessage(1);
+
+        $expectedDownVotes = $this->providerMessages()[0]['downVotes'];
+        $expectedDownVotes++;
+
+        $statement = $this->connection->getPDO()->prepare('SELECT * FROM comments WHERE message_id = 1');
+        $statement->execute();
+        $actualDownVotesMessage = $statement->fetch();
+        $actualDownVotes = $actualDownVotesMessage['downVotes'];
+
+        $this->assertEquals($expectedDownVotes, $actualDownVotes);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model;
 
 class PDOMessageModel implements IMessageModel
@@ -17,12 +18,12 @@ class PDOMessageModel implements IMessageModel
         $statement->bindColumn(1, $id, \PDO::PARAM_INT);
         $statement->bindColumn(2, $content, \PDO::PARAM_STR);
         $statement->bindColumn(3, $category, \PDO::PARAM_STR);
-        $statement->bindColumn(4, $date, \PDO::PARAM_INT);
+        $statement->bindColumn(4, $date, \PDO::PARAM_STR);
         $statement->bindColumn(5, $upVotes, \PDO::PARAM_INT);
         $statement->bindColumn(6, $downVotes, \PDO::PARAM_INT);
 
         $messages = [];
-        while($statement->fetch(\PDO::FETCH_BOUND)){
+        while ($statement->fetch(\PDO::FETCH_BOUND)) {
             $messages[] = ['id' => $id, 'content' => $content, 'category' => $category, 'date' => $date, 'upVotes' => $upVotes, 'downVotes' => $downVotes];
         }
         return $messages;
@@ -40,7 +41,7 @@ class PDOMessageModel implements IMessageModel
         $statement->bindColumn(6, $downVotes, \PDO::PARAM_INT);
 
         $messages = [];
-        while($statement->fetch(\PDO::FETCH_BOUND)){
+        while ($statement->fetch(\PDO::FETCH_BOUND)) {
             $messages[] = ['id' => $messageId, 'content' => $content, 'category' => $category, 'date' => $date, 'upVotes' => $upVotes, 'downVotes' => $downVotes];
         }
         return $messages;
@@ -59,7 +60,7 @@ class PDOMessageModel implements IMessageModel
         $statement->bindColumn(6, $downVotes, \PDO::PARAM_INT);
 
         $messages = [];
-        while($statement->fetch(\PDO::FETCH_BOUND)){
+        while ($statement->fetch(\PDO::FETCH_BOUND)) {
             $messages[] = ['id' => $id, 'content' => $content, 'category' => $category, 'date' => $date, 'upVotes' => $upVotes, 'downVotes' => $downVotes];
         }
         return $messages;
@@ -79,7 +80,7 @@ class PDOMessageModel implements IMessageModel
         $statement->bindColumn(6, $downVotes, \PDO::PARAM_INT);
 
         $messages = [];
-        while($statement->fetch(\PDO::FETCH_BOUND)){
+        while ($statement->fetch(\PDO::FETCH_BOUND)) {
             $messages[] = ['id' => $id, 'content' => $content, 'category' => $category, 'date' => $date, 'upVotes' => $upVotes, 'downVotes' => $downVotes];
         }
         return $messages;
@@ -99,7 +100,6 @@ class PDOMessageModel implements IMessageModel
 
     public function upVoteMessage($messageId)
     {
-        // TODO: Implement upVoteMessage() method.
         $statement = $this->connection->getPDO()->prepare("UPDATE messages SET upvotes = upvotes + 1 WHERE id = ?");
         $statement->bindValue(1, $messageId, \PDO::PARAM_INT);
         $statement->execute();
@@ -109,7 +109,6 @@ class PDOMessageModel implements IMessageModel
 
     public function downVoteMessage($messageId)
     {
-        // TODO: Implement upVoteMessage() method.
         $statement = $this->connection->getPDO()->prepare("UPDATE messages SET downvotes = downvotes + 1 WHERE id = ?");
         $statement->bindValue(1, $messageId, \PDO::PARAM_INT);
         $statement->execute();
@@ -117,18 +116,19 @@ class PDOMessageModel implements IMessageModel
         return $statement->rowCount() > 0;
     }
 
-    private function generateToken(){
+    private function generateToken()
+    {
         $unique = false;
         $token = null;
 
-        while(!$unique){
+        while (!$unique) {
             $token = substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 10);
 
             $statement = $this->connection->getPDO()->prepare("SELECT * FROM comments WHERE token = ?");
             $statement->bindValue(1, $token, \PDO::PARAM_STR);
             $statement->execute();
 
-            if($statement->rowCount() == 0){
+            if ($statement->rowCount() == 0) {
                 $unique = true;
             }
         }
