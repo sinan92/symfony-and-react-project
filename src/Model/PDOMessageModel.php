@@ -115,24 +115,8 @@ class PDOMessageModel implements IMessageModel
 
         return $statement->rowCount() > 0;
     }
-
-    private function generateToken()
-    {
-        $unique = false;
-        $token = null;
-
-        while (!$unique) {
-            $token = substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 10);
-
-            $statement = $this->connection->getPDO()->prepare("SELECT * FROM comments WHERE token = ?");
-            $statement->bindValue(1, $token, \PDO::PARAM_STR);
-            $statement->execute();
-
-            if ($statement->rowCount() == 0) {
-                $unique = true;
-            }
-        }
-
+    private function generateToken(){
+        $token = substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 10);
         return $token;
     }
 }
