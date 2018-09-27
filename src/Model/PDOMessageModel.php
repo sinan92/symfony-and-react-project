@@ -55,7 +55,7 @@ class PDOMessageModel implements IMessageModel
         $statement->bindColumn(1, $id, \PDO::PARAM_INT);
         $statement->bindColumn(2, $content, \PDO::PARAM_STR);
         $statement->bindColumn(3, $category, \PDO::PARAM_STR);
-        $statement->bindColumn(4, $date, \PDO::PARAM_INT);
+        $statement->bindColumn(4, $date, \PDO::PARAM_STR);
         $statement->bindColumn(5, $upVotes, \PDO::PARAM_INT);
         $statement->bindColumn(6, $downVotes, \PDO::PARAM_INT);
 
@@ -66,16 +66,35 @@ class PDOMessageModel implements IMessageModel
         return $messages;
     }
 
-    public function searchByContentAndCategory($search)
+    public function searchByCategory($category)
     {
-        $statement = $this->connection->getPDO()->prepare("SELECT * FROM messages WHERE content LIKE ? OR  category LIKE ?");
-        $statement->bindValue(1, "%" . $search . "%", \PDO::PARAM_STR);
-        $statement->bindValue(2, "%" . $search . "%", \PDO::PARAM_STR);
+        $statement = $this->connection->getPDO()->prepare("SELECT * FROM messages WHERE category LIKE ?");
+        $statement->bindValue(1, "%" . $category . "%", \PDO::PARAM_STR);
         $statement->execute();
         $statement->bindColumn(1, $id, \PDO::PARAM_INT);
         $statement->bindColumn(2, $content, \PDO::PARAM_STR);
         $statement->bindColumn(3, $category, \PDO::PARAM_STR);
-        $statement->bindColumn(4, $date, \PDO::PARAM_INT);
+        $statement->bindColumn(4, $date, \PDO::PARAM_STR);
+        $statement->bindColumn(5, $upVotes, \PDO::PARAM_INT);
+        $statement->bindColumn(6, $downVotes, \PDO::PARAM_INT);
+
+        $messages = [];
+        while($statement->fetch(\PDO::FETCH_BOUND)){
+            $messages[] = ['id' => $id, 'content' => $content, 'category' => $category, 'date' => $date, 'upVotes' => $upVotes, 'downVotes' => $downVotes];
+        }
+        return $messages;
+    }
+
+    public function searchByContentAndCategory($content, $category)
+    {
+        $statement = $this->connection->getPDO()->prepare("SELECT * FROM messages WHERE content LIKE ? AND category LIKE ?");
+        $statement->bindValue(1, "%" . $content . "%", \PDO::PARAM_STR);
+        $statement->bindValue(2, "%" . $category . "%", \PDO::PARAM_STR);
+        $statement->execute();
+        $statement->bindColumn(1, $id, \PDO::PARAM_INT);
+        $statement->bindColumn(2, $content, \PDO::PARAM_STR);
+        $statement->bindColumn(3, $category, \PDO::PARAM_STR);
+        $statement->bindColumn(4, $date, \PDO::PARAM_STR);
         $statement->bindColumn(5, $upVotes, \PDO::PARAM_INT);
         $statement->bindColumn(6, $downVotes, \PDO::PARAM_INT);
 
@@ -115,6 +134,19 @@ class PDOMessageModel implements IMessageModel
 
         return $statement->rowCount() > 0;
     }
+
+    public function idExists($id)
+    {
+        $this->validateId($id);
+        $statement = $this->pdo->prepare('SELECT id from messages WHERE id=:id');
+        $statement->bindParam(':id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+        if ($statement->fetch() === FALSE) {
+            return FALSE;
+        }
+        return TRUE;
+    }
+
     private function generateToken(){
         $token = substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 10);
         return $token;
