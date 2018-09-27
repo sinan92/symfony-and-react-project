@@ -4,7 +4,8 @@ use PHPUnit\Framework\TestCase;
 use App\Model\PDOMessageModel;
 use App\Model\Connection;
 
-class PDOMessageModelTest extends TestCase {
+class PDOMessageModelTest extends TestCase
+{
     public function setUp()
     {
         $this->connection = new Connection('sqlite::memory:');
@@ -29,10 +30,10 @@ class PDOMessageModelTest extends TestCase {
         ');
 
         $messages = $this->providerMessages();
-        foreach($messages as $message){
+        foreach ($messages as $message) {
             $this->connection->getPDO()->exec("INSERT INTO messages (id, content, category, upVotes, downVotes, `date`)
-                        VALUES (".$message['id'].", '".$message['content']."', '".$message['category']."',
-                        ".$message['upVotes'].", ".$message['downVotes'].", '".$message['date']."')");
+                        VALUES (" . $message['id'] . ", '" . $message['content'] . "', '" . $message['category'] . "',
+                        " . $message['upVotes'] . ", " . $message['downVotes'] . ", '" . $message['date'] . "')");
         }
     }
 
@@ -60,6 +61,46 @@ class PDOMessageModelTest extends TestCase {
         $this->assertEquals($expectedMessage[0], $actualMessage[0]);
     }
 
+    public function testGetAll_messagesInDatabase()
+    {
+        $messagesModel = new PDOMessageModel($this->connection);
+        $actualMessage = $messagesModel->getAll();
+        $expectedMessage = $this->providerMessages();
+        $this->assertEquals('array', gettype($actualMessage));
+        $this->assertEquals($expectedMessage, $actualMessage);
+    }
+
+    public function testUpVoteMessage_upVotesInDatabase()
+    {
+        $messagesModel = new PDOMessageModel($this->connection);
+        $messagesModel->upVoteMessage(1);
+
+        $expectedUpVotes = $this->providerMessages()[0]['upVotes'];
+        $expectedUpVotes++;
+
+        $statement = $this->connection->getPDO()->prepare('SELECT * FROM messages WHERE id = 1');
+        $statement->execute();
+        $actualUpVotesMessage = $statement->fetch();
+        $actualUpVotes = $actualUpVotesMessage['upVotes'];
+
+        $this->assertEquals($expectedUpVotes, $actualUpVotes);
+    }
+
+    public function testDownVoteMessage_downVotesInDatabase()
+    {
+        $messagesModel = new PDOMessageModel($this->connection);
+        $messagesModel->downVoteMessage(1);
+
+        $expectedDownVotes = $this->providerMessages()[0]['downVotes'];
+        $expectedDownVotes++;
+
+        $statement = $this->connection->getPDO()->prepare('SELECT * FROM messages WHERE id = 1');
+        $statement->execute();
+        $actualDownVotesMessage = $statement->fetch();
+        $actualDownVotes = $actualDownVotesMessage['downVotes'];
+
+        $this->assertEquals($expectedDownVotes, $actualDownVotes);
+    }
     public function testPostComment_commentInDatabase(){
         //Comment posten in sqlite database
         $messagesModel = new PDOMessageModel($this->connection);
@@ -75,5 +116,4 @@ class PDOMessageModelTest extends TestCase {
         $this->assertEquals('string', gettype($actualMessage));
         $this->assertEquals($expectedMessage, $actualMessage);
     }
-
 }
