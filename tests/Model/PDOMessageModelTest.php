@@ -107,10 +107,10 @@ class PDOMessageModelTest extends TestCase
         $expectedUpVotes = $this->providerMessages()[0]['upVotes'];
         $expectedUpVotes++;
 
-        $statement = $this->connection->getPDO()->prepare('SELECT * FROM comments WHERE message_id = 1');
+        $statement = $this->connection->getPDO()->prepare('SELECT * FROM messages WHERE id = 1');
         $statement->execute();
         $actualUpVotesMessage = $statement->fetch();
-        $actualUpVotes = $actualUpVotesMessage[5];
+        $actualUpVotes = $actualUpVotesMessage['upVotes'];
 
         $this->assertEquals($expectedUpVotes, $actualUpVotes);
     }
@@ -118,12 +118,12 @@ class PDOMessageModelTest extends TestCase
     public function testDownVoteMessage_downVotesInDatabase()
     {
         $messagesModel = new PDOMessageModel($this->connection);
-        $messagesModel->upVoteMessage(1);
+        $messagesModel->downVoteMessage(1);
 
         $expectedDownVotes = $this->providerMessages()[0]['downVotes'];
         $expectedDownVotes++;
 
-        $statement = $this->connection->getPDO()->prepare('SELECT * FROM comments WHERE message_id = 1');
+        $statement = $this->connection->getPDO()->prepare('SELECT * FROM messages WHERE id = 1');
         $statement->execute();
         $actualDownVotesMessage = $statement->fetch();
         $actualDownVotes = $actualDownVotesMessage['downVotes'];
