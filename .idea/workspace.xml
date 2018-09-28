@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="62ae6b3c-4275-4aaf-8c55-d43540054cc4" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/tests/Model/PDOMessageModelTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Model/PDOMessageModelTest.php" afterDir="false" />
-    </list>
+    <list default="true" id="62ae6b3c-4275-4aaf-8c55-d43540054cc4" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -59,8 +57,8 @@
       <file leaf-file-name="PDOMessageModelTest.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tests/Model/PDOMessageModelTest.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="56" column="8" selection-start-line="56" selection-start-column="8" selection-end-line="56" selection-end-column="8" />
+            <state relative-caret-position="428">
+              <caret line="56" selection-start-line="56" selection-end-line="56" />
               <folding>
                 <element signature="e#7#38#0#PHP" expanded="true" />
               </folding>
@@ -338,7 +336,7 @@
       <option name="presentableId" value="Default" />
       <updated>1537865666480</updated>
       <workItem from="1537865669094" duration="8968000" />
-      <workItem from="1537875185208" duration="118000" />
+      <workItem from="1537875185208" duration="729000" />
     </task>
     <servers />
   </component>
@@ -375,11 +373,10 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9086000" />
+    <option name="totallyTimeSpent" value="9697000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24963397" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -507,8 +504,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/Model/PDOMessageModelTest.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="56" column="8" selection-start-line="56" selection-start-column="8" selection-end-line="56" selection-end-column="8" />
+        <state relative-caret-position="428">
+          <caret line="56" selection-start-line="56" selection-end-line="56" />
           <folding>
             <element signature="e#7#38#0#PHP" expanded="true" />
           </folding>
