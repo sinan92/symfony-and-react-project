@@ -86,14 +86,14 @@ class MessageController extends Controller
 
 
     /**
-     * @Route("/messages/search/content-and-category/{search}", methods={"GET"}, name="searchByContentAndCategory")
+     * @Route("/messages/search/content-and-category/{content}/{category}", methods={"GET"}, name="searchByContentAndCategory", defaults={"content":"t", "category":"t"})
      */
-    public function searchByContentAndCategory($search)
+    public function searchByContentAndCategory($content, $category)
     {
         $statuscode = 200;
         $messages = [];
         try {
-            $messages = $this->messageModel->searchByContentAndCategory($search);
+            $messages = $this->messageModel->searchByContentAndCategory($content, $category);
         } catch (\IllegalArgumentExceptions $exception) {
             var_dump($exception);
             $statuscode = 500;

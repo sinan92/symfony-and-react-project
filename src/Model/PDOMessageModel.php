@@ -135,18 +135,6 @@ class PDOMessageModel implements IMessageModel
         return $statement->rowCount() > 0;
     }
 
-    public function idExists($id)
-    {
-        $this->validateId($id);
-        $statement = $this->pdo->prepare('SELECT id from messages WHERE id=:id');
-        $statement->bindParam(':id', $id, \PDO::PARAM_INT);
-        $statement->execute();
-        if ($statement->fetch() === FALSE) {
-            return FALSE;
-        }
-        return TRUE;
-    }
-
     private function generateToken(){
         $token = substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 10);
         return $token;
