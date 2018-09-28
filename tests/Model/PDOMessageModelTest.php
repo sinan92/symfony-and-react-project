@@ -106,25 +106,6 @@ class PDOMessageModelTest extends TestCase
         $this->assertEmpty($actualMessage);
     }
 
-    /**
-     * @dataProvider providerValidExistingIds
-     **/
-    public function testIdExists_existingId_True($id)
-    {
-        $messageModel = new PDOMessageModel($this->connection);
-        $this->assertTrue($messageModel->idExists($id));
-    }
-
-
-    /**
-     * @dataProvider providerValidUnexistingIds
-     **/
-    public function testIdExists_unexistingId_False($id)
-    {
-        $messageModel = new PDOMessageModel($this->connection);
-        $this->assertFalse($messageModel->idExists($id));
-    }
-
     public function testGetAll_messagesInDatabase()
     {
         $messagesModel = new PDOMessageModel($this->connection);

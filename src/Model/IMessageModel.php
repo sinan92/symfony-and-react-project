@@ -5,7 +5,6 @@ interface IMessageModel {
     public function getAll();
     public function getById($messageId);
     public function searchByContent($search);
-    public function searchByContentAndCategory($search);
     public function searchByCategory($category);
     public function searchByContentAndCategory($content, $category);
     public function postComment($messageId, $comment);
