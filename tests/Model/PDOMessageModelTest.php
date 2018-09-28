@@ -1,5 +1,7 @@
 <?php
 
+namespace test;
+
 use PHPUnit\Framework\TestCase;
 use App\Model\PDOMessageModel;
 use App\Model\Connection;
@@ -45,12 +47,16 @@ class PDOMessageModelTest extends TestCase
     public function providerMessages()
     {
         return [
-            ['id' => 1, 'content' => 'Content1', 'category' => 'Comedy', 'date' => date("Y-m-d H:i:s", mktime(3, 0, 0, 7, 1, 2000)), 'upVotes' => 10, 'downVotes' => 30],
-            ['id' => 2, 'content' => 'Content2', 'category' => 'Horror', 'date' => date("Y-m-d H:i:s", mktime(0, 0, 0, 2, 1, 2000)), 'upVotes' => 20, 'downVotes' => 20],
-            ['id' => 3, 'content' => 'Content3', 'category' => 'Thriller', 'date' => date("Y-m-d H:i:s", mktime(0, 0, 0, 10, 30, 2010)), 'upVotes' => 30, 'downVotes' => 10]
+            ['id' => 1, 'content' => 'Content1', 'category' => 'Comedy',
+                'date' => date("Y-m-d H:i:s", mktime(3, 0, 0, 7, 1, 2000)), 'upVotes' => 10, 'downVotes' => 30],
+            ['id' => 2, 'content' => 'Content2', 'category' => 'Horror',
+                'date' => date("Y-m-d H:i:s", mktime(0, 0, 0, 2, 1, 2000)), 'upVotes' => 20, 'downVotes' => 20],
+            ['id' => 3, 'content' => 'Content3', 'category' => 'Thriller',
+                'date' => date("Y-m-d H:i:s", mktime(0, 0, 0, 10, 30, 2010)), 'upVotes' => 30, 'downVotes' => 10]
         ];
     }
-    public function testGetById_messagesInDatabase(){
+    public function testGetById_messagesInDatabase()
+    {
         //Comments ophalen uit sqlite database
         $messagesModel = new PDOMessageModel($this->connection);
         $actualMessage = $messagesModel->getById(1);
@@ -60,7 +66,8 @@ class PDOMessageModelTest extends TestCase
         $this->assertEquals($expectedMessage[0], $actualMessage[0]);
     }
 
-    public function testSearchByContent_messagesInDatabase(){
+    public function testSearchByContent_messagesInDatabase()
+    {
         $messagesModel = new PDOMessageModel($this->connection);
         $actualMessage = $messagesModel->searchByContent("content2");
         $expectedMessage = $this->providerMessages();
@@ -68,14 +75,16 @@ class PDOMessageModelTest extends TestCase
         $this->assertEquals($expectedMessage[1], $actualMessage[0]);
     }
 
-    public function testSearchByContent_messagesNotInDatabase(){
+    public function testSearchByContent_messagesNotInDatabase()
+    {
         $messagesModel = new PDOMessageModel($this->connection);
         $actualMessage = $messagesModel->searchByContent("no content");
         $this->assertEquals('array', gettype($actualMessage));
         $this->assertEmpty($actualMessage);
     }
 
-    public function testSearchByCategory_messagesInDatabase(){
+    public function testSearchByCategory_messagesInDatabase()
+    {
         $messagesModel = new PDOMessageModel($this->connection);
         $actualMessage = $messagesModel->searchByCategory("Thriller");
         $expectedMessage = $this->providerMessages();
@@ -83,25 +92,28 @@ class PDOMessageModelTest extends TestCase
         $this->assertEquals($expectedMessage[2], $actualMessage[0]);
     }
 
-    public function testSearchByCategory_messagesNotInDatabase(){
+    public function testSearchByCategory_messagesNotInDatabase()
+    {
         $messagesModel = new PDOMessageModel($this->connection);
         $actualMessage = $messagesModel->searchByCategory("no category");
         $this->assertEquals('array', gettype($actualMessage));
         $this->assertEmpty($actualMessage);
     }
 
-    public function testSearchByContentOrCategory_SearchByCategory_messagesInDatabase(){
+    public function testSearchByContentOrCategory_SearchByCategory_messagesInDatabase()
+    {
         $messagesModel = new PDOMessageModel($this->connection);
-        $actualMessage = $messagesModel->searchByContentAndCategory("content3","Thriller");
+        $actualMessage = $messagesModel->searchByContentAndCategory("content3", "Thriller");
         $expectedMessage = $this->providerMessages();
         $this->assertEquals('array', gettype($actualMessage));
         $this->assertEquals($expectedMessage[2], $actualMessage[0]);
         $this->connection->getPDO()->prepare('SELECT * FROM messages WHERE id=?');
     }
 
-    public function testSearchByContentOrCategory_SearchByCategory_messagesNotInDatabase(){
+    public function testSearchByContentOrCategory_SearchByCategory_messagesNotInDatabase()
+    {
         $messagesModel = new PDOMessageModel($this->connection);
-        $actualMessage = $messagesModel->searchByContentAndCategory("no content","no category");
+        $actualMessage = $messagesModel->searchByContentAndCategory("no content", "no category");
         $this->assertEquals('array', gettype($actualMessage));
         $this->assertEmpty($actualMessage);
     }
@@ -146,7 +158,8 @@ class PDOMessageModelTest extends TestCase
 
         $this->assertEquals($expectedDownVotes, $actualDownVotes);
     }
-    public function testPostComment_commentInDatabase(){
+    public function testPostComment_commentInDatabase()
+    {
         //Comment posten in sqlite database
         $messagesModel = new PDOMessageModel($this->connection);
         $actualMessage = $messagesModel->postComment(10, 'Hello');

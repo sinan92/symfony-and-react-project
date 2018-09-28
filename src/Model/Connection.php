@@ -21,4 +21,3 @@ class Connection
         return $this->pdo;
     }
 }
-

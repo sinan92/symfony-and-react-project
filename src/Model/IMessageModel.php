@@ -1,7 +1,8 @@
-<?php 
+<?php
 namespace App\Model;
 
-interface IMessageModel {
+interface IMessageModel
+{
     public function getAll();
     public function getById($messageId);
     public function searchByContent($search);

@@ -38,7 +38,8 @@ class MessageController extends Controller
     /**
      * @Route("/messages", methods={"GET"}, name="getAll")
      */
-    public function getAll(){
+    public function getAll()
+    {
         $statuscode = 200;
         $messages = [];
         try {
@@ -86,7 +87,8 @@ class MessageController extends Controller
 
 
     /**
-     * @Route("/messages/search/content-and-category/{content}/{category}", methods={"GET"}, name="searchByContentAndCategory", defaults={"content":"t", "category":"t"})
+     * @Route("/messages/search/content-and-category/{content}/{category}", methods={"GET"},
+     *      name="searchByContentAndCategory", defaults={"content":"t", "category":"t"})
      */
     public function searchByContentAndCategory($content, $category)
     {
@@ -153,5 +155,4 @@ class MessageController extends Controller
         }
         return new JsonResponse($response, $statuscode);
     }
-
 }
