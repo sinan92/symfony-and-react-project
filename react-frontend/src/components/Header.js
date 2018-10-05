@@ -4,7 +4,7 @@ const Header = () => (
     <div className="mdl-layout mdl-layout--fixed-header">
         <header className="mdl-layout__header">
             <div className="mdl-layout__header-row">
-                <span className="mdl-layout-title">Guestbook</span>
+                <span className="mdl-layout-title">Bulletinboard</span>
                 <div className="mdl-layout-spacer" />
                 <nav className="mdl-navigation mdl-layout--large-screen-only">
                     <a className="mdl-navigation__link" href="#">Login</a>
