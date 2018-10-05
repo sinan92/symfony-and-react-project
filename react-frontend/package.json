@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.4",
     "react-scripts": "^2.0.2"
   },
   "dependencies": {
@@ -15,10 +19,14 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": [
+      "react-scripts build",
+      "webpack --mode production"
+    ],
     "eject": "react-scripts eject",
     "test": "react-scripts test --env=node",
-    "lint": "node_modules/.bin/esw webpack.config.* src tools"
+    "lint": "webpack.config.dev.js src tools",
+    "lint:watch": "npm run lint -- --watch"
   },
   "browserslist": [
     ">0.2%",

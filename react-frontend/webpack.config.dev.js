@@ -1,4 +1,4 @@
-import webpack from 'webpack';
+import webpack from 'react-scripts/node_modules/webpack';
 import path from 'path';
 
 export default {
