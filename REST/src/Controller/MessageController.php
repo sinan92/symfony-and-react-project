@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Model\IMessageModel;
+use App\Model\MessageModelInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +19,7 @@ class MessageController extends Controller
      * MessageController constructor.
      * @param $messageModel
      */
-    public function __construct(IMessageModel $messageModel)
+    public function __construct(MessageModelInterface $messageModel)
     {
         $this->messageModel = $messageModel;
     }
@@ -38,14 +38,13 @@ class MessageController extends Controller
     /**
      * @Route("/messages", methods={"GET"}, name="getAll")
      */
-    public function getAll()
+    public function getAllMessages()
     {
         $statuscode = 200;
         $messages = [];
         try {
-            $messages = $this->messageModel->getAll();
+            $messages = $this->messageModel->getAllMessages();
         } catch (\IllegalArgumentExceptions $exception) {
-            var_dump($exception);
             $statuscode = 500;
         }
         return new JsonResponse($messages, $statuscode);
@@ -55,14 +54,13 @@ class MessageController extends Controller
     /**
      * @Route("/messages/{messageId}", methods={"GET"}, name="getById")
      */
-    public function getById($messageId)
+    public function getMessageById($messageId)
     {
         $statuscode = 200;
         $messages = [];
         try {
-            $messages = $this->messageModel->getById($messageId);
+            $messages = $this->messageModel->getMessageById($messageId);
         } catch (\IllegalArgumentExceptions $exception) {
-            var_dump($exception);
             $statuscode = 500;
         }
         return new JsonResponse($messages, $statuscode);
@@ -72,14 +70,13 @@ class MessageController extends Controller
     /**
      * @Route("/messages/search/content/{search}", methods={"GET"}, name="saerchByContent")
      */
-    public function searchByContent($search)
+    public function searchMessageByContent($search)
     {
         $statuscode = 200;
         $messages = [];
         try {
-            $messages = $this->messageModel->searchByContent($search);
+            $messages = $this->messageModel->searchMessageByContent($search);
         } catch (\IllegalArgumentExceptions $exception) {
-            var_dump($exception);
             $statuscode = 500;
         }
         return new JsonResponse($messages, $statuscode);
@@ -95,9 +92,8 @@ class MessageController extends Controller
         $statuscode = 200;
         $messages = [];
         try {
-            $messages = $this->messageModel->searchByContentAndCategory($content, $category);
+            $messages = $this->messageModel->searchMessageByContentAndCategory($content, $category);
         } catch (\IllegalArgumentExceptions $exception) {
-            var_dump($exception);
             $statuscode = 500;
         }
         return new JsonResponse($messages, $statuscode);
@@ -109,14 +105,13 @@ class MessageController extends Controller
      */
     public function postComment(Request $request)
     {
-        $statuscode = 200;
+        $statuscode = 201;
         $response = null;
         $messageId = $request->request->get("messageId");
         $comment = $request->request->get("comment");
         try {
             $response = $this->messageModel->postComment($messageId, $comment);
         } catch (\IllegalArgumentExceptions $exception) {
-            var_dump($exception);
             $statuscode = 500;
         }
         return new JsonResponse($response, $statuscode);
@@ -133,7 +128,6 @@ class MessageController extends Controller
         try {
             $response = $this->messageModel->upVoteMessage($messageId);
         } catch (\IllegalArgumentExceptions $exception) {
-            var_dump($exception);
             $statuscode = 500;
         }
         return new JsonResponse($response, $statuscode);
@@ -150,7 +144,6 @@ class MessageController extends Controller
         try {
             $response = $this->messageModel->downVoteMessage($messageId);
         } catch (\IllegalArgumentExceptions $exception) {
-            var_dump($exception);
             $statuscode = 500;
         }
         return new JsonResponse($response, $statuscode);
