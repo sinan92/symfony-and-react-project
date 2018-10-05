@@ -87,7 +87,7 @@ class MessageController extends Controller
      * @Route("/messages/search/content-and-category/{content}/{category}", methods={"GET"},
      *      name="searchByContentAndCategory", defaults={"content":"t", "category":"t"})
      */
-    public function searchByContentAndCategory($content, $category)
+    public function searchByMessageContentAndCategory($content, $category)
     {
         $statuscode = 200;
         $messages = [];
