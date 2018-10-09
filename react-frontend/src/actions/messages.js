@@ -5,10 +5,22 @@ export function fetchMessages() {
     return function (dispatch) {
         axios.get('http://localhost:8000/messages')
             .then((response) => {
-                dispatch({type: types.FETCH_MESSAGES_SUCCESS, payload: response.data})
+                dispatch({type: types.FETCH_MESSAGES, payload: response.data})
             })
             .catch((err) => {
-                dispatch({type: types.FETCH_MESSAGES_FAILURE, payload: err})
+                throw(err)
+            })
+    }
+};
+
+export function fetchMessageById(id) {
+    return function (dispatch) {
+        axios.get('http://localhost:8000/messages/'+id)
+            .then((response) => {
+                dispatch({type: types.FETCH_MESSAGE_BY_ID, payload: response.data})
+            })
+            .catch((err) => {
+                throw(err)
             })
     }
 };
@@ -17,10 +29,10 @@ export function upvoteMessage(id) {
     return function (dispatch) {
         axios.get('http://localhost:8000/messages/upvote/'+id)
             .then((response) => {
-                dispatch({type: types.UPVOTE_MESSAGE_SUCCESS, payload: response.data})
+                dispatch({type: types.UPVOTE_MESSAGE, payload: response.data, id: fetchMessageById(id)})
             })
             .catch((err) => {
-                dispatch({type: types.UPVOTE_MESSAGE_FAILURE, payload: err})
+                throw(err);
             })
     }
 };
@@ -29,10 +41,10 @@ export function downvoteMessage(id) {
     return function (dispatch) {
         axios.get('http://localhost:8000/messages/downvote/'+id)
             .then((response) => {
-                dispatch({type: types.UPVOTE_MESSAGE_SUCCESS, payload: response.data})
+                dispatch({type: types.DOWNVOTE_MESSAGE, payload: response.data, id: fetchMessageById(id)})
             })
             .catch((err) => {
-                dispatch({type: types.UPVOTE_MESSAGE_FAILURE, payload: err})
+                throw(err);
             })
     }
 };

@@ -2,23 +2,17 @@ import * as types from '../actions/actionTypes';
 
 const initialState = {
     messages: [],
-    error: null,
     success: null,
 }
 
 const messages = (state = initialState, action) => {
     switch (action.type) {
-        case types.FETCH_MESSAGES_SUCCESS:
+        case types.FETCH_MESSAGES:
             return {
                 ...state,
                 messages: action.payload
             };
-        case types.FETCH_MESSAGES_FAILURE:
-            return {
-                ...state,
-                error: action.payload
-            };
-        case types.UPVOTE_MESSAGE_SUCCESS:
+        case types.UPVOTE_MESSAGE:
             const upvotedMessages = state.map(message => {
                 if(message.id === action.id){
                     return {...message, ...action.payload}
@@ -27,14 +21,9 @@ const messages = (state = initialState, action) => {
 
             return {
                 ...state,
-                messages: newMessages
+                messages: upvotedMessages
             };
-        case types.UPVOTE_MESSAGE_FAILURE:
-            return {
-                ...state,
-                error: action.payload
-            };
-        case types.DOWNVOTE_MESSAGE_SUCCESS:
+        case types.DOWNVOTE_MESSAGE:
             const downvotedMessages = state.map(message => {
                 if(message.id === action.id){
                     return {...message, ...action.payload}
@@ -44,11 +33,6 @@ const messages = (state = initialState, action) => {
             return {
                 ...state,
                 messages: downvotedMessages
-            };
-        case types.DOWNVOTE_MESSAGE_FAILURE:
-            return {
-                ...state,
-                error: action.payload
             };
         default:
             return state
