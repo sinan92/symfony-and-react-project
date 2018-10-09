@@ -1,25 +1,14 @@
-import * as types from '../actions/actionTypes';
+import * as types from './actionTypes';
+import axios from 'axios';
 
-const initialState = {
-    comments: [],
-    error: null,
-}
-
-const messages = (state = initialState, action) => {
-    switch (action.type) {
-        case types.FETCH_COMMENTS_BY_ID_SUCCESS:
-            return {
-                ...state,
-                comments: action.payload
-            };
-        case types.FETCH_COMMENTS_BY_ID_FAILURE:
-            return {
-                ...state,
-                error: action.payload
-            };
-        default:
-            return state
+export function postComment(messageId, comment) {
+    return function (dispatch) {
+        axios.post('http://localhost:8000/messages/comment/post/', {messageId, comment})
+            .then((response) => {
+                dispatch({type: types.POST_COMMENT_BY_MESSAGE_ID, payload: response.data})
+            })
+            .catch((err) => {
+                throw(err)
+            })
     }
 }
-
-export default messages

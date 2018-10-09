@@ -7,7 +7,7 @@ const initialState = {
     success: null,
 }
 
-const messages = (state = initialState, action) => {
+const comments = (state = initialState, action) => {
     switch (action.type) {
         case types.FETCH_MESSAGES:
             return {
@@ -56,4 +56,4 @@ const messages = (state = initialState, action) => {
     }
 }
 
-export default messages
+export default comments

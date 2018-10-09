@@ -11,7 +11,7 @@ export function fetchMessages() {
                 throw(err)
             })
     }
-};
+}
 
 export function fetchMessageById(id) {
     return function (dispatch) {
@@ -23,7 +23,31 @@ export function fetchMessageById(id) {
                 throw(err)
             })
     }
-};
+}
+
+export function fetchMessageByContent(query) {
+    return function (dispatch) {
+        axios.get('http://localhost:8000/messages/content/'+query)
+            .then((response) => {
+                dispatch({type: types.FETCH_MESSAGES_BY_CONTENT, payload: response.data})
+            })
+            .catch((err) => {
+                throw(err)
+            })
+    }
+}
+
+export function fetchMessageByContentAndCategory(content, category) {
+    return function (dispatch) {
+        axios.get('http://localhost:8000/messages/content-and-category/'+content+'/'+category)
+            .then((response) => {
+                dispatch({type: types.FETCH_MESSAGES_BY_CONTENT_AND_CATEGORY, payload: response.data})
+            })
+            .catch((err) => {
+                throw(err)
+            })
+    }
+}
 
 export function upvoteMessage(id) {
     return function (dispatch) {
@@ -35,7 +59,7 @@ export function upvoteMessage(id) {
                 throw(err);
             })
     }
-};
+}
 
 export function downvoteMessage(id) {
     return function (dispatch) {
@@ -47,4 +71,4 @@ export function downvoteMessage(id) {
                 throw(err);
             })
     }
-};
+}
