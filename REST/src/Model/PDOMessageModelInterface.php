@@ -111,6 +111,22 @@ AND category LIKE ?");
         return $messages;
     }
 
+    public function getCommentsByMessageId($messageId)
+    {
+        $statement = $this->connection->getPDO()->prepare('SELECT * FROM comments WHERE message_id=?');
+        $statement->bindValue(1, $messageId);
+        $statement->execute();
+        $statement->bindColumn(2, $content, \PDO::PARAM_STR);
+        $statement->bindColumn(3, $token, \PDO::PARAM_STR);
+        $statement->bindColumn(4, $date, \PDO::PARAM_STR);
+
+        $messages = [];
+        while ($statement->fetch(\PDO::FETCH_BOUND)) {
+            $messages[] = ['id' => $messageId, 'content' => $content, 'token' => $token, 'date' => $date];
+        }
+        return $messages;
+    }
+
     public function postComment($messageId, $comment)
     {
         $token = $this->generateToken();
