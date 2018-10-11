@@ -11,7 +11,7 @@ class PDOMessageModelTest extends TestCase
 {
     public function setUp()
     {
-        $this->connection = new \App\Model\Connection('sqlite::memory:');
+        $this->connection = new Connection('sqlite::memory:');
 
         $this->connection->getPDO()->exec('CREATE TABLE messages(
           id INT,

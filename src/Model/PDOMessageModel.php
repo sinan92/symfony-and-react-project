@@ -156,7 +156,7 @@ class PDOMessageModel implements MessageModelInterface
 
     private function validateId($id)
     {
-        if (!(is_string($id) && preg_match("/^[0-9]+$/", $id) && (int)$id > 0)) {
+        if (!(preg_match("/^[0-9]+$/", $id) && (int)$id > 0)) {
             throw new \InvalidArgumentException("id moet een int > 0 bevatten ");
         }
     }
