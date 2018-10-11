@@ -2,94 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b179362d-6083-43ac-af64-5b7794eedffb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Webandmobile1819-groepsopdracht-groep-02_.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/.env.dist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/.idea/BulletinBoard.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/.idea/php-test-framework.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/.idea/php.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/bin/console" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/bin/phpunit" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/bulletinboard.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/composer-backup.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/composer.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/composer.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/config/bundles.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/config/packages/dev/easy_log_handler.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/config/packages/dev/monolog.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/config/packages/dev/routing.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/config/packages/dev/swiftmailer.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/config/packages/dev/web_profiler.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/config/packages/doctrine.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/config/packages/doctrine_migrations.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/config/packages/framework.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/config/packages/prod/doctrine.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/config/packages/prod/monolog.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/config/packages/routing.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/config/packages/security.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/config/packages/sensio_framework_extra.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/config/packages/swiftmailer.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/config/packages/test/framework.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/config/packages/test/monolog.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/config/packages/test/routing.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/config/packages/test/swiftmailer.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/config/packages/test/web_profiler.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/config/packages/translation.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/config/packages/twig.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/config/routes.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/config/routes/annotations.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/config/routes/dev/twig.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/config/routes/dev/web_profiler.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/config/services.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/phpcs.xml.dist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/phpunit.xml.dist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/public/index.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/src/Controller/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/src/Controller/MessageController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/src/Entity/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/src/Kernel.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/src/Migrations/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/src/Model/Connection.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/src/Model/MessageModelInterface.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/src/Model/PDOMessageModelInterface.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/src/Repository/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/symfony.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/templates/base.html.twig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/templates/message/index.html.twig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/tests/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/tests/Model/PDOMessageModelTest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/REST/translations/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/react-frontend/.babelrc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/react-frontend/.eslintrc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/react-frontend/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/react-frontend/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/react-frontend/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/react-frontend/.idea/react-frontend.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/react-frontend/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/react-frontend/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/react-frontend/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/react-frontend/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/react-frontend/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/react-frontend/public/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/react-frontend/src/actions/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/react-frontend/src/actions/index.spec.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/react-frontend/src/components/App.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/react-frontend/src/components/Header.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/react-frontend/src/containers/AddTodo.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/react-frontend/src/containers/FilterLink.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/react-frontend/src/containers/VisibleTodoList.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/react-frontend/src/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/react-frontend/src/reducers/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/react-frontend/src/reducers/todos.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/react-frontend/src/reducers/todos.spec.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/react-frontend/src/reducers/visibilityFilter.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/react-frontend/webpack.config.dev.js" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/.htaccess" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model/PDOMessageModelInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/PDOMessageModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Model/PDOMessageModelTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Model/PDOMessageModelTest.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -131,46 +51,57 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="-424956349">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.1" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="dummy" value="1" />
+          <entry key="php" value="129" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="PHP" value="108" />
+          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="SQL" value="21" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="php" value="4" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="PHP" value="4" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Model/Connection.php">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tests/Model/PDOMessageModelTest.php">
+        <entry file="file://$PROJECT_DIR$/src/Model/PDOMessageModel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="45" lean-forward="true" selection-start-line="45" selection-end-line="45" />
+            <state relative-caret-position="403">
+              <caret line="159" column="47" selection-start-line="159" selection-start-column="23" selection-end-line="159" selection-end-column="47" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Model/MessageModelInterface.php">
+        <entry file="file://$PROJECT_DIR$/tests/Model/PDOMessageModelTest.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="28" lean-forward="true" selection-start-line="7" selection-start-column="28" selection-end-line="7" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Model/PDOMessageModelInterface.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="89" column="5" lean-forward="true" selection-start-line="89" selection-start-column="5" selection-end-line="89" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Controller/MessageController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="103" column="78" lean-forward="true" selection-start-line="103" selection-start-column="78" selection-end-line="103" selection-end-column="78" />
+            <state relative-caret-position="163">
+              <caret line="68" column="5" lean-forward="true" selection-start-line="68" selection-start-column="5" selection-end-line="68" selection-end-column="5" />
+              <folding>
+                <element signature="e#24#68#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -185,6 +116,9 @@
       <list>
         <option value="$PROJECT_DIR$/src/Controller/MessageController.php" />
         <option value="$PROJECT_DIR$/src/Model/MessageModelInterface.php" />
+        <option value="$PROJECT_DIR$/src/Model/PDOMessageModelInterface.php" />
+        <option value="$PROJECT_DIR$/src/Model/PDOMessageModel.php" />
+        <option value="$PROJECT_DIR$/tests/Model/PDOMessageModelTest.php" />
       </list>
     </option>
   </component>
@@ -194,7 +128,8 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 7.2" />
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-7" />
     <option name="width" value="974" />
     <option name="height" value="1057" />
@@ -209,46 +144,28 @@
         <subPane>
           <expand>
             <path>
-              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="462c0819:PsiDirectoryNode" />
+              <item name="webandmobile1819-groepsopdracht-groep-02" type="b2602c69:ProjectViewProjectNode" />
+              <item name="webandmobile1819-groepsopdracht-groep-02" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="462c0819:PsiDirectoryNode" />
+              <item name="webandmobile1819-groepsopdracht-groep-02" type="b2602c69:ProjectViewProjectNode" />
+              <item name="webandmobile1819-groepsopdracht-groep-02" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Entity" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Migrations" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="462c0819:PsiDirectoryNode" />
+              <item name="webandmobile1819-groepsopdracht-groep-02" type="b2602c69:ProjectViewProjectNode" />
+              <item name="webandmobile1819-groepsopdracht-groep-02" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Model" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="462c0819:PsiDirectoryNode" />
+              <item name="webandmobile1819-groepsopdracht-groep-02" type="b2602c69:ProjectViewProjectNode" />
+              <item name="webandmobile1819-groepsopdracht-groep-02" type="462c0819:PsiDirectoryNode" />
               <item name="tests" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Webandmobile1819-groepsopdracht-groep-02_" type="462c0819:PsiDirectoryNode" />
+              <item name="webandmobile1819-groepsopdracht-groep-02" type="b2602c69:ProjectViewProjectNode" />
+              <item name="webandmobile1819-groepsopdracht-groep-02" type="462c0819:PsiDirectoryNode" />
               <item name="tests" type="462c0819:PsiDirectoryNode" />
               <item name="Model" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -260,6 +177,12 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../phpunit.phar" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/Model" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -273,6 +196,38 @@
       </list>
     </option>
   </component>
+  <component name="RunManager" selected="PHPUnit.PDOMessageModelTest.testGetById_exceptionThrow">
+    <configuration name="PDOMessageModelTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="test\PDOMessageModelTest" file="$PROJECT_DIR$/tests/Model/PDOMessageModelTest.php" scope="Class" />
+      <method v="2" />
+    </configuration>
+    <configuration name="PDOMessageModelTest.testGetById_exceptionThrow" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="test\PDOMessageModelTest" file="$PROJECT_DIR$/tests/Model/PDOMessageModelTest.php" method="testGetById_exceptionThrow" scope="Method" />
+      <method v="2" />
+    </configuration>
+    <configuration name="PDOMessageModelTest.testGetById_messagesInDatabase" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="test\PDOMessageModelTest" file="$PROJECT_DIR$/tests/Model/PDOMessageModelTest.php" method="testGetById_messagesInDatabase" scope="Method" />
+      <method v="2" />
+    </configuration>
+    <configuration name="tests" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner directory="$PROJECT_DIR$/tests" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="PHPUnit.PDOMessageModelTest.testGetById_messagesInDatabase" />
+      <item itemvalue="PHPUnit.PDOMessageModelTest" />
+      <item itemvalue="PHPUnit.tests" />
+      <item itemvalue="PHPUnit.PDOMessageModelTest.testGetById_exceptionThrow" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="PHPUnit.PDOMessageModelTest.testGetById_exceptionThrow" />
+        <item itemvalue="PHPUnit.tests" />
+        <item itemvalue="PHPUnit.PDOMessageModelTest.testGetById_messagesInDatabase" />
+        <item itemvalue="PHPUnit.PDOMessageModelTest" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -285,21 +240,55 @@
       <updated>1538726576135</updated>
       <workItem from="1538726577213" duration="172000" />
       <workItem from="1538726783800" duration="382000" />
+      <workItem from="1539250449412" duration="2145000" />
     </task>
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="PDOMessageModelTest_testGetById_messagesInDatabase - 2018.10.11 at 11h 37m 17s.xml">
+      <configuration name="PDOMessageModelTest.testGetById_messagesInDatabase" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="PDOMessageModelTest_testGetById_messagesInDatabase - 2018.10.11 at 11h 37m 23s.xml">
+      <configuration name="PDOMessageModelTest.testGetById_messagesInDatabase" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="PDOMessageModelTest_testGetById_messagesInDatabase - 2018.10.11 at 11h 37m 29s.xml">
+      <configuration name="PDOMessageModelTest.testGetById_messagesInDatabase" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="PDOMessageModelTest_testGetById_messagesInDatabase - 2018.10.11 at 11h 37m 50s.xml">
+      <configuration name="PDOMessageModelTest.testGetById_messagesInDatabase" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="PDOMessageModelTest - 2018.10.11 at 11h 40m 50s.xml">
+      <configuration name="PDOMessageModelTest" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="PDOMessageModelTest - 2018.10.11 at 11h 45m 11s.xml">
+      <configuration name="PDOMessageModelTest" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="PDOMessageModelTest_testGetById_messagesInDatabase - 2018.10.11 at 12h 00m 18s.xml">
+      <configuration name="PDOMessageModelTest.testGetById_messagesInDatabase" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="PDOMessageModelTest_testGetById_messagesInDatabase - 2018.10.11 at 12h 03m 19s.xml">
+      <configuration name="PDOMessageModelTest.testGetById_messagesInDatabase" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="tests - 2018.10.11 at 12h 03m 27s.xml">
+      <configuration name="tests" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="PDOMessageModelTest_testGetById_exceptionThrow - 2018.10.11 at 12h 07m 30s.xml">
+      <configuration name="PDOMessageModelTest.testGetById_exceptionThrow" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+  </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="554000" />
+    <option name="totallyTimeSpent" value="2699000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
+    <frame x="0" y="25" width="1920" height="1055" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25266525" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13553895" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32939914" />
-      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32864866" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32972974" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -307,7 +296,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.32972974" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -322,34 +311,44 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Model/Connection.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/Model/PDOMessageModelTest.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="45" lean-forward="true" selection-start-line="45" selection-end-line="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/MessageController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="103" column="78" lean-forward="true" selection-start-line="103" selection-start-column="78" selection-end-line="103" selection-end-column="78" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/PDOMessageModelInterface.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="89" column="5" lean-forward="true" selection-start-line="89" selection-start-column="5" selection-end-line="89" selection-end-column="5" />
+        <state relative-caret-position="1485">
+          <caret line="103" column="78" selection-start-line="103" selection-start-column="78" selection-end-line="103" selection-end-column="78" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Model/MessageModelInterface.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="28" lean-forward="true" selection-start-line="7" selection-start-column="28" selection-end-line="7" selection-end-column="28" />
+        <state relative-caret-position="105">
+          <caret line="7" column="28" selection-start-line="7" selection-start-column="28" selection-end-line="7" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/Connection.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/PDOMessageModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="40" column="58" lean-forward="true" selection-end-line="164" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/PDOMessageModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="403">
+          <caret line="159" column="47" selection-start-line="159" selection-start-column="23" selection-end-line="159" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Model/PDOMessageModelTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="68" column="5" lean-forward="true" selection-start-line="68" selection-start-column="5" selection-end-line="68" selection-end-column="5" />
+          <folding>
+            <element signature="e#24#68#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

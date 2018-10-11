@@ -2,15 +2,16 @@
 
 namespace test;
 
+use http\Exception\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use App\Model\PDOMessageModelInterface;
+use App\Model\PDOMessageModel;
 use App\Model\Connection;
 
 class PDOMessageModelTest extends TestCase
 {
     public function setUp()
     {
-        $this->connection = new Connection('sqlite::memory:');
+        $this->connection = new \App\Model\Connection('sqlite::memory:');
 
         $this->connection->getPDO()->exec('CREATE TABLE messages(
           id INT,
@@ -59,7 +60,7 @@ class PDOMessageModelTest extends TestCase
     public function testGetById_messagesInDatabase()
     {
         //Comments ophalen uit sqlite database
-        $messagesModel = new PDOMessageModelInterface($this->connection);
+        $messagesModel = new PDOMessageModel($this->connection);
         $actualMessage = $messagesModel->getMessageById(1);
 
         $expectedMessage = $this->providerMessages();
@@ -67,9 +68,17 @@ class PDOMessageModelTest extends TestCase
         $this->assertEquals($expectedMessage[0], $actualMessage[0]);
     }
 
+    public function testGetById_exceptionThrow()
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        $messagesModel = new PDOMessageModel($this->connection);
+        $messagesModel->getMessageById(0);
+    }
+
     public function testSearchByContent_messagesInDatabase()
     {
-        $messagesModel = new PDOMessageModelInterface($this->connection);
+        $messagesModel = new PDOMessageModel($this->connection);
         $actualMessage = $messagesModel->searchMessageByContent("content2");
         $expectedMessage = $this->providerMessages();
         $this->assertEquals('array', gettype($actualMessage));
@@ -78,7 +87,7 @@ class PDOMessageModelTest extends TestCase
 
     public function testSearchByContent_messagesNotInDatabase()
     {
-        $messagesModel = new PDOMessageModelInterface($this->connection);
+        $messagesModel = new PDOMessageModel($this->connection);
         $actualMessage = $messagesModel->searchMessageByContent("no content");
         $this->assertEquals('array', gettype($actualMessage));
         $this->assertEmpty($actualMessage);
@@ -86,7 +95,7 @@ class PDOMessageModelTest extends TestCase
 
     public function testSearchByCategory_messagesInDatabase()
     {
-        $messagesModel = new PDOMessageModelInterface($this->connection);
+        $messagesModel = new PDOMessageModel($this->connection);
         $actualMessage = $messagesModel->searchMessageByCategory("Thriller");
         $expectedMessage = $this->providerMessages();
         $this->assertEquals('array', gettype($actualMessage));
@@ -95,7 +104,7 @@ class PDOMessageModelTest extends TestCase
 
     public function testSearchByCategory_messagesNotInDatabase()
     {
-        $messagesModel = new PDOMessageModelInterface($this->connection);
+        $messagesModel = new PDOMessageModel($this->connection);
         $actualMessage = $messagesModel->searchMessageByCategory("no category");
         $this->assertEquals('array', gettype($actualMessage));
         $this->assertEmpty($actualMessage);
@@ -103,7 +112,7 @@ class PDOMessageModelTest extends TestCase
 
     public function testSearchByContentOrCategory_SearchByCategory_messagesInDatabase()
     {
-        $messagesModel = new PDOMessageModelInterface($this->connection);
+        $messagesModel = new PDOMessageModel($this->connection);
         $actualMessage = $messagesModel->searchMessageByContentAndCategory("content3", "Thriller");
         $expectedMessage = $this->providerMessages();
         $this->assertEquals('array', gettype($actualMessage));
@@ -113,7 +122,7 @@ class PDOMessageModelTest extends TestCase
 
     public function testSearchByContentOrCategory_SearchByCategory_messagesNotInDatabase()
     {
-        $messagesModel = new PDOMessageModelInterface($this->connection);
+        $messagesModel = new PDOMessageModel($this->connection);
         $actualMessage = $messagesModel->searchMessageByContentAndCategory("no content", "no category");
         $this->assertEquals('array', gettype($actualMessage));
         $this->assertEmpty($actualMessage);
@@ -121,7 +130,7 @@ class PDOMessageModelTest extends TestCase
 
     public function testGetAll_messagesInDatabase()
     {
-        $messagesModel = new PDOMessageModelInterface($this->connection);
+        $messagesModel = new PDOMessageModel($this->connection);
         $actualMessage = $messagesModel->getAllMessages();
         $expectedMessage = $this->providerMessages();
         $this->assertEquals('array', gettype($actualMessage));
@@ -130,7 +139,7 @@ class PDOMessageModelTest extends TestCase
 
     public function testUpVoteMessage_upVotesInDatabase()
     {
-        $messagesModel = new PDOMessageModelInterface($this->connection);
+        $messagesModel = new PDOMessageModel($this->connection);
         $messagesModel->upVoteMessage(1);
 
         $expectedUpVotes = $this->providerMessages()[0]['upVotes'];
@@ -146,7 +155,7 @@ class PDOMessageModelTest extends TestCase
 
     public function testDownVoteMessage_downVotesInDatabase()
     {
-        $messagesModel = new PDOMessageModelInterface($this->connection);
+        $messagesModel = new PDOMessageModel($this->connection);
         $messagesModel->downVoteMessage(1);
 
         $expectedDownVotes = $this->providerMessages()[0]['downVotes'];
@@ -162,7 +171,7 @@ class PDOMessageModelTest extends TestCase
     public function testPostComment_commentInDatabase()
     {
         //Comment posten in sqlite database
-        $messagesModel = new PDOMessageModelInterface($this->connection);
+        $messagesModel = new PDOMessageModel($this->connection);
         $actualMessage = $messagesModel->postComment(10, 'Hello');
 
         //Comments uit de database ophalen

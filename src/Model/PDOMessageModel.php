@@ -2,7 +2,7 @@
 
 namespace App\Model;
 
-class PDOMessageModelInterface implements MessageModelInterface
+class PDOMessageModel implements MessageModelInterface
 {
     private $connection = null;
 
@@ -32,6 +32,7 @@ class PDOMessageModelInterface implements MessageModelInterface
 
     public function getMessageById($messageId)
     {
+        $this->validateId($messageId);
         $statement = $this->connection->getPDO()->prepare('SELECT * FROM messages WHERE id=?');
         $statement->bindValue(1, $messageId);
         $statement->execute();
@@ -92,7 +93,7 @@ class PDOMessageModelInterface implements MessageModelInterface
     public function searchMessageByContentAndCategory($content, $category)
     {
         $statement = $this->connection->getPDO()->prepare("SELECT * FROM messages WHERE content LIKE ? 
-AND category LIKE ?");
+          AND category LIKE ?");
         $statement->bindValue(1, "%" . $content . "%", \PDO::PARAM_STR);
         $statement->bindValue(2, "%" . $category . "%", \PDO::PARAM_STR);
         $statement->execute();
@@ -113,9 +114,10 @@ AND category LIKE ?");
 
     public function postComment($messageId, $comment)
     {
+        $this->validateId($messageId);
         $token = $this->generateToken();
         $statement = $this->connection->getPDO()->prepare("INSERT INTO comments (message_id, content, token) 
-VALUES (?, ?, ?)");
+          VALUES (?, ?, ?)");
         $statement->bindValue(1, $messageId, \PDO::PARAM_INT);
         $statement->bindValue(2, $comment, \PDO::PARAM_STR);
         $statement->bindValue(3, $token, \PDO::PARAM_STR);
@@ -126,8 +128,9 @@ VALUES (?, ?, ?)");
 
     public function upVoteMessage($messageId)
     {
+        $this->validateId($messageId);
         $statement = $this->connection->getPDO()->prepare("UPDATE messages SET upvotes = upvotes + 1 
-WHERE id = ?");
+          WHERE id = ?");
         $statement->bindValue(1, $messageId, \PDO::PARAM_INT);
         $statement->execute();
 
@@ -136,8 +139,9 @@ WHERE id = ?");
 
     public function downVoteMessage($messageId)
     {
+        $this->validateId($messageId);
         $statement = $this->connection->getPDO()->prepare("UPDATE messages SET downvotes = downvotes + 1 
-WHERE id = ?");
+          WHERE id = ?");
         $statement->bindValue(1, $messageId, \PDO::PARAM_INT);
         $statement->execute();
 
@@ -149,4 +153,12 @@ WHERE id = ?");
         $token = substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 10);
         return $token;
     }
+
+    private function validateId($id)
+    {
+        if (!(is_string($id) && preg_match("/^[0-9]+$/", $id) && (int)$id > 0)) {
+            throw new \InvalidArgumentException("id moet een int > 0 bevatten ");
+        }
+    }
+
 }
