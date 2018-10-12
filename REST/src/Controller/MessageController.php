@@ -101,6 +101,22 @@ class MessageController extends Controller
 
 
     /**
+     * @Route("/comments/{messageId}", methods={"GET"}, name="getCommentsByMessageId")
+     */
+    public function getCommentsByMessageId($messageId)
+    {
+        $statuscode = 200;
+        $messages = [];
+        try {
+            $messages = $this->messageModel->getCommentsByMessageId($messageId);
+        } catch (\IllegalArgumentExceptions $exception) {
+            $statuscode = 500;
+        }
+        return new JsonResponse($messages, $statuscode);
+    }
+
+
+    /**
      * @Route("/messages/comment/post/", methods={"POST"}, name="postComment")
      */
     public function postComment(Request $request)
