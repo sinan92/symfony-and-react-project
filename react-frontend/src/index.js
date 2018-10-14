@@ -1,15 +1,25 @@
-import React from 'react'
-import { render } from 'react-dom'
-import { createStore } from 'redux'
-import { Provider } from 'react-redux'
-import App from './components/App'
-import rootReducer from './reducers'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { ConnectedRouter } from 'react-router-redux';
+import { createBrowserHistory } from 'history';
+import configureStore from './store/configureStore';
+import App from './components/App';
 
-const store = createStore(rootReducer)
+// Create browser history to use in the Redux store
+const history = createBrowserHistory();
 
-render(
+// Get the application-wide store instance, prepopulating with state from the server where available.
+const initialState = window.initialReduxState;
+const store = configureStore(history, initialState);
+
+const rootElement = document.getElementById('root');
+
+ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <ConnectedRouter history={history}>
+      <App />
+    </ConnectedRouter>
   </Provider>,
-  document.getElementById('root')
-)
+  rootElement);
+
