@@ -11,4 +11,17 @@ export function postComment(messageId, comment) {
                 throw(err)
             })
     }
+  
+}
+
+export function getCommentsByMessageId(messageId) {
+    return function (dispatch) {
+        axios.get('http://localhost:8000/comments/'+ messageId)
+            .then((response) => {
+                dispatch({type: types.FETCH_COMMENT_BY_ID, payload: response.data})
+            })
+            .catch((err) => {
+                throw(err)
+            })
+    }
 }
