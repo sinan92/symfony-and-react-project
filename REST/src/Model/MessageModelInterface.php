@@ -8,6 +8,7 @@ interface MessageModelInterface
     public function searchMessageByContent($search);
     public function searchMessageByCategory($category);
     public function searchMessageByContentAndCategory($content, $category);
+    public function getCommentsByMessageId($messageId);
     public function postComment($messageId, $comment);
     public function upVoteMessage($messageId);
     public function downVoteMessage($messageId);
