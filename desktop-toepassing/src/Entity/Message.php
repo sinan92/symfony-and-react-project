@@ -145,7 +145,7 @@ class Message
     {
         if (!$this->comment->contains($comment)) {
             $this->comment[] = $comment;
-            $comment->setComment($this);
+            $comment->setMessage($this);
         }
 
         return $this;
@@ -156,8 +156,8 @@ class Message
         if ($this->comment->contains($comment)) {
             $this->comment->removeElement($comment);
             // set the owning side to null (unless already changed)
-            if ($comment->getComment() === $this) {
-                $comment->setComment(null);
+            if ($comment->getMessage() === $this) {
+                $comment->setMessage(null);
             }
         }
 
