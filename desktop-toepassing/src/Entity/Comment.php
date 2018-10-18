@@ -34,7 +34,7 @@ class Comment
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Message", inversedBy="comment")
      */
-    private $message;
+    private $comment;
 
     public function getId(): ?int
     {
@@ -77,14 +77,14 @@ class Comment
         return $this;
     }
 
-    public function getMessage(): ?Message
+    public function getComment(): ?Message
     {
-        return $this->message;
+        return $this->comment;
     }
 
-    public function setMessage(?Message $message): self
+    public function setComment(?Message $comment): self
     {
-        $this->message = $message;
+        $this->comment = $comment;
 
         return $this;
     }

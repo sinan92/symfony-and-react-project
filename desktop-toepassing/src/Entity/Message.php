@@ -24,14 +24,9 @@ class Message
     private $content;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Category", mappedBy="message", orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity="App\Entity\Category", inversedBy="message")
      */
     private $category;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="message")
-     */
-    private $comment;
 
     /**
      * @ORM\Column(type="datetime")
@@ -47,6 +42,11 @@ class Message
      * @ORM\Column(type="integer")
      */
     private $downVotes;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="comment")
+     */
+    private $comment;
 
     public function __construct()
     {
@@ -83,7 +83,6 @@ class Message
     {
         if (!$this->category->contains($category)) {
             $this->category[] = $category;
-            $category->setMessage($this);
         }
 
         return $this;
@@ -93,41 +92,6 @@ class Message
     {
         if ($this->category->contains($category)) {
             $this->category->removeElement($category);
-            // set the owning side to null (unless already changed)
-            if ($category->getMessage() === $this) {
-                $category->setMessage(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Comment[]
-     */
-    public function getComment(): Collection
-    {
-        return $this->comment;
-    }
-
-    public function addComment(Comment $comment): self
-    {
-        if (!$this->comment->contains($comment)) {
-            $this->comment[] = $comment;
-            $comment->setMessage($this);
-        }
-
-        return $this;
-    }
-
-    public function removeComment(Comment $comment): self
-    {
-        if ($this->comment->contains($comment)) {
-            $this->comment->removeElement($comment);
-            // set the owning side to null (unless already changed)
-            if ($comment->getMessage() === $this) {
-                $comment->setMessage(null);
-            }
         }
 
         return $this;
@@ -165,6 +129,37 @@ class Message
     public function setDownVotes(int $downVotes): self
     {
         $this->downVotes = $downVotes;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComment(): Collection
+    {
+        return $this->comment;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comment->contains($comment)) {
+            $this->comment[] = $comment;
+            $comment->setComment($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comment->contains($comment)) {
+            $this->comment->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getComment() === $this) {
+                $comment->setComment(null);
+            }
+        }
 
         return $this;
     }

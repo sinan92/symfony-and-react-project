@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -16,13 +18,20 @@ class Category
      */
     private $id;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Message", inversedBy="category")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToMany(targetEntity="App\Entity\Message", mappedBy="category")
      */
     private $message;
+
+    public function __construct()
+    {
+        $this->message = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -41,16 +50,31 @@ class Category
         return $this;
     }
 
-    public function getMessage(): ?Message
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessage(): Collection
     {
         return $this->message;
     }
 
-    public function setMessage(?Message $message): self
+    public function addMessage(Message $message): self
     {
-        $this->message = $message;
+        if (!$this->message->contains($message)) {
+            $this->message[] = $message;
+            $message->addCategory($this);
+        }
 
         return $this;
     }
 
+    public function removeMessage(Message $message): self
+    {
+        if ($this->message->contains($message)) {
+            $this->message->removeElement($message);
+            $message->removeCategory($this);
+        }
+
+        return $this;
+    }
 }
