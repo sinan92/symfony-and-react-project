@@ -2,7 +2,7 @@
 
 namespace App\Model;
 
-class PDOMessageModelInterface implements MessageModelInterface
+class PDOMessageModel implements MessageModelInterface
 {
     private $connection = null;
 
