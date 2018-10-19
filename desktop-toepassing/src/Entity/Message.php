@@ -48,6 +48,11 @@ class Message
      */
     private $comment;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="userMessage")
+     */
+    private $user;
+
     public function __construct()
     {
         $this->category = new ArrayCollection();
@@ -160,6 +165,18 @@ class Message
                 $comment->setMessage(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

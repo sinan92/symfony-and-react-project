@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Message;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
 
 class MessageController extends Controller
 {
@@ -33,15 +35,26 @@ class MessageController extends Controller
 
     // anonieme gebruikers
     // we moeten gebruik maken van paginatie.
+    /**
+     * @Route("/message/getAll", name="getAllMessages")
+     */
     public function getMessages()
     {
-
+        $messages = $this->getDoctrine()->getManager()->getRepository(Message::class)->findAll();
+        return $this->render('message/index.html.twig', array('messages' => $messages,
+            'controller_name' => 'Message Controller'));
     }
 
     // posters kunnen berichten aanmaken in bestaande categorie
-    public function postMessage()
+    /**
+     * @Route("/message/post", name="postMessage")
+     */
+    public function postMessage(Message $message)
     {
-
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($message);
+        $entityManager->flush();
+        return new Response('Saved new Message ' . $message);
     }
 
     // poster kan alleen eigen message updaten
@@ -77,4 +90,5 @@ class MessageController extends Controller
     {
 
     }
+
 }

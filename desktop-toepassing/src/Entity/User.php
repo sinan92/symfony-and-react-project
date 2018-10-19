@@ -2,6 +2,8 @@
 namespace App\Entity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+
 /**
  * @ORM\Table("user")
  * @ORM\Entity
@@ -29,7 +31,17 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(name="rolesString", type="string", length=255)
      */
     private $rolesString;
-    //methodes uit UserInterface
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="userMessage")
+     */
+    private $message;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="userComment")
+     */
+    private $comment;
+
 
     public function getUserName()
     {
@@ -107,6 +119,64 @@ class User implements UserInterface, \Serializable
     public function __toString()
     {
         return "Entity User, username= " . $this->userName;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComment(): Collection
+    {
+        return $this->comment;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comment->contains($comment)) {
+            $this->comment[] = $comment;
+            $comment->setMessage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comment->contains($comment)) {
+            $this->comment->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getMessage() === $this) {
+                $comment->setMessage(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessage(): Collection
+    {
+        return $this->message;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->message->contains($message)) {
+            $this->message[] = $message;
+            $message->addCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): self
+    {
+        if ($this->message->contains($message)) {
+            $this->message->removeElement($message);
+            $message->removeCategory($this);
+        }
+        return $this;
     }
 }
 
