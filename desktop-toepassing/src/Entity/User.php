@@ -150,4 +150,10 @@ class User
         }
         return $this;
     }
+
+    public function __toString()
+    {
+        return "Entity User, id= " . $this->getId();
+    }
+
 }
