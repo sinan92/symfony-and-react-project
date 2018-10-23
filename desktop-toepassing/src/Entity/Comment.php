@@ -106,4 +106,9 @@ class Comment
         return $this;
     }
 
+    public function __toString()
+    {
+        return "Entity Category, id= " . $this->getId();
+    }
+
 }

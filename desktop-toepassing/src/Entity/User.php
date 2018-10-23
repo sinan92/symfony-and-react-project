@@ -118,7 +118,7 @@ class User implements UserInterface, \Serializable
     //toString
     public function __toString()
     {
-        return "Entity User, username= " . $this->userName;
+        return "Entity User, username= " . $this->getUserName();
     }
 
     /**

@@ -180,4 +180,9 @@ class Message
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return "Entity Message, id= " . $this->getId();
+    }
 }
