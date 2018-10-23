@@ -1,153 +1,91 @@
 <?php
+
 namespace App\Entity;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Doctrine\ORM\Mapping as ORM;
+
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table("user")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User implements UserInterface, \Serializable
+class User
 {
     /**
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
      */
+
     private $id;
-
     /**
-     * @ORM\Column(name="userName", type="string", length=255)
+     * @ORM\Column(type="string", length=255)
      */
+
     private $userName;
-
     /**
-     * @ORM\Column(name="password", type="string", length=255)
+     * @ORM\Column(type="string", length=255)
      */
+
     private $password;
-
     /**
-     * @ORM\Column(name="rolesString", type="string", length=255)
+     * @ORM\Column(type="string", length=255)
      */
-    private $rolesString;
 
+    private $role;
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="userMessage")
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="user", orphanRemoval=true)
      */
-    private $message;
-
+    private $messages;
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="userComment")
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="user", orphanRemoval=true)
      */
-    private $comment;
+    private $comments;
 
 
-    public function getUserName()
+    public function __construct()
+    {
+        $this->messages = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getUserName(): ?string
     {
         return $this->userName;
     }
 
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    public function eraseCredentials()
-    {
-    }
-
-    public function getRoles()
-    {
-        return preg_split("/[\s,]+/",$this->rolesString);
-    }
-
-    public function getSalt()
-    {
-        return null;
-    }
-
-//methodes uit Serializable
-
-    public function serialize()
-    {
-        return serialize(array(
-            $this->id,
-            $this->userName,
-            $this->password,
-            $this->rolesString
-        ));
-    }
-
-    public function unserialize($serialized)
-    {
-        list (
-            $this->id,
-            $this->userName,
-            $this->password,
-            $this->rolesString
-            ) = unserialize($serialized);
-    }
-    //overblijvende getters /setters
-    public function getId()
-    {
-        return $this->id;
-    }
-    public function setUserName($userName)
+    public function setUserName(string $userName): self
     {
         $this->userName = $userName;
 
         return $this;
     }
-    public function setPassword($password)
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
     {
         $this->password = $password;
 
         return $this;
     }
-    public function setRolesString($rolesString)
-    {
-        $this->rolesString = $rolesString;
 
-        return $this;
-    }
-    public function getRolesString()
+    public function getRole(): ?string
     {
-        return $this->rolesString;
-    }
-    //toString
-    public function __toString()
-    {
-        return "Entity User, username= " . $this->getUserName();
+        return $this->role;
     }
 
-    /**
-     * @return Collection|Comment[]
-     */
-    public function getComment(): Collection
+    public function setRole(string $role): self
     {
-        return $this->comment;
-    }
-
-    public function addComment(Comment $comment): self
-    {
-        if (!$this->comment->contains($comment)) {
-            $this->comment[] = $comment;
-            $comment->setMessage($this);
-        }
-
-        return $this;
-    }
-
-    public function removeComment(Comment $comment): self
-    {
-        if ($this->comment->contains($comment)) {
-            $this->comment->removeElement($comment);
-            // set the owning side to null (unless already changed)
-            if ($comment->getMessage() === $this) {
-                $comment->setMessage(null);
-            }
-        }
+        $this->role = $role;
 
         return $this;
     }
@@ -155,16 +93,16 @@ class User implements UserInterface, \Serializable
     /**
      * @return Collection|Message[]
      */
-    public function getMessage(): Collection
+    public function getMessages(): Collection
     {
-        return $this->message;
+        return $this->messages;
     }
 
     public function addMessage(Message $message): self
     {
-        if (!$this->message->contains($message)) {
-            $this->message[] = $message;
-            $message->addCategory($this);
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->setUser($this);
         }
 
         return $this;
@@ -172,14 +110,45 @@ class User implements UserInterface, \Serializable
 
     public function removeMessage(Message $message): self
     {
-        if ($this->message->contains($message)) {
-            $this->message->removeElement($message);
-            $message->removeCategory($this);
+        if ($this->messages->contains($message)) {
+            $this->messages->removeElement($message);
+            // set the owning side to null (unless already changed)
+            if ($message->getUser() === $this) {
+                $message->setUser(null);
+            }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Message $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getUser() === $this) {
+                $comment->setUser(null);
+            }
+        }
+
         return $this;
     }
 }
-
-
-
-

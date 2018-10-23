@@ -24,20 +24,19 @@ class Category
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Message", mappedBy="category")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Message", mappedBy="categories")
      */
-    private $message;
+    private $messages;
 
     public function __construct()
     {
-        $this->message = new ArrayCollection();
+        $this->messages = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
     }
-
     public function getName(): ?string
     {
         return $this->name;
@@ -53,15 +52,15 @@ class Category
     /**
      * @return Collection|Message[]
      */
-    public function getMessage(): Collection
+    public function getMessages(): Collection
     {
-        return $this->message;
+        return $this->messages;
     }
 
     public function addMessage(Message $message): self
     {
-        if (!$this->message->contains($message)) {
-            $this->message[] = $message;
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
             $message->addCategory($this);
         }
 
@@ -70,11 +69,10 @@ class Category
 
     public function removeMessage(Message $message): self
     {
-        if ($this->message->contains($message)) {
-            $this->message->removeElement($message);
+        if ($this->messages->contains($message)) {
+            $this->messages->removeElement($message);
             $message->removeCategory($this);
         }
-
         return $this;
     }
 
