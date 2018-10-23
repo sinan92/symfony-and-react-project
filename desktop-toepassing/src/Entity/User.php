@@ -148,7 +148,6 @@ class User
                 $comment->setUser(null);
             }
         }
-
         return $this;
     }
 }

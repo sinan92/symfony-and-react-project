@@ -3,6 +3,8 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use App\Entity\User;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
@@ -45,9 +47,4 @@ class UserController extends Controller
         $entityManager->remove($user);
         $entityManager->flush();
     }
-
-
-
-
-
 }
