@@ -80,5 +80,4 @@ class Category
     {
         return "Entity Category, name= " . $this->getName();
     }
-
 }

@@ -156,10 +156,6 @@ class Message
         return $this;
     }
 
-    public function __toString()
-    {
-        return "Entity Message, id= " . $this->getId();
-    }
     /**
      * @return Collection|Category[]
      */
@@ -184,5 +180,10 @@ class Message
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return "Entity Message, id= " . $this->getId();
     }
 }
