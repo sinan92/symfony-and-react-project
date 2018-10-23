@@ -75,4 +75,10 @@ class Category
         }
         return $this;
     }
+
+    public function __toString()
+    {
+        return "Entity Category, name= " . $this->getName();
+    }
+
 }

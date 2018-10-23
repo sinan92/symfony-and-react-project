@@ -1,36 +1,49 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: QuanDar
- * Date: 18/10/2018
- * Time: 10:03
- */
-
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\User;
 
-class UserController
+class UserController extends Controller
 {
     //Alleen administrator kan moderaters en posters maken
-    public function postUser()
+    public function postUser(User $user)
     {
-
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
     }
 
     //Alleen administrator kan moderaters en posters maken
-    public function updateUser()
+    public function updateUser(int $id, string $username, string $password, string $roleString)
     {
-
+        $entityManager = $this->getDoctrine()->getManager();
+        $user =  $entityManager->getRepository(user::class)->find($id);
+        if (!$user)
+        {
+            throw $this->createNotFoundException(
+                'No message found for id '.$id
+            );
+        }
+        $user->setUserName($username);
+        $user->setPassword($password);
+        $user->setRoleString($roleString);
+        $entityManager->flush();
     }
 
     //Alleen administrator kan moderaters en posters maken
-    public function deleteUser()
+    public function deleteUser(int $id)
     {
-
+        $entityManager = $this->getDoctrine()->getManager();
+        $user = $entityManager->getRepository('appBundle:Message')->find($id);
+        if (!$user)
+        {
+            throw $this->createNotFoundException(
+                'No user found for id '.$id
+            );
+        }
+        $entityManager->remove($user);
+        $entityManager->flush();
     }
 
 
