@@ -32,14 +32,27 @@ class Comment
     private $date;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Message", inversedBy="comment")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Message", inversedBy="comments")
      */
     private $message;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="userMessage")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
 
     public function getId(): ?int
     {
@@ -82,28 +95,19 @@ class Comment
         return $this;
     }
 
-    public function getMessage(): ?Message
+    /**
+     * @return mixed
+     */
+    public function getMessage()
     {
         return $this->message;
     }
 
-    public function setMessage(?Message $message): self
+    /**
+     * @param mixed $message
+     */
+    public function setMessage($message)
     {
         $this->message = $message;
-
-        return $this;
     }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
 }

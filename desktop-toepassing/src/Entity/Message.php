@@ -24,9 +24,9 @@ class Message
     private $content;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Category", inversedBy="message")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Category", inversedBy="messages")
      */
-    private $category;
+    private $categories;
 
     /**
      * @ORM\Column(type="datetime")
@@ -44,19 +44,20 @@ class Message
     private $downVotes;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="comment")
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="message")
      */
-    private $comment;
+    private $comments;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="userMessage")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="messages")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
     public function __construct()
     {
-        $this->category = new ArrayCollection();
-        $this->comment = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -72,32 +73,6 @@ class Message
     public function setContent(string $content): self
     {
         $this->content = $content;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Category[]
-     */
-    public function getCategory(): Collection
-    {
-        return $this->category;
-    }
-
-    public function addCategory(Category $category): self
-    {
-        if (!$this->category->contains($category)) {
-            $this->category[] = $category;
-        }
-
-        return $this;
-    }
-
-    public function removeCategory(Category $category): self
-    {
-        if ($this->category->contains($category)) {
-            $this->category->removeElement($category);
-        }
 
         return $this;
     }
@@ -141,15 +116,15 @@ class Message
     /**
      * @return Collection|Comment[]
      */
-    public function getComment(): Collection
+    public function getComments(): Collection
     {
-        return $this->comment;
+        return $this->comments;
     }
 
     public function addComment(Comment $comment): self
     {
-        if (!$this->comment->contains($comment)) {
-            $this->comment[] = $comment;
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
             $comment->setMessage($this);
         }
 
@@ -158,8 +133,8 @@ class Message
 
     public function removeComment(Comment $comment): self
     {
-        if ($this->comment->contains($comment)) {
-            $this->comment->removeElement($comment);
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
             // set the owning side to null (unless already changed)
             if ($comment->getMessage() === $this) {
                 $comment->setMessage(null);
@@ -177,6 +152,32 @@ class Message
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Category[]
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        if ($this->categories->contains($category)) {
+            $this->categories->removeElement($category);
+        }
 
         return $this;
     }

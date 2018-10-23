@@ -13,7 +13,7 @@ class MessageController extends Controller
 {
     // Rechten:
     // Als ik praat over een poster, dan heeft de modarator natuurlijk ook de rechten om die functie uit te voeren
-    // maar een anonieme gebruiker niet. 
+    // maar een anonieme gebruiker niet.
 
     // moderator only
     public function deleteAllMessagesFromPoster()
@@ -41,6 +41,7 @@ class MessageController extends Controller
     public function getMessages()
     {
         $messages = $this->getDoctrine()->getManager()->getRepository(Message::class)->findAll();
+
         return $this->render('message/index.html.twig', array('messages' => $messages,
             'controller_name' => 'Message Controller'));
     }
