@@ -5,9 +5,12 @@ namespace App\Controller;
 use App\Entity\Message;
 use App\Entity\Category;
 use App\Entity\Comment;
+use App\Form\CommentForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\Request;
 
 class MessageController extends Controller
 {
@@ -58,11 +61,15 @@ class MessageController extends Controller
     /**
      * @Route("/message/getAll", name="getAllMessages")
      */
-    public function getMessages()
+    public function getMessages(Request $request)
     {
-        $messages = $this->getDoctrine()->getManager()->getRepository(Message::class)->findAll();
+        $comment = new Comment();
+        $form = $this->createForm(CommentForm::class, $comment);
 
+
+        $messages = $this->getDoctrine()->getManager()->getRepository(Message::class)->findAll();
         return $this->render('message/index.html.twig', array('messages' => $messages,
+            'formObject' => $form,
             'controller_name' => 'Message Controller'));
     }
 
@@ -86,7 +93,7 @@ class MessageController extends Controller
         if (!$message)
         {
             throw $this->createNotFoundException(
-                'No message found for id '.$id
+                'No message found for id ' . $id
             );
         }
         $message->setContent($newContent);
@@ -151,5 +158,22 @@ class MessageController extends Controller
         $entityManager->remove($comment);
         $entityManager->flush();
     }
+
+    /**
+     * @Route("/message/form", name="formComment")
+     */
+    public function new(Request $request)
+    {
+        $comment = new Comment();
+        $form = $this->createForm(CommentForm::class, $comment);
+        $form->add('submit', SubmitType::class, [
+            'label' => 'Create',
+            'attr' => ['class' => 'btn btn-default pull-right'],
+        ]);
+        return $this->render('form/comment.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
 
 }

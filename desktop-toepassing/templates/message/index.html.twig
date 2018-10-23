@@ -26,17 +26,17 @@
             {% if messages %}
                 <ul>
                     {% for m in messages %}
-                        <div class="mdl-cell mdl-cell--6-col">
+                        <div class="">
 
-                            <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+                            <div class="demo-card-wide mdl-shadow--3dp">
                                 <div class="mdl-card__title">
-                                    <h2 class="mdl-card__title-text">
+                                    <h3 class="mdl-card__title-text">
                                         {% if m.user %}
                                             {{ m.user.username|e }}
                                         {% else %}
                                             User not found
                                         {% endif %}
-                                    </h2>
+                                    </h3>
                                 </div>
                                 <div class="mdl-card__supporting-text">
                                     {% if m.content %}
@@ -45,35 +45,71 @@
                                         Content not found
                                     {% endif %}
                                 </div>
+                                <div class="center">
+                                    <span class="mdl-chip mdl-chip--contact">
+                                        <span class="mdl-chip__contact mdl-color--blue mdl-color-text--white">{{ m.upVotes }}</span>
+                                        <span class="mdl-chip__text">Up Vote</span>
+                                    </span>
+                                    <span class="mdl-chip mdl-chip--contact">
+                                        <span class="mdl-chip__contact mdl-color--red mdl-color-text--white">{{ m.downVotes }}</span>
+                                        <span class="mdl-chip__text">Down Vote</span>
+                                    </span>
+                                </div>
                                 <div class="mdl-card__actions mdl-card--border">
-                                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                                        Reply
-                                    </a>
+                                    <div class="">
+                                        {% if m.date %}
+                                            {{ m.date|date("m/d/Y") }}
+                                        {% else %}
+                                            Date not found
+                                        {% endif %}
+                                        <br/>
+                                    </div>
+                                    {% if m.categories %}
+                                        <div class="mdl-card__subtitle-text">
+                                        {% for c in m.categories %}
+                                                {% if c.name %}
+                                                    {{ c.name }} |
+                                                {% else %}
+                                                    Name not found
+                                                {% endif %}
+                                        {% endfor %}
+                                        </div>
+                                    {% endif %}
                                 </div>
-                                <div class="mdl-card__menu">
-                                    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-                                        <i class="material-icons">share</i>
-                                    </button>
-                                </div>
+                                <!-- Loop comments -->
                                 {% if m.comments %}
-                                <ul class="demo-list-three mdl-list">
                                     {% for c in m.comments %}
-                                    <li class="mdl-list__item mdl-list__item--three-line">
-                                        <span class="mdl-list__item-primary-content">
-                                          <i class="material-icons mdl-list__item-avatar">person</i>
-                                          <span>Bryan Cranston</span>
-                                          <span class="mdl-list__item-text-body">
-                                            {{ c.content }}
-                                          </span>
-                                        </span>
-                                          <span class="mdl-list__item-secondary-content">
-                                            <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">star</i></a>
-                                        </span>
-                                    </li>
+                                        <div class="mdl-list__item mdl-list__item--three-line mdl-shadow--2dp background whole">
+                                            <span class="mdl-list__item-primary-content">
+                                                <span class="mdl-chip__contact mdl-color--black mdl-color-text--white">
+                                                   {{ c.user.userName|slice(1, 2) }}
+                                                </span>
+                                                <span class={"small_text"}>
+                                                    {{ c.user.userName }}
+                                                </span>
+                                                <span class="small_text mdl-list__item-text-body ">
+                                                    {{ c.content }}
+                                                </span>
+                                            </span>
+                                        </div>
                                     {% endfor %}
-                                </ul>
                                 {% endif %}
+                                <!-- Add comment -->
+
+                                {% set form = formObject.createView %}
+                                {{ form_start(form) }}
+                                <div class="mdl-list__item mdl-list__item--three-line mdl-shadow--2dp background whole">
+                                    <label class="mdl-textfield__label" for="comment_form_content">Voer hier uw bericht in...</label>
+                                    {{ form_widget(form.content, { 'attr': {'class': 'mdl-textfield__input'} }) }}
+
+                                    <!--<input class="mdl-textfield__input" type="text" id="sample1">-->
+                                    {{ form_end(form) }}
+                                    <submit class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                                        Reply
+                                    </submit>
+
                             </div>
+
 
                         </div>
                     {% endfor %}
