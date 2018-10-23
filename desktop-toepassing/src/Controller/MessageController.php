@@ -6,11 +6,12 @@ use App\Entity\Message;
 use App\Entity\Category;
 use App\Entity\Comment;
 use App\Form\CommentForm;
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\HttpFoundation\Request;
 
 class MessageController extends Controller
 {
@@ -47,11 +48,13 @@ class MessageController extends Controller
 
     // Anonieme gebruikers kunnen zoeken in messages
     /**
-     * @Route("/message/find?id={id}", name="getAllMessages")
+     * @Route("/message/find", name="getById")
      */
-    public function getMessage($id)
+    public function getMessage(Request $request)
     {
-        $messages = $this->getDoctrine()->getManager()->getRepository(Message::class)->find($id);
+        $id=$request->get("id");
+        $message = $this->getDoctrine()->getManager()->getRepository(Message::class)->find($id);
+        $messages = array($message);
         return $this->render('message/index.html.twig', array('messages' => $messages,
             'controller_name' => 'Message Controller'));
     }
@@ -77,8 +80,12 @@ class MessageController extends Controller
     /**
      * @Route("/message/post", name="postMessage")
      */
-    public function postMessage(Message $message)
+    public function postMessage(Request $request)
     {
+        $message = new Message;
+        $message->setContent("TestContent");
+        $user = $this->getDoctrine()->getManager()->getRepository(User::class)->find(1);
+        $message->setUser($user);
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($message);
         $entityManager->flush();
