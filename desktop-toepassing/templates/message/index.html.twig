@@ -23,63 +23,83 @@
         <h2>Messages</h2>
 
         <div class="mdl-grid">
+
+            {% set messageSearchForm = messageSearchFormObject.createView %}
+            {{ form_start(messageSearchForm) }}
+            <!-- Simple Select -->
+            <div class="mdl-textfield mdl-js-textfield getmdl-select">
+                <!--<input type="text" value="" class="mdl-textfield__input" id="sample1" readonly>-->
+                {{ form_widget(messageSearchForm.name, { 'attr': {'class': 'mdl-textfield__input'} }) }}
+                <input type="hidden" value="" name="message_search_form_name">
+                <label for="message_search_form_name" class="mdl-textfield__label">Country</label>
+                <ul for="message_search_form_name" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                    <li class="mdl-menu__item" data-val="DEU">Germany</li>
+                    <li class="mdl-menu__item" data-val="BLR">Belarus</li>
+                    <li class="mdl-menu__item" data-val="RUS">Russia</li>
+                </ul>
+            </div>
+
+            {{ form_end(messageSearchForm) }}
+
+
+
             {% if messages %}
                 <ul>
                     {% for m in messages %}
-                        <div class="">
+                    <div class="">
 
-                            <div class="demo-card-wide mdl-shadow--3dp">
-                                <div class="mdl-card__title">
-                                    <h3 class="mdl-card__title-text">
-                                        {% if m.user %}
-                                            {{ m.user.username|e }}
-                                        {% else %}
-                                            User not found
-                                        {% endif %}
-                                    </h3>
-                                </div>
-                                <div class="mdl-card__supporting-text">
-                                    {% if m.content %}
-                                        {{ m.content|e }}
+                        <div class="demo-card-wide mdl-shadow--3dp">
+                            <div class="mdl-card__title">
+                                <h3 class="mdl-card__title-text">
+                                    {% if m.user %}
+                                        {{ m.user.username|e }}
                                     {% else %}
-                                        Content not found
+                                        User not found
                                     {% endif %}
-                                </div>
-                                <div class="center">
+                                </h3>
+                            </div>
+                            <div class="mdl-card__supporting-text">
+                                {% if m.content %}
+                                    {{ m.content|e }}
+                                {% else %}
+                                    Content not found
+                                {% endif %}
+                            </div>
+                            <div class="center">
                                     <span class="mdl-chip mdl-chip--contact">
                                         <span class="mdl-chip__contact mdl-color--blue mdl-color-text--white">{{ m.upVotes }}</span>
                                         <span class="mdl-chip__text">Up Vote</span>
                                     </span>
-                                    <span class="mdl-chip mdl-chip--contact">
+                                <span class="mdl-chip mdl-chip--contact">
                                         <span class="mdl-chip__contact mdl-color--red mdl-color-text--white">{{ m.downVotes }}</span>
                                         <span class="mdl-chip__text">Down Vote</span>
                                     </span>
-                                </div>
-                                <div class="mdl-card__actions mdl-card--border">
-                                    <div class="">
-                                        {% if m.date %}
-                                            {{ m.date|date("m/d/Y") }}
-                                        {% else %}
-                                            Date not found
-                                        {% endif %}
-                                        <br/>
-                                    </div>
-                                    {% if m.categories %}
-                                        <div class="mdl-card__subtitle-text">
-                                        {% for c in m.categories %}
-                                                {% if c.name %}
-                                                    {{ c.name }} |
-                                                {% else %}
-                                                    Name not found
-                                                {% endif %}
-                                        {% endfor %}
-                                        </div>
+                            </div>
+                            <div class="mdl-card__actions mdl-card--border">
+                                <div class="">
+                                    {% if m.date %}
+                                        {{ m.date|date("m/d/Y") }}
+                                    {% else %}
+                                        Date not found
                                     {% endif %}
+                                    <br/>
                                 </div>
-                                <!-- Loop comments -->
-                                {% if m.comments %}
-                                    {% for c in m.comments %}
-                                        <div class="mdl-list__item mdl-list__item--three-line mdl-shadow--2dp background whole">
+                                {% if m.categories %}
+                                    <div class="mdl-card__subtitle-text">
+                                        {% for c in m.categories %}
+                                            {% if c.name %}
+                                                {{ c.name }} |
+                                            {% else %}
+                                                Name not found
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <!-- Loop comments -->
+                            {% if m.comments %}
+                                {% for c in m.comments %}
+                                    <div class="mdl-list__item mdl-list__item--three-line mdl-shadow--2dp background whole">
                                             <span class="mdl-list__item-primary-content">
                                                 <span class="mdl-chip__contact mdl-color--black mdl-color-text--white">
                                                    {{ c.user.userName|slice(1, 2) }}
@@ -91,34 +111,38 @@
                                                     {{ c.content }}
                                                 </span>
                                             </span>
-                                        </div>
-                                    {% endfor %}
-                                {% endif %}
-                                <!-- Add comment -->
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                            <!-- Add comment -->
 
-                                {% set form = formObject.createView %}
-                                {{ form_start(form) }}
-                                <div class="mdl-list__item mdl-list__item--three-line mdl-shadow--2dp background whole">
-                                    <label class="mdl-textfield__label" for="comment_form_content">Voer hier uw bericht in...</label>
-                                    {{ form_widget(form.content, { 'attr': {'class': 'mdl-textfield__input'} }) }}
+                            {% set commentForm = commentFormObject.createView %}
+                            {{ form_start(commentForm, {'action': path('formComment'), 'method': 'POST'}) }}
 
-                                    <!--<input class="mdl-textfield__input" type="text" id="sample1">-->
-                                    {{ form_end(form) }}
-                                    <submit class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                                        Reply
-                                    </submit>
+                            <div class="mdl-list__item mdl-list__item--three-line mdl-shadow--2dp background whole">
+                                <div class="mdl-textfield mdl-js-textfield getmdl-select">
+                                    <!--<input type="text" value="" class="mdl-textfield__input" id="sample1" readonly>-->
+                                    {{ form_widget(commentForm.content, { 'attr': {'class': 'mdl-textfield__input'} }) }}
+                                    <input type="hidden" value="" name="message_search_form_name">
+                                    <label for="comment_form_content" class="mdl-textfield__label">Country</label>
+                                </div>
 
+                                <!--<input class="mdl-textfield__input" type="text" id="sample1">-->
+                                <input type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" />
                             </div>
-
+                            {{ form_end(commentForm) }}
 
                         </div>
-                    {% endfor %}
+                        {% endfor %}
+                    </div>
                 </ul>
             {% else %}
                 No messages found
             {% endif %}
 
-
+            <div class="navigation">
+                {{ knp_pagination_render(messages) }}
+            </div>
         </div>
 
 
