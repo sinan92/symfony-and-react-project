@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Message;
 use App\Entity\Category;
 use App\Entity\Comment;
+use App\Form\CategoryForm;
 use App\Form\CommentForm;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -12,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class MessageController extends Controller
 {
@@ -38,12 +40,32 @@ class MessageController extends Controller
     }
 
     //Moderator kan alleen categorieen posten
-    public function postCategory(Category $category)
+
+    /**
+     * @Route("/category/add", name="addCategory")
+     */
+    public function postCategory(Request $request)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($category);
-        $entityManager->flush();
-        return new Response('Saved new Category ' . $category);
+        $cat = new Category();
+
+        $form = $this->createFormBuilder($cat)
+            ->add('Name', TextType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $$cat = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($cat);
+            $entityManager->flush();
+            return $this->redirectToRoute('getAllMessages');
+        }
+
+        return $this->render('category/category.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 
     // Anonieme gebruikers kunnen zoeken in messages
@@ -80,12 +102,9 @@ class MessageController extends Controller
     /**
      * @Route("/message/post", name="postMessage")
      */
-    public function postMessage(Request $request)
+    public function postMessage()
     {
         $message = new Message;
-        $message->setContent("TestContent");
-        $user = $this->getDoctrine()->getManager()->getRepository(User::class)->find(1);
-        $message->setUser($user);
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($message);
         $entityManager->flush();
