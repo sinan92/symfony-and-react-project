@@ -10,6 +10,8 @@ use App\Form\CommentForm;
 use App\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Types\ArrayType;
+use App\Form\MessageForm;
+use App\Form\MessageSearchForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -22,6 +24,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use \Datetime;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class MessageController extends Controller
 {
@@ -37,7 +41,7 @@ class MessageController extends Controller
         if (!$messages)
         {
             throw $this->createNotFoundException(
-                'No messages found for user '.$user
+                'No messages found for user ' .$user
             );
         }
         foreach ($messages as $message)
@@ -100,15 +104,27 @@ class MessageController extends Controller
     /**
      * @Route("/message/getAll", name="getAllMessages")
      */
-    public function getMessages(Request $request)
+    public function getMessages(Request $request, PaginatorInterface $paginator)
     {
         $comment = new Comment();
-        $form = $this->createForm(CommentForm::class, $comment);
+        $commentForm = $this->createForm(CommentForm::class, $comment);
+        $category = new Category();
+        $messageSearchForm = $this->createForm(MessageSearchForm::class, $category);
 
+        $messagesRepository = $this->getDoctrine()->getManager()->getRepository(Message::class);
+        $queryBuilder = $messagesRepository->createQueryBuilder('p')->getQuery();
 
-        $messages = $this->getDoctrine()->getManager()->getRepository(Message::class)->findAll();
-        return $this->render('message/index.html.twig', array('messages' => $messages,
-            'formObject' => $form,
+        //paginatie
+        $pagination = $paginator->paginate(
+            $queryBuilder,
+            $request->query->getInt('page', 1),
+            5
+        );
+
+        return $this->render('message/index.html.twig', array(
+            'messageSearchFormObject' => $messageSearchForm,
+            'commentFormObject' => $commentForm,
+            'messages' => $pagination,
             'controller_name' => 'Message Controller'));
     }
 
@@ -146,7 +162,7 @@ class MessageController extends Controller
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($message);
             $entityManager->flush();
-            return $this->redirectToRoute('postMessage');
+            return new Response('Saved new Message ' . $message);
         }
 
         return $this->render('message/new.html.twig', array(
@@ -188,12 +204,24 @@ class MessageController extends Controller
     // anoniem
     // link naar message
     // Bij het aanmaken krijgt de gebruiker het token en id van de reactie.
-    public function postComment(Comment $comment)
+    /**
+     * @Route("/message/comment/post", name="formComment")
+     */
+    public function postComment(Request $request)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($comment);
-        $entityManager->flush();
-        return new Response('Saved new Comment ' . $comment);
+        $comment = new Comment();
+        $form = $this->createForm(CommentForm::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager()->getRepository(Comment::class);
+            $datetime = new DateTime();
+            $comment->setDate(date('Y-m-d H:i:s'));
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('/message/getAll');
+        }
     }
 
     //De gebruiker kan wijzigen en verwijderen adhv het
@@ -205,7 +233,7 @@ class MessageController extends Controller
         if (!$comment)
         {
             throw $this->createNotFoundException(
-                'No comment found for id '.$id
+                'No comment found for id ' . $id
             );
         }
         $comment->setContent($newContent);
@@ -227,22 +255,4 @@ class MessageController extends Controller
         $entityManager->remove($comment);
         $entityManager->flush();
     }
-
-    /**
-     * @Route("/message/form", name="formComment")
-     */
-    public function new(Request $request)
-    {
-        $comment = new Comment();
-        $form = $this->createForm(CommentForm::class, $comment);
-        $form->add('submit', SubmitType::class, [
-            'label' => 'Create',
-            'attr' => ['class' => 'btn btn-default pull-right'],
-        ]);
-        return $this->render('form/comment.html.twig', [
-            'form' => $form->createView()
-        ]);
-    }
-
-
 }
