@@ -33,6 +33,13 @@ class Category
         $this->messages = new ArrayCollection();
     }
 
+    public function create(int $id, string $name)
+    {
+        $this->setName($name);
+        $this->$id=$id;
+        $this->messages = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

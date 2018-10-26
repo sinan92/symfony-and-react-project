@@ -18,7 +18,6 @@ class User extends BaseUser implements UserInterface, \Serializable
      */
 
     protected $id;
-
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="user", orphanRemoval=true, cascade={"persist"})
      */
@@ -109,8 +108,6 @@ class User extends BaseUser implements UserInterface, \Serializable
         }
         return $this;
     }
-
-
 
     public function __toString()
     {

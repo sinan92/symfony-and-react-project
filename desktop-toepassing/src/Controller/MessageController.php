@@ -2,22 +2,20 @@
 
 namespace App\Controller;
 
-use App\Entity\Message;
-use App\Entity\Category;
+use App\Form\CommentForm;
 use App\Entity\Comment;
-use App\Form\CommenType;
 use App\Entity\User;
-use App\Form\CommentUserType;
+use App\Entity\Message;
+use Doctrine\Common\Collections\ArrayCollection;
 use App\Form\MessageType;
 use App\Form\MessageSearchType;
+use App\Form\CommenType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 class MessageController extends Controller
 {
@@ -46,12 +44,38 @@ class MessageController extends Controller
 
 
     //Moderator kan alleen categorieen posten
-    public function postCategory(Category $category)
+
+    /**
+     * @Route("/category/add", name="addCategory")
+     */
+    public function postCategory(Request $request)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($category);
-        $entityManager->flush();
-        return new Response('Saved new Category ' . $category);
+        $category = new Category();
+
+        $form = $this->createFormBuilder($category)
+            ->add('Name', TextType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $category = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($category);
+            $entityManager->flush();
+            return $this->redirectToRoute('addCategory');
+        }
+
+        return $this->render('category/category.html.twig', array(
+            'form' => $form->createView(),
+        ));
+    }
+
+    public function getCategories()
+    {
+        $categories = $this->getDoctrine()->getManager()->getRepository(Category::class)->findAll();
+        return $categories;
     }
 
     // Anonieme gebruikers kunnen zoeken in messages
@@ -145,7 +169,7 @@ class MessageController extends Controller
     }
 
     // poster kan alleen eigen message updaten
-    public function updateMessage(int $id, string $newContent, Category $newCategory)
+    public function updateMessage(int $id, string $newContent, $newCategory)
     {
         $entityManager = $this->getDoctrine()->getManager();
         $message =  $entityManager->getRepository(message::class)->find($id);
