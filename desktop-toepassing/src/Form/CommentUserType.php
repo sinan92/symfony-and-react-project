@@ -3,12 +3,11 @@
  * Created by PhpStorm.
  * User: QuanDar
  * Date: 26/10/2018
- * Time: 14:02
+ * Time: 10:30
  */
 
 namespace App\Form;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,21 +16,16 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormTypeInterface;
+
 use App\Entity\User;
 
-class AddUserForm extends AbstractType
+class CommentUserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('id', HiddenType::class, array('required' => false))
-            ->add('userName', TextType::class, array('required' => true))
-            ->add('password', TextType::class, array('required' => true))
-            ->add('rolesString', ChoiceType::class, array(
-                'choices'  => array(
-                    'Admin' => "ROLE_ADMIN",
-                    'Poster' => "ROLE_POSTER",
-                ),
-            ));
+            ->add('username', HiddenType::class, array('required' => false))
+            ->add('password', HiddenType::class, array('required' => false));
     }
 
     public function configureOptions(OptionsResolver $resolver)

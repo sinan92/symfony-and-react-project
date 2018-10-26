@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: QuanDar
  * Date: 26/10/2018
- * Time: 15:21
+ * Time: 15:20
  */
 
 namespace App\Form;
@@ -19,19 +19,11 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormTypeInterface;
 use App\Entity\User;
 
-class UpdateUserForm  extends AbstractType
+class DeleteUserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('id', TextType::class, array('required' => true))
-            ->add('userName', TextType::class, array('required' => false))
-            ->add('password', TextType::class, array('required' => false))
-            ->add('rolesString', ChoiceType::class, array(
-                'choices'  => array(
-                    'Admin' => "ROLE_ADMIN",
-                    'Poster' => "ROLE_POSTER",
-                ),
-            ));
+        $builder->add('username', TextType::class, array('label' => false));
     }
 
     public function configureOptions(OptionsResolver $resolver)

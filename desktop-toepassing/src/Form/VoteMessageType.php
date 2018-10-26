@@ -11,7 +11,7 @@ namespace App\Form;
 
 use App\Entity\Message;
 
-class VoteMessageForm extends AbstractType
+class VoteMessageType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

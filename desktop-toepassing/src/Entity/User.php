@@ -1,6 +1,7 @@
 <?php namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use FOS\UserBundle\Model\GroupInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
@@ -19,11 +20,6 @@ class User extends BaseUser implements UserInterface, \Serializable
     protected $id;
 
     /**
-     * @ORM\Column(name="rolesString", type="string", length=255)
-     */
-    private $rolesString;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="user", orphanRemoval=true, cascade={"persist"})
      */
     private $messages;
@@ -33,9 +29,11 @@ class User extends BaseUser implements UserInterface, \Serializable
      */
     private $comments;
 
+    protected  $roles;
 
     public function __construct()
     {
+        parent::__construct();
         $this->messages = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
@@ -51,59 +49,6 @@ class User extends BaseUser implements UserInterface, \Serializable
 
         return $this;
     }
-
-
-
-
-    public function getUsername(): ?string
-    {
-        return $this->username;
-    }
-
-    public function setUsername($username): self
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword($password): self
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    public function eraseCredentials()
-    {
-    }
-
-    public function getRoles()
-    {
-        return preg_split("/[\s,]+/", $this->rolesString);
-    }
-
-    public function getSalt()
-    {
-        return null;
-    }
-
-    public function setRolesString($rolesString)
-    {
-        $this->rolesString = $rolesString;
-
-        return $this;
-    }
-    public function getRolesString()
-    {
-        return $this->rolesString;
-    }
-
 
     /**
      * @return Collection|Message[]
@@ -150,7 +95,6 @@ class User extends BaseUser implements UserInterface, \Serializable
             $this->comments[] = $comment;
             $comment->setUser($this);
         }
-
         return $this;
     }
 
@@ -166,25 +110,7 @@ class User extends BaseUser implements UserInterface, \Serializable
         return $this;
     }
 
-    public function serialize()
-    {
-        return serialize(array(
-            $this->id,
-            $this->username,
-            $this->password,
-            $this->rolesString
-        ));
-    }
 
-    public function unserialize($serialized)
-    {
-        list (
-            $this->id,
-            $this->username,
-            $this->password,
-            $this->rolesString
-            ) = unserialize($serialized);
-    }
 
     public function __toString()
     {

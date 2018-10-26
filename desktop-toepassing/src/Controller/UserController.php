@@ -4,14 +4,14 @@ namespace App\Controller;
 use App\Entity\Message;
 use App\Entity\Category;
 use App\Entity\Comment;
-use App\Form\CommentForm;
+use App\Form\CommenType;
 use App\Entity\User;
-use App\Form\CommentUserForm;
-use App\Form\DeleteUserForm;
-use App\Form\MessageForm;
-use App\Form\MessageSearchForm;
-use App\Form\AddUserForm;
-use App\Form\UpdateUserForm;
+use App\Form\CommentUserType;
+use App\Form\DeleteUserType;
+use App\Form\MessageType;
+use App\Form\MessageSearchType;
+use App\Form\AddUserType;
+use App\Form\UpdateUserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,11 +30,11 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $user = new User();
-        $userForm = $this->createForm(AddUserForm::class, $user);
+        $userForm = $this->createForm(AddUserType::class, $user);
         $user = new User();
-        $deleteUserForm = $this->createForm(DeleteUserForm::class, $user);
+        $deleteUserForm = $this->createForm(DeleteUserType::class, $user);
         $user = new User();
-        $updateUserForm = $this->createForm(UpdateUserForm::class, $user);
+        $updateUserForm = $this->createForm(UpdateUserType::class, $user);
 
 
         return $this->render('user/index.html.twig', array(
@@ -52,7 +52,7 @@ class UserController extends Controller
     public function postUser(Request $request)
     {
         $user = new User();
-        $form = $this->createForm(AddUserForm::class, $user);
+        $form = $this->createForm(AddUserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -77,7 +77,7 @@ class UserController extends Controller
     public function updateUser(Request $request)
     {
         $user = new User();
-        $form = $this->createForm(UpdateUserForm::class, $user);
+        $form = $this->createForm(UpdateUserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -111,7 +111,7 @@ class UserController extends Controller
     public function deleteUser(Request $request)
     {
         $user = new User();
-        $form = $this->createForm(DeleteUserForm::class, $user);
+        $form = $this->createForm(DeleteUserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

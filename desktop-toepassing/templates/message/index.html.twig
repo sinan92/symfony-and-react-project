@@ -49,7 +49,7 @@
                     <!--<input type="text" value="" class="mdl-textfield__input" id="sample1" readonly>-->
                     {{ form_widget(messageSearchForm.name, { 'attr': {'class': 'mdl-textfield__input'} }) }}
                     <input type="hidden" value="" name="message_search_form_name">
-                    <label for="message_search_form_name" class="mdl-textfield__label">Country</label>
+                    <label for="message_search_form_name" class="mdl-textfield__label">Zoek door berichten</label>
                     <ul for="message_search_form_name" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
                         <li class="mdl-menu__item" data-val="DEU">Germany</li>
                         <li class="mdl-menu__item" data-val="BLR">Belarus</li>
@@ -142,15 +142,12 @@
                                     <!--<input type="text" value="" class="mdl-textfield__input" id="sample1" readonly>-->
                                     {{ form_widget(commentForm.content, { 'attr': {'class': 'mdl-textfield__input'} }) }}
                                     <input type="hidden" value="" name="message_search_form_name">
-                                    <label for="comment_form_content" class="mdl-textfield__label">Country</label>
+                                    <label for="comment_form_content" class="mdl-textfield__label">Voeg comment toe</label>
                                 </div>
                                 {{ form_widget(commentForm.message.id, {'value' : m.id}) }}
 
                                 {% if(app.user) %}
                                     {{ form_widget(commentForm.user.id, {'value' : app.user.id}) }}
-                                    {{ form_widget(commentForm.user.username, {'value' : app.user.username}) }}
-                                    {{ form_widget(commentForm.user.password, {'value' : app.user.password}) }}
-                                    {{ form_widget(commentForm.user.rolesString, {'value' : app.user.rolesString}) }}
                                 {% endif %}
 
                                 {{ form_widget(commentForm.message.user.id, {'value' : m.user.id}) }}

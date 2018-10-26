@@ -16,7 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class MessageForm extends AbstractType
+class MessageType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -26,7 +26,7 @@ class MessageForm extends AbstractType
             ->add('date', HiddenType::class, array('required' => false))
             ->add('upVotes', HiddenType::class, array('required' => false))
             ->add('downVotes', HiddenType::class, array('required' => false))
-            ->add('user', CommentUserForm::class, array('label' => false));
+            ->add('user', CommentUserType::class, array('label' => false));
 
     }
 

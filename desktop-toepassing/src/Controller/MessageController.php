@@ -5,11 +5,11 @@ namespace App\Controller;
 use App\Entity\Message;
 use App\Entity\Category;
 use App\Entity\Comment;
-use App\Form\CommentForm;
+use App\Form\CommenType;
 use App\Entity\User;
-use App\Form\CommentUserForm;
-use App\Form\MessageForm;
-use App\Form\MessageSearchForm;
+use App\Form\CommentUserType;
+use App\Form\MessageType;
+use App\Form\MessageSearchType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -71,11 +71,11 @@ class MessageController extends Controller
     public function getMessages(Request $request, PaginatorInterface $paginator)
     {
         $comment = new Comment();
-        $commentForm = $this->createForm(CommentForm::class, $comment);
+        $commentForm = $this->createForm(CommenType::class, $comment);
         $category = new Category();
-        $messageSearchForm = $this->createForm(MessageSearchForm::class, $category);
+        $messageSearchForm = $this->createForm(MessageSearchType::class, $category);
         $message = new Message();
-        $messageForm =  $this->createForm(MessageForm::class, $message);
+        $messageForm =  $this->createForm(MessageType::class, $message);
 
         $messagesRepository = $this->getDoctrine()->getManager()->getRepository(Message::class);
         $queryBuilder = $messagesRepository->createQueryBuilder('p')->getQuery();
@@ -102,7 +102,7 @@ class MessageController extends Controller
     public function postMessage(Request $request)
     {
         $message = new Message();
-        $form = $this->createForm(MessageForm::class, $message);
+        $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -163,7 +163,7 @@ class MessageController extends Controller
     public function postComment(Request $request)
     {
         $comment = new Comment();
-        $form = $this->createForm(CommentForm::class, $comment);
+        $form = $this->createForm(CommenType::class, $comment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
