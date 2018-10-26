@@ -11,6 +11,7 @@ use App\Form\CommentUserForm;
 use App\Form\MessageForm;
 use App\Form\MessageSearchForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -53,15 +54,13 @@ class MessageController extends Controller
 
     // Anonieme gebruikers kunnen zoeken in messages
     /**
-     * @Route("/message/find", name="getById")
+     * @Route("/message/{id}", name="getById")
      */
     public function getMessage(Request $request)
     {
         $id=$request->get("id");
         $message = $this->getDoctrine()->getManager()->getRepository(Message::class)->find($id);
-        $messages = array($message);
-        return $this->render('message/index.html.twig', array('messages' => $messages,
-            'controller_name' => 'Message Controller'));
+        return new Response($message);
     }
 
     // anonieme gebruikers
@@ -75,7 +74,8 @@ class MessageController extends Controller
         $commentForm = $this->createForm(CommentForm::class, $comment);
         $category = new Category();
         $messageSearchForm = $this->createForm(MessageSearchForm::class, $category);
-
+        $message = new Message();
+        $messageForm =  $this->createForm(MessageForm::class, $message);
 
         $messagesRepository = $this->getDoctrine()->getManager()->getRepository(Message::class);
         $queryBuilder = $messagesRepository->createQueryBuilder('p')->getQuery();
@@ -90,6 +90,7 @@ class MessageController extends Controller
         return $this->render('message/index.html.twig', array(
             'messageSearchFormObject' => $messageSearchForm,
             'commentFormObject' => $commentForm,
+            'messageFormObject' => $messageForm,
             'messages' => $pagination,
             'controller_name' => 'Message Controller'));
     }
@@ -100,14 +101,26 @@ class MessageController extends Controller
      */
     public function postMessage(Request $request)
     {
-        $message = new Message;
-        $message->setContent("TestContent");
-        $user = $this->getDoctrine()->getManager()->getRepository(User::class)->find(1);
-        $message->setUser($user);
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($message);
-        $entityManager->flush();
-        return new Response('Saved new Message ' . $message);
+        $message = new Message();
+        $form = $this->createForm(MessageForm::class, $message);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $message->setDate(new \DateTime());
+            $message->setDownVotes(0);
+            $message->setUpVotes(0);
+
+            if($message->getUser() != null) {
+                $message->setUser($this->getDoctrine()->getManager()->getRepository(User::class)->find($message->getUser()->getId()));
+            } else {
+                return $this->redirectToRoute('loginroute');
+            }
+            $entityManager->persist($message);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('getAllMessages');
+        }
     }
 
     // poster kan alleen eigen message updaten
