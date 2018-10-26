@@ -3,3 +3,6 @@ php bin/console make:migration
 
 // gebruik deze om de velden aan te maken in werkpakket3 db.
 php bin/console doctrine:migrations:migrate
+
+// make user admin
+php bin/console fos:user:promote test ROLE_ADMIN

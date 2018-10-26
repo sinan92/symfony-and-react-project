@@ -43,6 +43,8 @@ class MessageController extends Controller
         $entityManager->flush();
     }
 
+
+
     //Moderator kan alleen categorieen posten
     public function postCategory(Category $category)
     {
@@ -72,14 +74,25 @@ class MessageController extends Controller
     {
         $comment = new Comment();
         $commentForm = $this->createForm(CommenType::class, $comment);
-        $category = new Category();
-        $messageSearchForm = $this->createForm(MessageSearchType::class, $category);
+        // Form for creating searched message
+        $searchMessage = new Message();
+        $messageSearchForm = $this->createForm(MessageSearchType::class, $searchMessage);
         $message = new Message();
         $messageForm =  $this->createForm(MessageType::class, $message);
 
-        $messagesRepository = $this->getDoctrine()->getManager()->getRepository(Message::class);
-        $queryBuilder = $messagesRepository->createQueryBuilder('p')->getQuery();
+        // form for retrieving search message query
+        $searchedMessage = new Message();
+        $form = $this->createForm(MessageSearchType::class, $searchedMessage);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $messagesRepository = $this->getDoctrine()->getManager()->getRepository(Message::class);
+            $content = $searchedMessage->getContent();
+            $queryBuilder = $messagesRepository->createQueryBuilder('m')->where('m.content LIKE :content')->setParameter('content', "%$content%")->getQuery();
+        } else {
+            $messagesRepository = $this->getDoctrine()->getManager()->getRepository(Message::class);
+            $queryBuilder = $messagesRepository->createQueryBuilder('p')->getQuery();
+        }
         //paginatie
         $pagination = $paginator->paginate(
             $queryBuilder,
@@ -93,6 +106,14 @@ class MessageController extends Controller
             'messageFormObject' => $messageForm,
             'messages' => $pagination,
             'controller_name' => 'Message Controller'));
+    }
+
+    // Anonieme gebruikers kunnen zoeken in messages
+    /**
+     * @Route( name="searchMessages")
+     */
+    public function searchMessages(Request $request, PaginatorInterface $paginator){
+
     }
 
     // posters kunnen berichten aanmaken in bestaande categorie
