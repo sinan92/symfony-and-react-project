@@ -26,7 +26,7 @@ class MessageForm extends AbstractType
             ->add('date', HiddenType::class, array('required' => false))
             ->add('upVotes', HiddenType::class, array('required' => false))
             ->add('downVotes', HiddenType::class, array('required' => false))
-            ->add('user', UserForm::class, array('label' => false));
+            ->add('user', CommentUserForm::class, array('label' => false));
 
     }
 

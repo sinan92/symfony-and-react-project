@@ -54,7 +54,7 @@ class MessageController extends Controller
 
     // Anonieme gebruikers kunnen zoeken in messages
     /**
-     * @Route("/message/{id}", name="getById")
+     * @Route("/message/find/{id}", name="getMessageById")
      */
     public function getMessage(Request $request)
     {

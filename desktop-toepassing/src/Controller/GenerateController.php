@@ -15,7 +15,7 @@ class GenerateController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $user = new User();
-        $user->setUserName('test');
+        $user->setUsername('test');
         $user->setRolesString(
             'ROLE_ADMIN ROLE_USER');
         $password = 'test';

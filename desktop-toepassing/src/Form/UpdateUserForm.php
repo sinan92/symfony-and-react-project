@@ -3,11 +3,12 @@
  * Created by PhpStorm.
  * User: QuanDar
  * Date: 26/10/2018
- * Time: 14:02
+ * Time: 15:21
  */
 
 namespace App\Form;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,14 +19,19 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormTypeInterface;
 use App\Entity\User;
 
-class UserForm extends AbstractType
+class UpdateUserForm  extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('id', HiddenType::class, array('required' => false))
-            ->add('username', HiddenType::class, array('required' => false))
-            ->add('password', HiddenType::class, array('required' => false))
-            ->add('rolesString', HiddenType::class, array('required' => false));
+        $builder->add('id', TextType::class, array('required' => true))
+            ->add('userName', TextType::class, array('required' => false))
+            ->add('password', TextType::class, array('required' => false))
+            ->add('rolesString', ChoiceType::class, array(
+                'choices'  => array(
+                    'Admin' => "ROLE_ADMIN",
+                    'Poster' => "ROLE_POSTER",
+                ),
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

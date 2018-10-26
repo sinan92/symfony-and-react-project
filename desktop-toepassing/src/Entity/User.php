@@ -1,16 +1,14 @@
-<?php
-
-namespace App\Entity;
-
+<?php namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Security\Core\User\UserInterface;
+use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User implements UserInterface, \Serializable
+class User extends BaseUser implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id()
@@ -18,17 +16,7 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="integer")
      */
 
-    private $id;
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-
-    private $userName;
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-
-    private $password;
+    protected $id;
 
     /**
      * @ORM\Column(name="rolesString", type="string", length=255)
@@ -65,14 +53,16 @@ class User implements UserInterface, \Serializable
     }
 
 
-    public function getUserName(): ?string
+
+
+    public function getUsername(): ?string
     {
-        return $this->userName;
+        return $this->username;
     }
 
-    public function setUserName(string $userName): self
+    public function setUsername($username): self
     {
-        $this->userName = $userName;
+        $this->username = $username;
 
         return $this;
     }
@@ -82,7 +72,7 @@ class User implements UserInterface, \Serializable
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword($password): self
     {
         $this->password = $password;
 
@@ -180,7 +170,7 @@ class User implements UserInterface, \Serializable
     {
         return serialize(array(
             $this->id,
-            $this->userName,
+            $this->username,
             $this->password,
             $this->rolesString
         ));
@@ -190,7 +180,7 @@ class User implements UserInterface, \Serializable
     {
         list (
             $this->id,
-            $this->userName,
+            $this->username,
             $this->password,
             $this->rolesString
             ) = unserialize($serialized);
@@ -198,6 +188,6 @@ class User implements UserInterface, \Serializable
 
     public function __toString()
     {
-        return "Entity User, username= " . $this->userName;
+        return "Entity User, username= " . $this->username;
     }
 }
