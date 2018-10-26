@@ -1,15 +1,15 @@
-<?php
-
-namespace App\Entity;
-
+<?php namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use FOS\UserBundle\Model\GroupInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User
+class User extends BaseUser implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id()
@@ -17,34 +17,22 @@ class User
      * @ORM\Column(type="integer")
      */
 
-    public $id;
+    protected $id;
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-
-    private $userName;
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-
-    private $password;
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-
-    private $role;
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="user", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="user", orphanRemoval=true, cascade={"persist"})
      */
     private $messages;
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="user", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="user", orphanRemoval=true, cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $comments;
 
+    protected  $roles;
 
     public function __construct()
     {
+        parent::__construct();
         $this->messages = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
@@ -54,38 +42,9 @@ class User
         return $this->id;
     }
 
-    public function getUserName(): ?string
+    public function setId($id): self
     {
-        return $this->userName;
-    }
-
-    public function setUserName(string $userName): self
-    {
-        $this->userName = $userName;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    public function getRole(): ?string
-    {
-        return $this->role;
-    }
-
-    public function setRole(string $role): self
-    {
-        $this->role = $role;
+        $this->id = $id;
 
         return $this;
     }
@@ -135,7 +94,6 @@ class User
             $this->comments[] = $comment;
             $comment->setUser($this);
         }
-
         return $this;
     }
 
@@ -153,7 +111,6 @@ class User
 
     public function __toString()
     {
-        return "Entity User, id= " . $this->getId();
+        return "Entity User, username= " . $this->username;
     }
-
 }

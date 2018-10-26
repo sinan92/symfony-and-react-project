@@ -23,25 +23,42 @@
         <h2>Messages</h2>
 
         <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--12-col">
+                {% set messageForm = messageFormObject.createView %}
+                {{ form_start(messageForm, {'action': path('postMessage'), 'method': 'POST'}) }}
 
-            {% set messageSearchForm = messageSearchFormObject.createView %}
-            {{ form_start(messageSearchForm) }}
-            <!-- Simple Select -->
-            <div class="mdl-textfield mdl-js-textfield getmdl-select">
-                <!--<input type="text" value="" class="mdl-textfield__input" id="sample1" readonly>-->
-                {{ form_widget(messageSearchForm.name, { 'attr': {'class': 'mdl-textfield__input'} }) }}
-                <input type="hidden" value="" name="message_search_form_name">
-                <label for="message_search_form_name" class="mdl-textfield__label">Country</label>
-                <ul for="message_search_form_name" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                    <li class="mdl-menu__item" data-val="DEU">Germany</li>
-                    <li class="mdl-menu__item" data-val="BLR">Belarus</li>
-                    <li class="mdl-menu__item" data-val="RUS">Russia</li>
-                </ul>
+                {{ form_widget(messageForm.content, { 'attr': {'class': 'mdl-textfield__input'} }) }}
+
+                {% if is_granted('ROLE_ADMIN') %}
+                    <input type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" />
+                {% else %}
+                    <input type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" disabled />
+                    <span>Je moet ingelogd zijn om reacties te plaatsen</span>
+                {% endif %}
+                {% if app.user %}
+                    {{ form_widget(messageForm.user.id, {'value' : app.user.id}) }}
+                {% endif %}
+                {{ form_end(messageForm) }}
             </div>
 
-            {{ form_end(messageSearchForm) }}
-
-
+            <div class="mdl-cell mdl-cell--12-col">
+                {% set messageSearchForm = messageSearchFormObject.createView %}
+                {{ form_start(messageSearchForm, {'action': path('getAllMessages'), 'method': 'POST'}) }}
+                <!-- Simple Select -->
+                <div class="mdl-textfield mdl-js-textfield getmdl-select">
+                    <!--<input type="text" value="" class="mdl-textfield__input" id="sample1" readonly>-->
+                    {{ form_widget(messageSearchForm.content, { 'attr': {'class': 'mdl-textfield__input'} }) }}
+                    <input type="hidden" value="" name="message_search_form_name">
+                    <label for="message_search_form_name" class="mdl-textfield__label">Zoek door berichten</label>
+                    <ul for="message_search_form_name" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                        <li class="mdl-menu__item" data-val="DEU">Germany</li>
+                        <li class="mdl-menu__item" data-val="BLR">Belarus</li>
+                        <li class="mdl-menu__item" data-val="RUS">Russia</li>
+                    </ul>
+                </div>
+                <input type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" />
+                {{ form_end(messageSearchForm) }}
+            </div>
 
             {% if messages %}
                 <ul>
@@ -101,12 +118,14 @@
                                 {% for c in m.comments %}
                                     <div class="mdl-list__item mdl-list__item--three-line mdl-shadow--2dp background whole">
                                             <span class="mdl-list__item-primary-content">
-                                                <span class="mdl-chip__contact mdl-color--black mdl-color-text--white">
+                                                {% if c.user %}
+                                                    <span class="mdl-chip__contact mdl-color--black mdl-color-text--white">
                                                    {{ c.user.userName|slice(1, 2) }}
                                                 </span>
-                                                <span class={"small_text"}>
+                                                    <span class={"small_text"}>
                                                     {{ c.user.userName }}
                                                 </span>
+                                                {% endif %}
                                                 <span class="small_text mdl-list__item-text-body ">
                                                     {{ c.content }}
                                                 </span>
@@ -124,9 +143,15 @@
                                     <!--<input type="text" value="" class="mdl-textfield__input" id="sample1" readonly>-->
                                     {{ form_widget(commentForm.content, { 'attr': {'class': 'mdl-textfield__input'} }) }}
                                     <input type="hidden" value="" name="message_search_form_name">
-                                    <label for="comment_form_content" class="mdl-textfield__label">Country</label>
+                                    <label for="comment_form_content" class="mdl-textfield__label">Voeg comment toe</label>
                                 </div>
+                                {{ form_widget(commentForm.message.id, {'value' : m.id}) }}
 
+                                {% if(app.user) %}
+                                    {{ form_widget(commentForm.user.id, {'value' : app.user.id}) }}
+                                {% endif %}
+
+                                {{ form_widget(commentForm.message.user.id, {'value' : m.user.id}) }}
                                 <!--<input class="mdl-textfield__input" type="text" id="sample1">-->
                                 <input type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" />
                             </div>

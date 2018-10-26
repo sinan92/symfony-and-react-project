@@ -2,30 +2,20 @@
 
 namespace App\Controller;
 
-use App\Entity\Message;
-use App\Entity\Category;
-use App\Entity\Comment;
-use App\Form\CategoryForm;
 use App\Form\CommentForm;
+use App\Entity\Comment;
 use App\Entity\User;
+use App\Entity\Message;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\DBAL\Types\ArrayType;
-use App\Form\MessageForm;
-use App\Form\MessageSearchForm;
+use App\Form\MessageType;
+use App\Form\MessageSearchType;
+use App\Form\CommenType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Tests\Fixtures\ChoiceSubType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use \Datetime;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 class MessageController extends Controller
 {
@@ -50,6 +40,8 @@ class MessageController extends Controller
         }
         $entityManager->flush();
     }
+
+
 
     //Moderator kan alleen categorieen posten
 
@@ -88,15 +80,13 @@ class MessageController extends Controller
 
     // Anonieme gebruikers kunnen zoeken in messages
     /**
-     * @Route("/message/find", name="getById")
+     * @Route("/message/find/{id}", name="getMessageById")
      */
     public function getMessage(Request $request)
     {
         $id=$request->get("id");
         $message = $this->getDoctrine()->getManager()->getRepository(Message::class)->find($id);
-        $messages = array($message);
-        return $this->render('message/index.html.twig', array('messages' => $messages,
-            'controller_name' => 'Message Controller'));
+        return new Response($message);
     }
 
     // anonieme gebruikers
@@ -107,13 +97,26 @@ class MessageController extends Controller
     public function getMessages(Request $request, PaginatorInterface $paginator)
     {
         $comment = new Comment();
-        $commentForm = $this->createForm(CommentForm::class, $comment);
-        $category = new Category();
-        $messageSearchForm = $this->createForm(MessageSearchForm::class, $category);
+        $commentForm = $this->createForm(CommenType::class, $comment);
+        // Form for creating searched message
+        $searchMessage = new Message();
+        $messageSearchForm = $this->createForm(MessageSearchType::class, $searchMessage);
+        $message = new Message();
+        $messageForm =  $this->createForm(MessageType::class, $message);
 
-        $messagesRepository = $this->getDoctrine()->getManager()->getRepository(Message::class);
-        $queryBuilder = $messagesRepository->createQueryBuilder('p')->getQuery();
+        // form for retrieving search message query
+        $searchedMessage = new Message();
+        $form = $this->createForm(MessageSearchType::class, $searchedMessage);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $messagesRepository = $this->getDoctrine()->getManager()->getRepository(Message::class);
+            $content = $searchedMessage->getContent();
+            $queryBuilder = $messagesRepository->createQueryBuilder('m')->where('m.content LIKE :content')->setParameter('content', "%$content%")->getQuery();
+        } else {
+            $messagesRepository = $this->getDoctrine()->getManager()->getRepository(Message::class);
+            $queryBuilder = $messagesRepository->createQueryBuilder('p')->getQuery();
+        }
         //paginatie
         $pagination = $paginator->paginate(
             $queryBuilder,
@@ -124,8 +127,17 @@ class MessageController extends Controller
         return $this->render('message/index.html.twig', array(
             'messageSearchFormObject' => $messageSearchForm,
             'commentFormObject' => $commentForm,
+            'messageFormObject' => $messageForm,
             'messages' => $pagination,
             'controller_name' => 'Message Controller'));
+    }
+
+    // Anonieme gebruikers kunnen zoeken in messages
+    /**
+     * @Route( name="searchMessages")
+     */
+    public function searchMessages(Request $request, PaginatorInterface $paginator){
+
     }
 
     // posters kunnen berichten aanmaken in bestaande categorie
@@ -135,43 +147,29 @@ class MessageController extends Controller
     public function postMessage(Request $request)
     {
         $message = new Message();
-
-        $categoriesArray=array();
-        foreach ( $this->getCategories() as $category){
-            $categoriesArray[$category->getName()] = new ArrayCollection([$category]);
-        }
-
-        $form = $this->createFormBuilder($message)
-            ->add('Content', TextareaType::class)
-            ->add('Categories', ChoiceType::class, array('choices'  => $categoriesArray))
-            ->getForm();
-
+        $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $message = $form->getData();
-            $message->setUpvotes(0);
-            $message->setDownvotes(0);
-            $message->setDate(new \DateTime());
-            //!
-            //!
-            //Juiste User toevoegen!
-            $user = $this->getDoctrine()->getManager()->getRepository(User::class)->find(1);
-            $message->setUser($user);
-
             $entityManager = $this->getDoctrine()->getManager();
+            $message->setDate(new \DateTime());
+            $message->setDownVotes(0);
+            $message->setUpVotes(0);
+
+            if($message->getUser() != null) {
+                $message->setUser($this->getDoctrine()->getManager()->getRepository(User::class)->find($message->getUser()->getId()));
+            } else {
+                return $this->redirectToRoute('loginroute');
+            }
             $entityManager->persist($message);
             $entityManager->flush();
-            return new Response('Saved new Message ' . $message);
-        }
 
-        return $this->render('message/new.html.twig', array(
-            'form' => $form->createView(),
-        ));
+            return $this->redirectToRoute('getAllMessages');
+        }
     }
 
     // poster kan alleen eigen message updaten
-    public function updateMessage(int $id, string $newContent, Category $newCategory)
+    public function updateMessage(int $id, string $newContent, $newCategory)
     {
         $entityManager = $this->getDoctrine()->getManager();
         $message =  $entityManager->getRepository(message::class)->find($id);
@@ -210,17 +208,22 @@ class MessageController extends Controller
     public function postComment(Request $request)
     {
         $comment = new Comment();
-        $form = $this->createForm(CommentForm::class, $comment);
+        $form = $this->createForm(CommenType::class, $comment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager()->getRepository(Comment::class);
-            $datetime = new DateTime();
-            $comment->setDate(date('Y-m-d H:i:s'));
+            $entityManager = $this->getDoctrine()->getManager();
+            $comment->setDate(new \DateTime());
+            if($comment->getUser() != null){
+                $comment->setUser($this->getDoctrine()->getManager()->getRepository(User::class)->find($comment->getUser()->getId()));
+            }
+            $comment->setMessage($this->getDoctrine()->getManager()->getRepository(Message::class)->find($comment->getMessage()->getId()));
+
+
             $entityManager->persist($comment);
             $entityManager->flush();
 
-            return $this->redirectToRoute('/message/getAll');
+            return $this->redirectToRoute('getAllMessages');
         }
     }
 

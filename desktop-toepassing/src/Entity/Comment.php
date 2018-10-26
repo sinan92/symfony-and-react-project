@@ -18,6 +18,7 @@ class Comment
 
     /**
      * @ORM\Column(type="text")
+     * nullable=false
      */
     private $content;
 
@@ -28,17 +29,19 @@ class Comment
 
     /**
      * @ORM\Column(type="datetime")
+     * nullable=false
      */
     private $date;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Message", inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Message", inversedBy="comments", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
      */
     private $message;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $user;
 
@@ -98,7 +101,7 @@ class Comment
     /**
      * @return mixed
      */
-    public function getMessage()
+    public function getMessage(): ?Message
     {
         return $this->message;
     }
