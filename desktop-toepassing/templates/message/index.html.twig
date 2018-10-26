@@ -27,7 +27,10 @@
                 {% set messageForm = messageFormObject.createView %}
                 {{ form_start(messageForm, {'action': path('postMessage'), 'method': 'POST'}) }}
 
-                {{ form_widget(messageForm.content, { 'attr': {'class': 'mdl-textfield__input'} }) }}
+                <div class="mdl-textfield mdl-js-textfield getmdl">
+                    {{ form_widget(messageForm.content, { 'attr': {'class': 'mdl-textfield__input'} }) }}
+                    <label for="message_content" class="mdl-textfield__label">Voeg bericht toe</label>
+                </div>
 
                 {% if is_granted('ROLE_ADMIN') %}
                     <input type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" />
@@ -45,16 +48,11 @@
                 {% set messageSearchForm = messageSearchFormObject.createView %}
                 {{ form_start(messageSearchForm, {'action': path('getAllMessages'), 'method': 'POST'}) }}
                 <!-- Simple Select -->
-                <div class="mdl-textfield mdl-js-textfield getmdl-select">
+                <div class="mdl-textfield mdl-js-textfield getmdl">
                     <!--<input type="text" value="" class="mdl-textfield__input" id="sample1" readonly>-->
                     {{ form_widget(messageSearchForm.content, { 'attr': {'class': 'mdl-textfield__input'} }) }}
                     <input type="hidden" value="" name="message_search_form_name">
                     <label for="message_search_form_name" class="mdl-textfield__label">Zoek door berichten</label>
-                    <ul for="message_search_form_name" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                        <li class="mdl-menu__item" data-val="DEU">Germany</li>
-                        <li class="mdl-menu__item" data-val="BLR">Belarus</li>
-                        <li class="mdl-menu__item" data-val="RUS">Russia</li>
-                    </ul>
                 </div>
                 <input type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" />
                 {{ form_end(messageSearchForm) }}

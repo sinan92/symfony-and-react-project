@@ -41,8 +41,6 @@ class MessageController extends Controller
         $entityManager->flush();
     }
 
-
-
     //Moderator kan alleen categorieen posten
 
     /**
