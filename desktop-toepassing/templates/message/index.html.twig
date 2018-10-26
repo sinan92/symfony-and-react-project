@@ -40,9 +40,6 @@
             </div>
 
             {{ form_end(messageSearchForm) }}
-
-
-
             {% if messages %}
                 <ul>
                     {% for m in messages %}
@@ -101,12 +98,14 @@
                                 {% for c in m.comments %}
                                     <div class="mdl-list__item mdl-list__item--three-line mdl-shadow--2dp background whole">
                                             <span class="mdl-list__item-primary-content">
+                                                {% if c.user %}
                                                 <span class="mdl-chip__contact mdl-color--black mdl-color-text--white">
                                                    {{ c.user.userName|slice(1, 2) }}
                                                 </span>
                                                 <span class={"small_text"}>
                                                     {{ c.user.userName }}
                                                 </span>
+                                                {% endif %}
                                                 <span class="small_text mdl-list__item-text-body ">
                                                     {{ c.content }}
                                                 </span>
@@ -126,7 +125,16 @@
                                     <input type="hidden" value="" name="message_search_form_name">
                                     <label for="comment_form_content" class="mdl-textfield__label">Country</label>
                                 </div>
+                                {{ form_widget(commentForm.message.id, {'value' : m.id}) }}
 
+                                {% if(app.user) %}
+                                    {{ form_widget(commentForm.user.id, {'value' : app.user.id}) }}
+                                    {{ form_widget(commentForm.user.username, {'value' : app.user.username}) }}
+                                    {{ form_widget(commentForm.user.password, {'value' : app.user.password}) }}
+                                    {{ form_widget(commentForm.user.rolesString, {'value' : app.user.rolesString}) }}
+                                {% endif %}
+
+                                {{ form_widget(commentForm.message.user.id, {'value' : m.user.id}) }}
                                 <!--<input class="mdl-textfield__input" type="text" id="sample1">-->
                                 <input type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" />
                             </div>

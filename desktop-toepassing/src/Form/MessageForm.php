@@ -23,6 +23,7 @@ class MessageForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('content', TextType::class, array('label' => 'Field Label'));
+
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -4,12 +4,13 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id()
@@ -28,17 +29,19 @@ class User
      */
 
     private $password;
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
 
-    private $role;
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="user", orphanRemoval=true)
+     * @ORM\Column(name="rolesString", type="string", length=255)
+     */
+    private $rolesString;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="user", orphanRemoval=true, cascade={"persist"})
      */
     private $messages;
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="user", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="user", orphanRemoval=true, cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $comments;
 
@@ -53,6 +56,14 @@ class User
     {
         return $this->id;
     }
+
+    public function setId($id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
 
     public function getUserName(): ?string
     {
@@ -78,17 +89,31 @@ class User
         return $this;
     }
 
-    public function getRole(): ?string
+    public function eraseCredentials()
     {
-        return $this->role;
     }
 
-    public function setRole(string $role): self
+    public function getRoles()
     {
-        $this->role = $role;
+        return preg_split("/[\s,]+/", $this->rolesString);
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function setRolesString($rolesString)
+    {
+        $this->rolesString = $rolesString;
 
         return $this;
     }
+    public function getRolesString()
+    {
+        return $this->rolesString;
+    }
+
 
     /**
      * @return Collection|Message[]
@@ -151,9 +176,28 @@ class User
         return $this;
     }
 
-    public function __toString()
+    public function serialize()
     {
-        return "Entity User, id= " . $this->getId();
+        return serialize(array(
+            $this->id,
+            $this->userName,
+            $this->password,
+            $this->rolesString
+        ));
     }
 
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->userName,
+            $this->password,
+            $this->rolesString
+            ) = unserialize($serialized);
+    }
+
+    public function __toString()
+    {
+        return "Entity User, username= " . $this->userName;
+    }
 }

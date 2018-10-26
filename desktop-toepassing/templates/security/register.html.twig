@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+{% block title %}login{% endblock %}
+
+{% block body %}
+    <form action="{{ path('checkroute') }}" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="_username" />
+        <label for="password">Password:</label>
+        <input type="password" id="password"
+               name="_password" />
+        <input type="submit" name="login" />
+    </form>
+{% endblock %}

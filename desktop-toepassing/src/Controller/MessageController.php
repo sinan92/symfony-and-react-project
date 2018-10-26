@@ -7,6 +7,7 @@ use App\Entity\Category;
 use App\Entity\Comment;
 use App\Form\CommentForm;
 use App\Entity\User;
+use App\Form\CommentUserForm;
 use App\Form\MessageForm;
 use App\Form\MessageSearchForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -75,6 +76,7 @@ class MessageController extends Controller
         $category = new Category();
         $messageSearchForm = $this->createForm(MessageSearchForm::class, $category);
 
+
         $messagesRepository = $this->getDoctrine()->getManager()->getRepository(Message::class);
         $queryBuilder = $messagesRepository->createQueryBuilder('p')->getQuery();
 
@@ -100,7 +102,6 @@ class MessageController extends Controller
     {
         $message = new Message;
         $message->setContent("TestContent");
-        $user = new User();
         $user = $this->getDoctrine()->getManager()->getRepository(User::class)->find(1);
         $message->setUser($user);
         $entityManager = $this->getDoctrine()->getManager();
@@ -153,13 +154,18 @@ class MessageController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager()->getRepository(Comment::class);
-            $datetime = new DateTime();
-            $comment->setDate(date('Y-m-d H:i:s'));
+            $entityManager = $this->getDoctrine()->getManager();
+            $comment->setDate(new \DateTime());
+            if($comment->getUser() != null){
+                $comment->setUser($this->getDoctrine()->getManager()->getRepository(User::class)->find($comment->getUser()->getId()));
+            }
+            $comment->setMessage($this->getDoctrine()->getManager()->getRepository(Message::class)->find($comment->getMessage()->getId()));
+
+
             $entityManager->persist($comment);
             $entityManager->flush();
 
-            return $this->redirectToRoute('/message/getAll');
+            return $this->redirectToRoute('getAllMessages');
         }
     }
 
