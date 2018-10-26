@@ -8,12 +8,20 @@ use App\Entity\Comment;
 use App\Form\CategoryForm;
 use App\Form\CommentForm;
 use App\Entity\User;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\DBAL\Types\ArrayType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Tests\Fixtures\ChoiceSubType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use \Datetime;
 
 class MessageController extends Controller
 {
@@ -46,26 +54,32 @@ class MessageController extends Controller
      */
     public function postCategory(Request $request)
     {
-        $cat = new Category();
+        $category = new Category();
 
-        $form = $this->createFormBuilder($cat)
+        $form = $this->createFormBuilder($category)
             ->add('Name', TextType::class)
             ->getForm();
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $$cat = $form->getData();
+            $category = $form->getData();
 
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($cat);
+            $entityManager->persist($category);
             $entityManager->flush();
-            return $this->redirectToRoute('getAllMessages');
+            return $this->redirectToRoute('addCategory');
         }
 
         return $this->render('category/category.html.twig', array(
             'form' => $form->createView(),
         ));
+    }
+
+    public function getCategories()
+    {
+        $categories = $this->getDoctrine()->getManager()->getRepository(Category::class)->findAll();
+        return $categories;
     }
 
     // Anonieme gebruikers kunnen zoeken in messages
@@ -102,13 +116,42 @@ class MessageController extends Controller
     /**
      * @Route("/message/post", name="postMessage")
      */
-    public function postMessage()
+    public function postMessage(Request $request)
     {
-        $message = new Message;
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($message);
-        $entityManager->flush();
-        return new Response('Saved new Message ' . $message);
+        $message = new Message();
+
+        $categoriesArray=array();
+        foreach ( $this->getCategories() as $category){
+            $categoriesArray[$category->getName()] = new ArrayCollection([$category]);
+        }
+
+        $form = $this->createFormBuilder($message)
+            ->add('Content', TextareaType::class)
+            ->add('Categories', ChoiceType::class, array('choices'  => $categoriesArray))
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $message = $form->getData();
+            $message->setUpvotes(0);
+            $message->setDownvotes(0);
+            $message->setDate(new \DateTime());
+            //!
+            //!
+            //Juiste User toevoegen!
+            $user = $this->getDoctrine()->getManager()->getRepository(User::class)->find(1);
+            $message->setUser($user);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($message);
+            $entityManager->flush();
+            return $this->redirectToRoute('postMessage');
+        }
+
+        return $this->render('message/new.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 
     // poster kan alleen eigen message updaten
