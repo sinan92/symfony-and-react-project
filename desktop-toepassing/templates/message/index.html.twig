@@ -45,6 +45,18 @@
             </div>
 
             <div class="mdl-cell mdl-cell--12-col">
+                {% set categoryForm = categoryFormObject.createView %}
+                {{ form_start(categoryForm, {'action': path('postMessage'), 'method': 'POST'}) }}
+
+                <div class="mdl-textfield mdl-js-textfield getmdl">
+                    {{ form_widget(categoryForm.name, { 'attr': {'class': 'mdl-textfield__input'} }) }}
+                    <label for="message_content" class="mdl-textfield__label">Voeg bericht toe</label>
+                </div>
+                {{ form_end(categoryForm) }}
+            </div>
+
+
+            <div class="mdl-cell mdl-cell--12-col">
                 {% set messageSearchForm = messageSearchFormObject.createView %}
                 {{ form_start(messageSearchForm, {'action': path('getAllMessages'), 'method': 'POST'}) }}
                 <!-- Simple Select -->

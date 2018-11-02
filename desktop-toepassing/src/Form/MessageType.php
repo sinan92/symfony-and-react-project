@@ -8,13 +8,24 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Message;
-use App\Entity\User;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class MessageType extends AbstractType
 {
@@ -26,6 +37,13 @@ class MessageType extends AbstractType
             ->add('date', HiddenType::class, array('required' => false))
             ->add('upVotes', HiddenType::class, array('required' => false))
             ->add('downVotes', HiddenType::class, array('required' => false))
+            ->add('categories', CollectionType::class, array(
+                'entry_type' => CategoryType::class
+            ))
+            //->add('categories', CategoryType::class, array('label' => false))
+           //->add('categories', EntityType::class, array(
+           //   'class' => Message::class,
+           //  'choices' => $this->getCategories()))
             ->add('user', CommentUserType::class, array('label' => false));
 
     }

@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
+use App\Form\CategoryType;
 use App\Form\CommentForm;
 use App\Entity\Comment;
 use App\Entity\User;
@@ -99,8 +101,12 @@ class MessageController extends Controller
         // Form for creating searched message
         $searchMessage = new Message();
         $messageSearchForm = $this->createForm(MessageSearchType::class, $searchMessage);
+
         $message = new Message();
         $messageForm =  $this->createForm(MessageType::class, $message);
+
+        $category = new Category();
+        $categoryForm = $this->createForm(CategoryType::class, $category);
 
         // form for retrieving search message query
         $searchedMessage = new Message();
@@ -126,6 +132,7 @@ class MessageController extends Controller
             'messageSearchFormObject' => $messageSearchForm,
             'commentFormObject' => $commentForm,
             'messageFormObject' => $messageForm,
+            'categoryFormObject' => $categoryForm,
             'messages' => $pagination,
             'controller_name' => 'Message Controller'));
     }
