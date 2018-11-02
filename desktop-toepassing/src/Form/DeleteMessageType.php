@@ -19,8 +19,7 @@ class DeleteMessageType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('id', HiddenType::class);
+        $builder->add('id', HiddenType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

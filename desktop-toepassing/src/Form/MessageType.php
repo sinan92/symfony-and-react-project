@@ -33,7 +33,7 @@ class MessageType extends AbstractType
     {
         $builder
             ->add('id', HiddenType::class)
-            ->add('content', TextType::class, array('label' => false))
+            ->add('content', TextType::class, array('required' => false))
             ->add('date', HiddenType::class, array('required' => false))
             ->add('upVotes', HiddenType::class, array('required' => false))
             ->add('downVotes', HiddenType::class, array('required' => false))
@@ -44,7 +44,7 @@ class MessageType extends AbstractType
            //->add('categories', EntityType::class, array(
            //   'class' => Message::class,
            //  'choices' => $this->getCategories()))
-            ->add('user', CommentUserType::class, array('label' => false));
+            ->add('user', CommentUserType::class, array('required' => false));
 
     }
 
