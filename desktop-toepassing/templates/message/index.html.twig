@@ -107,7 +107,6 @@
                                         {{ form_start(upVoteMessageForm, {'action': path('upVoteMessage'), 'method': 'POST'}) }}
                                         {{ form_widget(upVoteMessageForm.id, {'value' : m.id}) }}
                                         <span class="mdl-chip__contact mdl-color--blue mdl-color-text--white">{{ m.upVotes }}</span>
-                                                                                <label class="mdl-chip__text">Up Vote</label>
                                     <input value="Up Vote" type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"/>
                                         {{ form_end(upVoteMessageForm) }}
                                     </span>
@@ -116,7 +115,6 @@
                                     {{ form_start(downVoteMessageForm, {'action': path('downVoteMessage'), 'method': 'POST'}) }}
                                     {{ form_widget(downVoteMessageForm.id, {'value' : m.id}) }}
                                     <span class="mdl-chip__contact mdl-color--red mdl-color-text--white">{{ m.downVotes }}</span>
-                                                                            <label class="mdl-chip__text">Down Vote</label>
                                     <input value="Down Vote" type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"/>
                                     {{ form_end(downVoteMessageForm) }}
                                     </span>
