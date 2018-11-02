@@ -32,19 +32,19 @@ class MessageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('id', HiddenType::class)
-            ->add('content', TextType::class, array('required' => false))
-            ->add('date', HiddenType::class, array('required' => false))
-            ->add('upVotes', HiddenType::class, array('required' => false))
-            ->add('downVotes', HiddenType::class, array('required' => false))
+            ->add('id', HiddenType::class, array('label' => false))
+            ->add('content', TextType::class, array('required' => false, 'label' => false))
+            ->add('date', HiddenType::class, array('required' => false, 'label' => false))
+            ->add('upVotes', HiddenType::class, array('required' => false, 'label' => false))
+            ->add('downVotes', HiddenType::class, array('required' => false, 'label' => false))
             ->add('categories', CollectionType::class, array(
-                'entry_type' => CategoryType::class
+                'entry_type' => CategoryType::class,
             ))
             //->add('categories', CategoryType::class, array('label' => false))
            //->add('categories', EntityType::class, array(
            //   'class' => Message::class,
            //  'choices' => $this->getCategories()))
-            ->add('user', CommentUserType::class, array('required' => false));
+            ->add('user', CommentUserType::class, array('required' => false, 'label' => false));
 
     }
 

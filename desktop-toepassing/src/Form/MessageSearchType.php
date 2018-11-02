@@ -23,7 +23,7 @@ class MessageSearchType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('content', TextType::class);
+        $builder->add('content', TextType::class, array('label' => false));
     }
 
     public function configureOptions(OptionsResolver $resolver)

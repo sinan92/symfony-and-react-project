@@ -20,9 +20,9 @@ class CommenType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('content', TextType::class)
-        ->add('message', CommentMessageType::class)
-        ->add('user', CommentUserType::class, array('required' => false));
+        $builder->add('content', TextType::class, array('label' => false))
+        ->add('message', CommentMessageType::class, array('label' => false))
+        ->add('user', CommentUserType::class, array('required' => false, 'label' => false));
 
     }
 

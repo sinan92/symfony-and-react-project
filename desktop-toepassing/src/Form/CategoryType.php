@@ -28,7 +28,7 @@ class CategoryType extends AbstractType
             'query_builder' => function (EntityRepository $er) {
                 return $er->createQueryBuilder('m')->orderBy('m.name', "ASC");
             },
-            'choice_label' => 'name',));
+            'choice_label' => 'name','label' => false));
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -18,7 +18,7 @@ class VoteMessageType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('id', HiddenType::class);
+        $builder->add('id', HiddenType::class, array('label' => false));
     }
 
     public function configureOptions(OptionsResolver $resolver)

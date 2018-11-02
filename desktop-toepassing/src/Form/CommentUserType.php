@@ -23,9 +23,9 @@ class CommentUserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('id', HiddenType::class, array('required' => false))
-            ->add('username', HiddenType::class, array('required' => false))
-            ->add('password', HiddenType::class, array('required' => false));
+        $builder->add('id', HiddenType::class, array('required' => false, 'label' => false))
+            ->add('username', HiddenType::class, array('required' => false, 'label' => false))
+            ->add('password', HiddenType::class, array('required' => false, 'label' => false));
     }
 
     public function configureOptions(OptionsResolver $resolver)

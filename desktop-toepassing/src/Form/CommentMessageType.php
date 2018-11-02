@@ -23,12 +23,12 @@ class CommentMessageType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('id', HiddenType::class)
-            ->add('content', HiddenType::class, array('required' => false))
-            ->add('date', HiddenType::class, array('required' => false))
-            ->add('upVotes', HiddenType::class, array('required' => false))
-            ->add('downVotes', HiddenType::class, array('required' => false))
-        ->add('user', CommentUserType::class, array('required' => false));
+        $builder->add('id', HiddenType::class, array('label' => false))
+            ->add('content', HiddenType::class, array('required' => false, 'label' => false))
+            ->add('date', HiddenType::class, array('required' => false, 'label' => false))
+            ->add('upVotes', HiddenType::class, array('required' => false, 'label' => false))
+            ->add('downVotes', HiddenType::class, array('required' => false, 'label' => false))
+        ->add('user', CommentUserType::class, array('required' => false, 'label' => false));
 
     }
 

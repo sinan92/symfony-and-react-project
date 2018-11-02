@@ -27,6 +27,8 @@
                 <div class="mdl-textfield mdl-js-textfield getmdl">
                     {{ form_widget(messageForm.content, { 'attr': {'class': 'mdl-textfield__input'} }) }}
                     <label for="message_content" class="mdl-textfield__label">Voeg bericht toe</label>
+                    {{ form_widget(messageForm.categories, { 'attr': {'class': ''} }) }}
+
                 </div>
 
                 {% if is_granted('ROLE_ADMIN') %}
