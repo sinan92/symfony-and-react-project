@@ -8,6 +8,8 @@ use App\Form\CommentForm;
 use App\Entity\Comment;
 use App\Entity\User;
 use App\Entity\Message;
+use App\Form\DeleteMessageType;
+use App\Form\VoteMessageType;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Form\MessageType;
 use App\Form\MessageSearchType;
@@ -104,6 +106,9 @@ class MessageController extends Controller
 
         $message = new Message();
         $messageForm =  $this->createForm(MessageType::class, $message);
+        $deleteMessageForm =  $this->createForm(DeleteMessageType::class, $message);
+        $upVoteMessageForm =  $this->createForm(VoteMessageType::class, $message);
+        $downVoteMessageForm =  $this->createForm(VoteMessageType::class, $message);
 
         $category = new Category();
         $categoryForm = $this->createForm(CategoryType::class, $category);
@@ -133,6 +138,9 @@ class MessageController extends Controller
             'commentFormObject' => $commentForm,
             'messageFormObject' => $messageForm,
             'categoryFormObject' => $categoryForm,
+            'deleteMessageFormObject' => $deleteMessageForm,
+            'upVoteMessageFormObject' => $upVoteMessageForm,
+            'downVoteMessageFormObject' => $downVoteMessageForm,
             'messages' => $pagination,
             'controller_name' => 'Message Controller'));
     }
@@ -174,34 +182,89 @@ class MessageController extends Controller
     }
 
     // poster kan alleen eigen message updaten
-    public function updateMessage(int $id, string $newContent, $newCategory)
+    public function updateMessage(Request $request)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $message =  $entityManager->getRepository(message::class)->find($id);
-        if (!$message)
-        {
-            throw $this->createNotFoundException(
-                'No message found for id ' . $id
-            );
+        $user = new User();
+        $form = $this->createForm(MessageType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $updatedUser = $entityManager->createQuery(
+                'SELECT u
+                FROM App\Entity\User u
+                WHERE u.userName = :userName'
+            )->setParameter('userName', $user->getUsername());
+            $updatedUser->setUserName($user->getUsername());
+
+            $encoder = $this->container->get('security.password_encoder');
+            $encoded = $encoder->encodePassword($user, $user->getPassword());
+
+            if($encoded != $updatedUser->getPassword()){
+                $updatedUser->setPassword($encoded);
+            }
+            $updatedUser->setRolesString($user->getRolesString());
+
+            $entityManager->flush();
+            return new Response('Updated user');
         }
-        $message->setContent($newContent);
-        $message->setCategory($newCategory);
-        $entityManager->flush();
+        return new Response('Failed updating user');
+
+    }
+
+    /**
+     * @Route("/message/downVoteMessage", name="downVoteMessage")
+     */
+    public function downVoteMessage(Request $request){
+        $message = new Message();
+        $form = $this->createForm(VoteMessageType::class, $message);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $message = $this->getDoctrine()->getManager()->getRepository(Message::class)->find($message->getId());
+            $message->setDownVotes($message->getDownVotes() + 1);
+
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('getAllMessages');
+    }
+
+    /**
+     * @Route("/message/upVoteMessage", name="upVoteMessage")
+     */
+    public function upVoteMessage(Request $request){
+        $message = new Message();
+        $form = $this->createForm(VoteMessageType::class, $message);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $message = $this->getDoctrine()->getManager()->getRepository(Message::class)->find($message->getId());
+            $message->setUpVotes($message->getUpVotes() + 1);
+
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('getAllMessages');
     }
 
     // poster kan alleen eigen message deleten
-    public function deleteMessage(int $id)
+    /**
+     * @Route("/message/delete", name="deleteMessage")
+     */
+    public function deleteMessage(Request $request)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $message = $entityManager->getRepository('appBundle:Message')->find($id);
-        if (!$message)
-        {
-            throw $this->createNotFoundException(
-                'No message found for id '.$id
-            );
+        $message = new Message();
+        $form = $this->createForm(DeleteMessageType::class, $message);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $message = $this->getDoctrine()->getManager()->getRepository(Message::class)->find($message->getId());
+            $entityManager->remove($message);
+            $entityManager->flush();
         }
-        $entityManager->remove($message);
-        $entityManager->flush();
+        return $this->redirectToRoute('getAllMessages');
     }
 
     // anoniem

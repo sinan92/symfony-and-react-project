@@ -92,14 +92,33 @@
                                     Content not found
                                 {% endif %}
                             </div>
+                            <div>
+                                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_POSTER') %}
+                                    {% set deleteMessageForm = deleteMessageFormObject.createView %}
+                                    {{ form_start(deleteMessageForm, {'action': path('deleteMessage'), 'method': 'POST'}) }}
+                                    {{ form_widget(deleteMessageForm.id, {'value' : m.id}) }}
+                                    <input type="submit" value="Verwijder bericht" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"/>
+                                    {{ form_end(deleteMessageForm) }}
+                                {% endif %}
+                            </div>
                             <div class="center">
                                     <span class="mdl-chip mdl-chip--contact">
+                                              {% set upVoteMessageForm = upVoteMessageFormObject.createView %}
+                                        {{ form_start(upVoteMessageForm, {'action': path('upVoteMessage'), 'method': 'POST'}) }}
+                                        {{ form_widget(upVoteMessageForm.id, {'value' : m.id}) }}
                                         <span class="mdl-chip__contact mdl-color--blue mdl-color-text--white">{{ m.upVotes }}</span>
-                                        <span class="mdl-chip__text">Up Vote</span>
+                                                                                <label class="mdl-chip__text">Up Vote</label>
+                                    <input value="Up Vote" type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"/>
+                                        {{ form_end(upVoteMessageForm) }}
                                     </span>
                                 <span class="mdl-chip mdl-chip--contact">
-                                        <span class="mdl-chip__contact mdl-color--red mdl-color-text--white">{{ m.downVotes }}</span>
-                                        <span class="mdl-chip__text">Down Vote</span>
+                                    {% set downVoteMessageForm = downVoteMessageFormObject.createView %}
+                                    {{ form_start(downVoteMessageForm, {'action': path('downVoteMessage'), 'method': 'POST'}) }}
+                                    {{ form_widget(downVoteMessageForm.id, {'value' : m.id}) }}
+                                    <span class="mdl-chip__contact mdl-color--red mdl-color-text--white">{{ m.downVotes }}</span>
+                                                                            <label class="mdl-chip__text">Down Vote</label>
+                                    <input value="Down Vote" type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"/>
+                                    {{ form_end(downVoteMessageForm) }}
                                     </span>
                             </div>
                             <div class="mdl-card__actions mdl-card--border">
@@ -156,7 +175,6 @@
                                     <label for="comment_form_content" class="mdl-textfield__label">Voeg comment toe</label>
                                 </div>
                                 {{ form_widget(commentForm.message.id, {'value' : m.id}) }}
-
                                 {% if(app.user) %}
                                     {{ form_widget(commentForm.user.id, {'value' : app.user.id}) }}
                                 {% endif %}
