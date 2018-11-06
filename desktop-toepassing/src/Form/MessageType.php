@@ -38,14 +38,9 @@ class MessageType extends AbstractType
             ->add('upVotes', HiddenType::class, array('required' => false, 'label' => false))
             ->add('downVotes', HiddenType::class, array('required' => false, 'label' => false))
             ->add('categories', CollectionType::class, array(
-                'entry_type' => CategoryType::class,
+                'entry_type' => CategoryType::class
             ))
-            //->add('categories', CategoryType::class, array('label' => false))
-           //->add('categories', EntityType::class, array(
-           //   'class' => Message::class,
-           //  'choices' => $this->getCategories()))
             ->add('user', CommentUserType::class, array('required' => false, 'label' => false));
-
     }
 
     public function configureOptions(OptionsResolver $resolver)

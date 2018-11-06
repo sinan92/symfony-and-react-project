@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "48c70a21702bfb10a499682c118a3628",
+    "content-hash": "d5620cc9b19837287607a8ec423b8a2a",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -5269,7 +5269,7 @@
         },
         {
             "name": "symfony/browser-kit",
-            "version": "v4.1.6",
+            "version": "v4.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/browser-kit.git",
