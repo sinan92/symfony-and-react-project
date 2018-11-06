@@ -8,6 +8,7 @@ use App\Form\CommentForm;
 use App\Entity\Comment;
 use App\Entity\User;
 use App\Entity\Message;
+use App\Form\DeleteAllMessagesFromPosterType;
 use App\Form\DeleteMessageType;
 use App\Form\VoteMessageType;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -28,24 +29,56 @@ class MessageController extends Controller
     // maar een anonieme gebruiker niet.
 
     // moderator only
+
     /**
-     * @Route("/message/poster/delete", name="deleteMessagesFromPoster")
+     * @Route("/message/poster/delete/index", name="deleteMessagesFromPosterPage")
      */
-    public function deleteAllMessagesFromPoster(string $user)
+    public function deleteAllMessagesFromPosterPage(Request $request)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $messages = $entityManager->getRepository('appBundle:Message')->findBy(array('name' => $user));
-        if (!$messages)
-        {
-            throw $this->createNotFoundException(
-                'No messages found for user ' .$user
-            );
+        // Form for creating searched message
+        $user = new User();
+        $user = $this->createForm(DeleteAllMessagesFromPosterType::class, $user);
+
+        return $this->render('message/deleteAllMessagesFromPoster.html.twig', array(
+            'userDeleteFormObject' => $user,
+            'controller_name' => 'Delete all messages from poster Controller'));
+    }
+
+    /**
+     * @Route("/message/poster/delete", name="deleteAllMessagesFromPoster")
+     */
+    public function deleteAllMessagesFromPoster(Request $request)
+    {
+        $user = new User();
+        $form = $this->createForm(DeleteAllMessagesFromPosterType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $userQuery = $entityManager->createQuery(
+                'SELECT u
+                FROM App\Entity\user u
+                WHERE u.username = :username'
+            )->setParameter('username', $user->getUsername());
+            $dbUser = $userQuery->execute();
+
+            $user = $dbUser[0];
+            $messagesQuery = $entityManager->createQuery(
+                'SELECT m
+                FROM App\Entity\Message m
+                WHERE m.user_id = :user_id'
+            )->setParameter('user_id', $user->getId());
+            $messages = $messagesQuery->execute();
+
+            foreach ($messages as $message)
+            {
+                $entityManager->remove($message);
+            }
+            $entityManager->flush();
+
+            return new Response('Deleted messages');
         }
-        foreach ($messages as $message)
-        {
-            $entityManager->remove($message);
-        }
-        $entityManager->flush();
+        return new Response('Something is wrong with the form');
     }
 
     //Moderator kan alleen categorieen posten
