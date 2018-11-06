@@ -109,6 +109,24 @@ class User extends BaseUser implements UserInterface, \Serializable
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getRoleString()
+    {
+        return $this->roles;
+    }
+
+    /**
+     * @param mixed $roles
+     */
+    public function setRoleString($roles)
+    {
+        $this->roles = $roles;
+    }
+
+
+
     public function __toString()
     {
         return "Entity User, username= " . $this->username;

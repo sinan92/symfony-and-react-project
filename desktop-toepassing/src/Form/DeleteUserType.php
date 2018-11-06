@@ -23,7 +23,7 @@ class DeleteUserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('username', TextType::class, array('required' => false, 'label' => false));
+        $builder->add('username', TextType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

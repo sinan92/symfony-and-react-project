@@ -23,16 +23,8 @@ class UpdateUserType  extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('email');
         $builder->add('username');
-        $builder->add('password');
         $builder->add('roles');
-    }
-
-    public function getParent()
-
-    {
-        return 'FOS\UserBundle\Form\Type\RegistrationFormType';
     }
 
     public function getBlockPrefix()

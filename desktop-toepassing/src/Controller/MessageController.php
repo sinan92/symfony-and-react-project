@@ -28,6 +28,9 @@ class MessageController extends Controller
     // maar een anonieme gebruiker niet.
 
     // moderator only
+    /**
+     * @Route("/message/poster/delete", name="deleteMessagesFromPoster")
+     */
     public function deleteAllMessagesFromPoster(string $user)
     {
         $entityManager = $this->getDoctrine()->getManager();
@@ -74,6 +77,10 @@ class MessageController extends Controller
         ));
     }
 
+
+    /**
+     * @Route("/message/categories", name="getCategories")
+     */
     public function getCategories()
     {
         $categories = $this->getDoctrine()->getManager()->getRepository(Category::class)->findAll();
@@ -147,7 +154,7 @@ class MessageController extends Controller
 
     // Anonieme gebruikers kunnen zoeken in messages
     /**
-     * @Route( name="searchMessages")
+     * @Route("/message/searchmessage", name="searchMessages")
      */
     public function searchMessages(Request $request, PaginatorInterface $paginator){
 
@@ -299,6 +306,9 @@ class MessageController extends Controller
 
     //De gebruiker kan wijzigen en verwijderen adhv het
     //token dat hoort bij het bericht 1pt
+    /**
+     * @Route("/message/comment/update", name="updateComment")
+     */
     public function updateComment(int $id, string $newContent)
     {
         $entityManager = $this->getDoctrine()->getManager();
@@ -315,6 +325,9 @@ class MessageController extends Controller
 
     //De gebruiker kan wijzigen en verwijderen adhv het
     //token dat hoort bij het bericht 1pt
+    /**
+     * @Route("/message/comment/delete", name="deleteComment")
+     */
     public function deleteComment(int $id)
     {
         $entityManager = $this->getDoctrine()->getManager();
