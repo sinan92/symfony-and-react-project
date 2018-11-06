@@ -61,6 +61,7 @@ class UserController extends Controller
             $encoder = $this->container->get('security.password_encoder');
             $encoded = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($encoded);
+            $user->setEnabled(1);
 
             $entityManager->persist($user);
             $entityManager->flush();
@@ -82,21 +83,18 @@ class UserController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $updatedUser = $entityManager->createQuery(
+            $userQuery = $entityManager->createQuery(
                 'SELECT u
                 FROM App\Entity\User u
-                WHERE u.userName = :userName'
-            )->setParameter('userName', $user->getUsername());
-            $updatedUser->setUserName($user->getUsername());
-
-            $encoder = $this->container->get('security.password_encoder');
-            $encoded = $encoder->encodePassword($user, $user->getPassword());
-
-            if($encoded != $updatedUser->getPassword()){
-                $updatedUser->setPassword($encoded);
+                WHERE u.username = :username'
+            )->setParameter('username', $user->getUsername());
+            $dbUser = $userQuery->execute();
+            if($dbUser==null){
+                return new Response("User not found");
             }
-            $updatedUser->setRolesString($user->getRolesString());
-
+            $updateUser = $dbUser[0];
+            $updateUser->setRoles($user->getRoles());
+            $user = $updateUser;
             $entityManager->flush();
             return new Response('Updated user');
         }
@@ -116,9 +114,21 @@ class UserController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $user = $entityManager->getRepository(User::class)->find($user->getId());
+            $userQuery = $entityManager->createQuery(
+                'SELECT u
+                FROM App\Entity\User u
+                WHERE u.username = :username'
+            )->setParameter('username', $user->getUsername());
+            $dbUser = $userQuery->execute();
+            if($dbUser==null){
+                return new Response("User not found");
+            }
+            $removeUser = $dbUser[0];
+            $user = $entityManager->getRepository(User::class)->find($removeUser->getId());
             $entityManager->remove($user);
             $entityManager->flush();
+            return new Response('Removed user');
         }
+        return new Response('Failed removing user');
     }
 }
