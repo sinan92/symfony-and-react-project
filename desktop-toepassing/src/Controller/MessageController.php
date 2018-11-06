@@ -168,6 +168,8 @@ class MessageController extends Controller
             $message->setDate(new \DateTime());
             $message->setDownVotes(0);
             $message->setUpVotes(0);
+            //$message->getCategories()->add(CategoryType::class);
+            //$message->addCategory($form['category']->getData());
 
             if($message->getUser() != null) {
                 $message->setUser($this->getDoctrine()->getManager()->getRepository(User::class)->find($message->getUser()->getId()));
