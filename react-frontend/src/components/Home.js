@@ -38,6 +38,7 @@ class Home extends React.Component {
         let comment = this.state.comment;
         let id = event.target.value;
         this.props.actions.postComment(id, comment);
+        this.props.actions.fetchMessages();
     }
 
     upvoteClick = (id) => {
@@ -63,7 +64,7 @@ class Home extends React.Component {
                         <Message id={message.id} content={message.content} upvoteClick={this.upvoteClick} downvoteClick={this.downvoteClick} upvotes={message.upVotes} downvotes={message.downVotes} date={message.date} category={message.category}/>
 
                         {message.comments.map((comment, index) =>
-                        <Comment key={index} username={comment.token} content={comment.content} />
+                        <Comment key={index} username={"Anon"} content={comment.content} />
                         )}
 
                         <WriteComment id={message.id} addComment={this.addComment.bind()} changeComment={this.changeComment} />

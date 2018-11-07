@@ -147,10 +147,10 @@ AND category LIKE ?");
     {
         $statement = $this->connection->getPDO()->prepare('SELECT * FROM comments WHERE message_id=?');
         $statement->bindValue(1, $messageId);
+        $statement->bindColumn(3, $content, \PDO::PARAM_STR);
+        $statement->bindColumn(4, $token, \PDO::PARAM_STR);
+        $statement->bindColumn(5, $date, \PDO::PARAM_STR);
         $statement->execute();
-        $statement->bindColumn(2, $content, \PDO::PARAM_STR);
-        $statement->bindColumn(3, $token, \PDO::PARAM_STR);
-        $statement->bindColumn(4, $date, \PDO::PARAM_STR);
 
         $messages = [];
         while ($statement->fetch(\PDO::FETCH_BOUND)) {
