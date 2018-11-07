@@ -19,6 +19,20 @@ class CommentRepository extends ServiceEntityRepository
         parent::__construct($registry, Comment::class);
     }
 
+    /**
+     * @return int[]
+     */
+
+    public function lastId(){
+        $entityManager = $this->getDoctrine()->getManager();
+        $userQuery = $entityManager->createQuery(
+            'SELECT u
+                FROM App\Entity\User u
+                WHERE u.username = :username'
+        )->setParameter('username', $user->getUsername());
+        $dbUser = $userQuery->execute();
+    }
+
 //    /**
 //     * @return Comment[] Returns an array of Comment objects
 //     */

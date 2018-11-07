@@ -9,11 +9,13 @@ use App\Entity\Comment;
 use App\Entity\User;
 use App\Entity\Message;
 use App\Form\DeleteMessageType;
+use App\Form\SelectCommentType;
 use App\Form\VoteMessageType;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Form\MessageType;
 use App\Form\MessageSearchType;
 use App\Form\CommenType;
+use App\Repository\CommentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -292,29 +294,58 @@ class MessageController extends Controller
             $entityManager->persist($comment);
             $entityManager->flush();
 
-            return $this->redirectToRoute('getAllMessages');
+
+
+            return new Response("Comment id: " . $id);
         }
         return new Response("Comment fault");
     }
 
-    //De gebruiker kan wijzigen en verwijderen adhv het
-    //token dat hoort bij het bericht 1pt
-    public function updateComment(int $id, string $newContent)
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-        $comment =  $entityManager->getRepository(Comment::class)->find($id);
-        if (!$comment)
-        {
-            throw $this->createNotFoundException(
-                'No comment found for id ' . $id
-            );
-        }
-        $comment->setContent($newContent);
-        $entityManager->flush();
+    /**
+     * @Route("/message/comment/select", name="selectFormComment")
+     */
+    public function selectComment(Request $request){
+        $commentInfo = new Comment();
+        $selectCommentForm = $this->createForm(SelectCommentType::class, $commentInfo);
+
+
+        return $this->render('comment/select.html.twig', array(
+            'selectCommentFormObject' => $selectCommentForm));
     }
 
-    //De gebruiker kan wijzigen en verwijderen adhv het
-    //token dat hoort bij het bericht 1pt
+    /**
+     * @Route("/message/comment/update", name="updateFormComment")
+     */
+    public function updateComment(Request $request)
+    {
+
+        $form = $this->createForm(UpdateUserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $userQuery = $entityManager->createQuery(
+                'SELECT u
+                FROM App\Entity\User u
+                WHERE u.username = :username'
+            )->setParameter('username', $user->getUsername());
+            $dbUser = $userQuery->execute();
+            if($dbUser==null){
+                return new Response("User not found");
+            }
+            $updateUser = $dbUser[0];
+            $updateUser->setRoles($user->getRoles());
+            $user = $updateUser;
+            $entityManager->flush();
+            return new Response('Updated user');
+        }
+        return new Response('Failed updating user');
+
+    }
+
+    /**
+     * @Route("/message/comment/delete", name="deleteFormComment")
+     */
     public function deleteComment(int $id)
     {
         $entityManager = $this->getDoctrine()->getManager();

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--12-col">
+            <h1>Select Comment</h1>
+
+            {% set selectCommentForm = selectCommentFormObject.createView %}
+            {{ form_start(selectCommentForm, {'action': path('updateUser'), 'method': 'POST'}) }}
+
+            {{ form_label(selectCommentForm.id, 'Id: ', {'label_attr': {'class': 'foo'}}) }}
+            {{ form_widget(selectCommentForm.id, { 'attr': {'class': 'mdl-textfield__input'} }) }}
+
+            {{ form_label(selectCommentForm.token, 'Token: ', {'label_attr': {'class': 'foo'}}) }}
+            {{ form_widget(selectCommentForm.token, { 'attr': {'class': 'mdl-textfield__input'} }) }}
+
+                <input type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" />
+            {{ form_end(selectCommentForm) }}
+        </div>
+    </div>
+{% endblock %}
