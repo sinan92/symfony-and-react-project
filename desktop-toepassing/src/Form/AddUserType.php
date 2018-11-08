@@ -30,11 +30,6 @@ class AddUserType extends AbstractType
         $builder->add('roles');
     }
 
-    public function getParent()
-    {
-        return 'FOS\UserBundle\Form\Type\RegistrationFormType';
-    }
-
     public function getBlockPrefix()
     {
         return 'app_user_registration';

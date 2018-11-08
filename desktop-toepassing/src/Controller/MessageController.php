@@ -106,7 +106,7 @@ class MessageController extends Controller
     // anonieme gebruikers
     // we moeten gebruik maken van paginatie.
     /**
-     * @Route("/message/getAll", name="getAllMessages")
+     * @Route("/", name="getAllMessages")
      */
     public function getMessages(Request $request, PaginatorInterface $paginator)
     {
