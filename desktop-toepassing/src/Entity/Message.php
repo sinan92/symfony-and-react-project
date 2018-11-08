@@ -44,12 +44,12 @@ class Message
     private $downVotes;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="message", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="message")
      */
     private $comments;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="messages", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="messages", cascade={"remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;

@@ -16,6 +16,7 @@ use App\Form\MessageType;
 use App\Form\MessageSearchType;
 use App\Form\CommenType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -47,31 +48,26 @@ class MessageController extends Controller
     /**
      * @Route("/message/poster/delete", name="deleteAllMessagesFromPoster")
      */
-    public function deleteAllMessagesFromPoster(Request $request)
+    public function postDeleteAllMessagesFromPoster(Request $request)
     {
         $user = new User();
         $form = $this->createForm(DeleteAllMessagesFromPosterType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $userQuery = $entityManager->createQuery(
-                'SELECT u
-                FROM App\Entity\user u
-                WHERE u.username = :username'
-            )->setParameter('username', $user->getUsername());
-            $dbUser = $userQuery->execute();
+            $user  = $this->getDoctrine()->getManager()->getRepository(User::class)->find($form->get('username')->getData()->getId());
 
-            $user = $dbUser[0];
+            $entityManager = $this->getDoctrine()->getManager();
             $messagesQuery = $entityManager->createQuery(
                 'SELECT m
                 FROM App\Entity\Message m
-                WHERE m.user_id = :user_id'
-            )->setParameter('user_id', $user->getId());
+                WHERE m.user = :user_id'
+            )->setParameter('user_id', $user);
             $messages = $messagesQuery->execute();
 
             foreach ($messages as $message)
             {
+                echo $message;
                 $entityManager->remove($message);
             }
             $entityManager->flush();
@@ -110,7 +106,6 @@ class MessageController extends Controller
         ));
     }
 
-
     /**
      * @Route("/message/categories", name="getCategories")
      */
@@ -127,8 +122,8 @@ class MessageController extends Controller
     public function getMessage(Request $request)
     {
         $id=$request->get("id");
-        $message = $this->getDoctrine()->getManager()->getRepository(Message::class)->find($id);
-        return new Response($message);
+        $message = $this->getDoctrine()->getManager()->getRepository(Message::class)->find(1);
+        return new JsonResponse($message, 500);
     }
 
     // anonieme gebruikers
