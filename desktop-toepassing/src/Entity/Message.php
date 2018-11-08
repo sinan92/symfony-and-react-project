@@ -24,7 +24,7 @@ class Message
     private $content;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Category", cascade={"persist"}, inversedBy="messages")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Category", inversedBy="messages")
      */
     private $categories;
 
@@ -173,12 +173,11 @@ class Message
 
     public function addCategory(Category $category)
     {
-        $category->addMessage($this);
-        /*if (!$this->categories->contains($category)) {
+        if (!$this->categories->contains($category)) {
             $this->categories[] = $category;
         }
 
-        return $this;*/
+        return $this;
     }
 
     public function removeCategory(Category $category): self

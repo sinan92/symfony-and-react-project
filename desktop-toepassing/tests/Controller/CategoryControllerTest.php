@@ -22,6 +22,5 @@ class CategoryControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/category/add');
 
         $this->assertSame('Add a Category', $crawler->filter('h2')->text());
-
     }
 }
