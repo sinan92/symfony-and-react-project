@@ -23,6 +23,9 @@ use Symfony\Component\Validator\Constraints\DateTime;
 
 class UserController extends Controller
 {
+    private $okStatusCode = 200;
+    private $postStatusCode = 201;
+    private $deleteStatusCode = 204;
     /**
      * @Route("/user", name="userindex")
      */

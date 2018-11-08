@@ -26,6 +26,8 @@ use Knp\Component\Pager\PaginatorInterface;
 
 class CategoryController extends Controller
 {
+    private $postStatusCode = 201;
+
     //Moderator kan alleen categorieen posten
 
     /**
@@ -52,7 +54,7 @@ class CategoryController extends Controller
         }
 
         return $this->render('category/category.html.twig', array(
-            'form' => $form->createView(),
+            'form' => $form->createView(), $this->postStatusCode
         ));
     }
 }
