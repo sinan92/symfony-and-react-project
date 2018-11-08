@@ -2,13 +2,12 @@
 
 namespace App\Test\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Goutte\Client;
 
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class CategoryControllerTest extends WebTestCase
 {
-    public function testShowAddCategory(){
+    public function testCategoryController_200(){
         $client = static::createClient();
 
         $client->request('GET', '/category/add');
@@ -17,29 +16,12 @@ class CategoryControllerTest extends WebTestCase
 
     }
 
-    public function testAddCategory(){
+    public function testCategoryController_getRightPage(){
+        $client = static::createClient();
 
-        $client = new Client();
-        $crawler = $client->request('GET', 'https://github.com/login');
+        $crawler = $client->request('GET', '/category/add');
 
-        $form = $crawler->selectButton('Log in')->form();
-        $form['login'] = 'symfonyfan';
-        $form['password'] = 'anypass';
+        $this->assertSame('Add a Category', $crawler->filter('h2')->text());
 
-        $crawler = $client->submit($form);
-        $this->assertTrue($crawler->filter('html:contains("Welcome Back")')->count() > 0)
-
-
-//        $client = static::createClient();
-//        $crawler = $client->request('GET', '/category/add');
-//
-//        $form  = $crawler->selectButton('submit')->form();
-//
-//        $form['name'] = 'TestCat';
-//
-//        $crawler = $client->submit($form, array('name' => 'Test'));
-//
-//        $this->assertContains('Category added', $client->getResponse()->getContent());
     }
-
 }
