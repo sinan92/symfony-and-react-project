@@ -11,6 +11,7 @@ use App\Entity\Message;
 use App\Form\DeleteAllMessagesFromPosterType;
 use App\Form\DeleteMessageType;
 use App\Form\SelectCommentType;
+use App\Form\UpdateMessageType;
 use App\Form\VoteMessageType;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Form\MessageType;
@@ -33,7 +34,11 @@ class MessageController extends Controller
     // maar een anonieme gebruiker niet.
 
     // moderator only
-
+    private $okStatusCode = 200;
+    private $postStatusCode = 201;
+    private $deleteStatusCode = 204;
+    private $acceptedStatusCode = 202;
+    private $badRequestStatusCode = 400;
     /**
      * @Route("/message/poster/delete/index", name="deleteMessagesFromPosterPage")
      */
@@ -75,7 +80,7 @@ class MessageController extends Controller
             }
             $entityManager->flush();
 
-            return new Response('Deleted messages');
+            return new Response('Deleted messages', $this->postStatusCode);
         }
         return new Response('Something is wrong with the form');
     }
@@ -89,15 +94,13 @@ class MessageController extends Controller
         return $categories;
     }
 
-    // Anonieme gebruikers kunnen zoeken in messages
     /**
-     * @Route("/message/find/{id}", name="getMessageById")
+     * @Route("/message/messages", name="getMessages")
      */
-    public function getMessage(Request $request)
+    public function getAllMessages()
     {
-        $id=$request->get("id");
-        $message = $this->getDoctrine()->getManager()->getRepository(Message::class)->find(1);
-        return new JsonResponse($message, 500);
+        $messages = $this->getDoctrine()->getManager()->getRepository(Message::class)->findAll();
+        return $messages;
     }
 
     // anonieme gebruikers
@@ -183,7 +186,7 @@ class MessageController extends Controller
             if($message->getUser() != null) {
                 $message->setUser($this->getDoctrine()->getManager()->getRepository(User::class)->find($message->getUser()->getId()));
             } else {
-                return $this->redirectToRoute('loginroute');
+                return $this->redirect('login');
             }
             $entityManager->persist($message);
             $entityManager->flush();
@@ -193,33 +196,62 @@ class MessageController extends Controller
     }
 
     // poster kan alleen eigen message updaten
-    public function updateMessage(Request $request)
+    /**
+     * @Route("/message/update", name="updateMessagePage")
+     */
+    public function updateMessagePage(Request $request)
     {
-        $user = new User();
-        $form = $this->createForm(MessageType::class, $user);
-        $form->handleRequest($request);
+        $messages = $this->getAllMessages();
+        $categories = $this->getCategories();
 
+        $message = new Message();
+        $messageForm =  $this->createForm(UpdateMessageType::class, $message);
+
+        $category = new Category();
+        $categoryForm = $this->createForm(CategoryType::class, $category);
+
+        return $this->render('message/update.html.twig', array(
+            'messageFormObject' => $messageForm,
+            'categoryFormObject' => $categoryForm,
+            'categories' => $categories,
+            'messages' => $messages,
+            'controller_name' => 'Update Message'));
+    }
+
+    // poster kan alleen eigen message updaten
+    /**
+     * @Route(name="updateMessagePost")
+     */
+    public function updateMessagePost(Request $request)
+    {
+        $message = new Message();
+        $form = $this->createForm(UpdateMessageType::class, $message);
+        $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $updatedUser = $entityManager->createQuery(
-                'SELECT u
-                FROM App\Entity\User u
-                WHERE u.userName = :userName'
-            )->setParameter('userName', $user->getUsername());
-            $updatedUser->setUserName($user->getUsername());
-
-            $encoder = $this->container->get('security.password_encoder');
-            $encoded = $encoder->encodePassword($user, $user->getPassword());
-
-            if($encoded != $updatedUser->getPassword()){
-                $updatedUser->setPassword($encoded);
+            $messageFromDb = $this->getDoctrine()->getManager()->getRepository(Message::class)->find($request->get('messageId'));
+            $messageFromDb->addCategory($this->getDoctrine()->getManager()->getRepository(Category::class)->find($request->get('category')));
+            if ($message->getContent() != null){
+                $messageFromDb->setContent($message->getContent());
             }
-            $updatedUser->setRolesString($user->getRolesString());
+            if ($message->getDownVotes() != null){
+                $messageFromDb->setDownVotes($message->getDownVotes());
+            }
+            if ($message->getUpVotes() != null){
+                $messageFromDb->setUpVotes($message->getUpVotes());
+            }
+            if ($message->getDate() != null){
+                $messageFromDb->setDate($message->getDate());
+            }
 
+            // Get logged in user. if id is not the same as user id from the message, return redirect to login route.
+            if($message->getUser()->getId() != $this->getUser()->getId()) {
+                return $this->redirect('login');
+            }
             $entityManager->flush();
-            return new Response('Updated user');
+            return $this->redirectToRoute('updateMessagePage');
         }
-        return new Response('Failed updating user');
+        return $this->redirectToRoute('updateMessagePage');
 
     }
 
@@ -315,12 +347,12 @@ class MessageController extends Controller
                 )->setParameter('user', $commentUser);
             }
             if($commentQuery->execute()==null){
-                return new Response("Comment not found");
+                return new Response("Comment not found", $this->badRequestStatusCode);
             }
             $comments = $commentQuery->execute();
             $commentId = array_reverse($comments)[0]->getId();
-            return new Response("Comment id: " . $commentId . "<br />Token: " . $comment->getToken());
+            return new Response("Comment id: " . $commentId . "<br />Token: " . $comment->getToken(), $this->postStatusCode);
         }
-        return new Response("Comment Not Posted");
+        return new Response("Comment Not Posted", $this->badRequestStatusCode);
     }
 }
