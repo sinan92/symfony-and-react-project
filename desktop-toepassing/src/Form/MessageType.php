@@ -38,7 +38,10 @@ class MessageType extends AbstractType
             ->add('upVotes', HiddenType::class, array('required' => false, 'label' => false))
             ->add('downVotes', HiddenType::class, array('required' => false, 'label' => false))
             ->add('categories', CollectionType::class, array(
-                'entry_type' => CategoryType::class
+                'entry_type' => CategoryType::class,
+                'entry_options' => array('label' => false),
+                'allow_add' => true,
+                'by_reference' => false
             ))
             ->add('user', CommentUserType::class, array('required' => false, 'label' => false));
     }

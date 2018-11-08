@@ -19,11 +19,11 @@ class User extends BaseUser implements UserInterface, \Serializable
 
     protected $id;
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="user", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="user")
      */
     private $messages;
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="user", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="user", cascade={"remove"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $comments;

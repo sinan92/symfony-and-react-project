@@ -24,7 +24,7 @@ class Message
     private $content;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Category", inversedBy="messages")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Category", cascade={"persist"}, inversedBy="messages")
      */
     private $categories;
 
@@ -44,12 +44,12 @@ class Message
     private $downVotes;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="message", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="message")
      */
     private $comments;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="messages", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="messages", cascade={"remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
@@ -171,13 +171,14 @@ class Message
         return $this->categories;
     }
 
-    public function addCategory(Category $category): self
+    public function addCategory(Category $category)
     {
-        if (!$this->categories->contains($category)) {
+        $category->addMessage($this);
+        /*if (!$this->categories->contains($category)) {
             $this->categories[] = $category;
         }
 
-        return $this;
+        return $this;*/
     }
 
     public function removeCategory(Category $category): self

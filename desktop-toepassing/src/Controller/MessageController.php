@@ -8,6 +8,7 @@ use App\Form\CommentForm;
 use App\Entity\Comment;
 use App\Entity\User;
 use App\Entity\Message;
+use App\Form\DeleteAllMessagesFromPosterType;
 use App\Form\DeleteMessageType;
 use App\Form\SelectCommentType;
 use App\Form\VoteMessageType;
@@ -18,6 +19,7 @@ use App\Form\CommenType;
 use App\Repository\CommentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,23 +33,56 @@ class MessageController extends Controller
     // maar een anonieme gebruiker niet.
 
     // moderator only
-    public function deleteAllMessagesFromPoster(string $user)
+
+    /**
+     * @Route("/message/poster/delete/index", name="deleteMessagesFromPosterPage")
+     */
+    public function deleteAllMessagesFromPosterPage(Request $request)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $messages = $entityManager->getRepository('appBundle:Message')->findBy(array('name' => $user));
-        if (!$messages)
-        {
-            throw $this->createNotFoundException(
-                'No messages found for user ' .$user
-            );
-        }
-        foreach ($messages as $message)
-        {
-            $entityManager->remove($message);
-        }
-        $entityManager->flush();
+        // Form for creating searched message
+        $user = new User();
+        $user = $this->createForm(DeleteAllMessagesFromPosterType::class, $user);
+
+        return $this->render('message/deleteAllMessagesFromPoster.html.twig', array(
+            'userDeleteFormObject' => $user,
+            'controller_name' => 'Delete all messages from poster Controller'));
     }
 
+    /**
+     * @Route("/message/poster/delete", name="deleteAllMessagesFromPoster")
+     */
+    public function postDeleteAllMessagesFromPoster(Request $request)
+    {
+        $user = new User();
+        $form = $this->createForm(DeleteAllMessagesFromPosterType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user  = $this->getDoctrine()->getManager()->getRepository(User::class)->find($form->get('username')->getData()->getId());
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $messagesQuery = $entityManager->createQuery(
+                'SELECT m
+                FROM App\Entity\Message m
+                WHERE m.user = :user_id'
+            )->setParameter('user_id', $user);
+            $messages = $messagesQuery->execute();
+
+            foreach ($messages as $message)
+            {
+                echo $message;
+                $entityManager->remove($message);
+            }
+            $entityManager->flush();
+
+            return new Response('Deleted messages');
+        }
+        return new Response('Something is wrong with the form');
+    }
+
+    /**
+     * @Route("/message/categories", name="getCategories")
+     */
     public function getCategories()
     {
         $categories = $this->getDoctrine()->getManager()->getRepository(Category::class)->findAll();
@@ -61,8 +96,8 @@ class MessageController extends Controller
     public function getMessage(Request $request)
     {
         $id=$request->get("id");
-        $message = $this->getDoctrine()->getManager()->getRepository(Message::class)->find($id);
-        return new Response($message);
+        $message = $this->getDoctrine()->getManager()->getRepository(Message::class)->find(1);
+        return new JsonResponse($message, 500);
     }
 
     // anonieme gebruikers
@@ -121,7 +156,7 @@ class MessageController extends Controller
 
     // Anonieme gebruikers kunnen zoeken in messages
     /**
-     * @Route( name="searchMessages")
+     * @Route("/message/searchmessage", name="searchMessages")
      */
     public function searchMessages(Request $request, PaginatorInterface $paginator){
 
@@ -142,6 +177,8 @@ class MessageController extends Controller
             $message->setDate(new \DateTime());
             $message->setDownVotes(0);
             $message->setUpVotes(0);
+            //$message->getCategories()->add(CategoryType::class);
+            //$message->addCategory($form['category']->getData());
 
             if($message->getUser() != null) {
                 $message->setUser($this->getDoctrine()->getManager()->getRepository(User::class)->find($message->getUser()->getId()));

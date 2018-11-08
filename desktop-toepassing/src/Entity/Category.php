@@ -64,14 +64,17 @@ class Category
         return $this->messages;
     }
 
-    public function addMessage(Message $message): self
+    public function addMessage(Message $message)
     {
         if (!$this->messages->contains($message)) {
+            $this->messages->add($message);
+        }
+/*        if (!$this->messages->contains($message)) {
             $this->messages[] = $message;
             $message->addCategory($this);
         }
 
-        return $this;
+        return $this;*/
     }
 
     public function removeMessage(Message $message): self
