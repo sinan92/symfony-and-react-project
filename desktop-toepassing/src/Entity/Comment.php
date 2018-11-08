@@ -34,13 +34,13 @@ class Comment
     private $date;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Message", inversedBy="comments", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Message", inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
     private $message;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments", cascade={"remove"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $user;
