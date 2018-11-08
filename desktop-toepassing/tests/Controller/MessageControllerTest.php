@@ -19,33 +19,6 @@ class MessageControllerTest extends WebTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 
-    public function testPostCategory()
-    {
-        $client = static::createClient();
-
-        $client->request('GET', '/category/add');
-
-        $this->assertEquals(201, $client->getResponse()->getStatusCode());
-    }
-
-    public function testGetCategories()
-    {
-        $client = static::createClient();
-
-        $client->request('GET', '/message/categories');
-
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-    }
-
-    public function testGetMessage()
-    {
-        $client = static::createClient();
-
-        $client->request('GET', '/message/find/1');
-
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-    }
-
     public function testGetMessages()
     {
         $client = static::createClient();
@@ -180,7 +153,7 @@ class MessageControllerTest extends WebTestCase
 
         $client->request('GET', '/message/delete');
 
-        $this->assertEquals(202, $client->getResponse()->getStatusCode());
+        $this->assertEquals(302, $client->getResponse()->getStatusCode());
     }
 
     public function testPostCommentWithModel()
