@@ -159,14 +159,6 @@ class MessageController extends Controller
             'controller_name' => 'Message Controller'));
     }
 
-    // Anonieme gebruikers kunnen zoeken in messages
-    /**
-     * @Route("/message/searchmessage", name="searchMessages")
-     */
-    public function searchMessages(Request $request, PaginatorInterface $paginator){
-
-    }
-
     // posters kunnen berichten aanmaken in bestaande categorie
     /**
      * @Route("/message/post", name="postMessage")
@@ -198,6 +190,7 @@ class MessageController extends Controller
 
             return $this->redirectToRoute('getAllMessages');
         }
+        return new Response('Post message failed ', 400);
     }
 
     // poster kan alleen eigen message updaten

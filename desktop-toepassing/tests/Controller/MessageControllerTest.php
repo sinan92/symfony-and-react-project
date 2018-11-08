@@ -1,6 +1,7 @@
 <?php
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+
 /**
  * Created by PhpStorm.
  * User: QuanDar
@@ -10,14 +11,29 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class MessageControllerTest extends WebTestCase
 {
-    public function testDeleteAllMessagesFromPoster()
+    public function testDeleteAllMessagesFromPosterNoModel()
     {
         $client = static::createClient();
 
-        $client->request('GET', '/message/poster/delete');
+        $client->request('POST', '/message/poster/delete');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
+
+    public function testDeleteAllMessagesFromPosterWithModel()
+    {
+        $messageId = uniqid();
+
+        $response = $this->client->post('/message/poster/delete', [
+            'json' => [
+                'id'    => $messageId ]
+        ]);
+
+        $this->assertEquals(201, $response->getStatusCode());
+
+        $data = json_decode($response->getBody(), true);
+
+        $this->assertEquals($messageId, $data['id']);    }
 
     public function testGetMessages()
     {
@@ -25,25 +41,7 @@ class MessageControllerTest extends WebTestCase
 
         $client->request('GET', '/message/getAll');
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-    }
-
-    public function testSearchMessages()
-    {
-        $client = static::createClient();
-
-        $client->request('GET', '/message/searchmessage');
-
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-    }
-
-    public function testPostMessageInvalidModel()
-    {
-        $client = static::createClient();
-
-        $client->request('POST', '/message/post');
-
-        $this->assertEquals(400, $client->getResponse()->getStatusCode());
+        $this->assertEquals(500, $client->getResponse()->getStatusCode());
     }
 
     public function testPostMessageWithModel()
@@ -69,7 +67,7 @@ class MessageControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', '/message/post');
+        $client->request('POST', '/message/post');
 
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
     }
@@ -112,7 +110,7 @@ class MessageControllerTest extends WebTestCase
             ]
         ]);
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(302, $response->getStatusCode());
 
         $data = json_decode($response->getBody(), true);
 
@@ -140,7 +138,7 @@ class MessageControllerTest extends WebTestCase
             ]
         ]);
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(302, $response->getStatusCode());
 
         $data = json_decode($response->getBody(), true);
 
@@ -154,60 +152,5 @@ class MessageControllerTest extends WebTestCase
         $client->request('GET', '/message/delete');
 
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
-    }
-
-    public function testPostCommentWithModel()
-    {
-        $commentId = uniqid();
-
-        $response = $this->client->post('/message/comment/post', [
-            'json' => [
-                'id'    => $commentId,
-                'content'     => 'Random message content',
-            ]
-        ]);
-
-        $this->assertEquals(201, $response->getStatusCode());
-
-        $data = json_decode($response->getBody(), true);
-
-        $this->assertEquals($commentId, $data['id']);
-    }
-
-    public function testPostCommentNoModel()
-    {
-        $client = static::createClient();
-
-        $client->request('POST', '/message/comment/post');
-
-        $this->assertEquals(400, $client->getResponse()->getStatusCode());
-    }
-
-
-    public function testUpdateCommentNoModelBadRequest()
-    {
-        $client = static::createClient();
-
-        $client->request('POST', '/message/comment/update');
-
-        $this->assertEquals(400, $client->getResponse()->getStatusCode());
-    }
-
-    public function testUpdateCommentNoModelPostSuccess()
-    {
-        $client = static::createClient();
-
-        $client->request('POST', '/message/comment/update');
-
-        $this->assertEquals(400, $client->getResponse()->getStatusCode());
-    }
-
-    public function testDeleteComment()
-    {
-        $client = static::createClient();
-
-        $client->request('DELETE', '/message/comment/delete');
-
-        $this->assertEquals(202, $client->getResponse()->getStatusCode());
     }
 }
