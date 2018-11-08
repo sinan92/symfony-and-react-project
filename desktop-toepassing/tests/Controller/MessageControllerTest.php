@@ -1,5 +1,4 @@
 <?php
-
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 /**
  * Created by PhpStorm.

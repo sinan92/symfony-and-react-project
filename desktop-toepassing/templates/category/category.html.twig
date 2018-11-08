@@ -32,15 +32,15 @@
                         </div>
                 </div>
                 <div class="mdl-card__actions mdl-card--border">
-                    {#{% if is_granted('ROLE_ADMIN') %}#}
-                        {#<input type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" />#}
-                    {#{% else %}#}
-                        {#{% if is_granted('ROLE_MODERATOR') %}#}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <input type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" />
+                    {% else %}
+                        {% if is_granted('ROLE_MODERATOR') %}
                             <input type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" />
-                        {#{% else %}#}
-                            {#<span>Je moet een moderator of admin zijn om categoriën aan te maken</span>#}
-                        {#{% endif %}#}
-                    {#{% endif %}#}
+                        {% else %}
+                            <span>Je moet een moderator of admin zijn om categoriën aan te maken</span>
+                        {% endif %}
+                    {% endif %}
                     {{ form_end(form) }}
                 </div>
             </div>
