@@ -19,7 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormTypeInterface;
 use App\Entity\User;
 
-class SelectCommentType  extends AbstractType
+class DeleteCommentType  extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

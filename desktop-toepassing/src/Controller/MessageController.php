@@ -48,35 +48,6 @@ class MessageController extends Controller
         $entityManager->flush();
     }
 
-    //Moderator kan alleen categorieen posten
-
-    /**
-     * @Route("/category/add", name="addCategory")
-     */
-    public function postCategory(Request $request)
-    {
-        $category = new Category();
-
-        $form = $this->createFormBuilder($category)
-            ->add('Name', TextType::class)
-            ->getForm();
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $category = $form->getData();
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($category);
-            $entityManager->flush();
-            return $this->redirectToRoute('addCategory');
-        }
-
-        return $this->render('category/category.html.twig', array(
-            'form' => $form->createView(),
-        ));
-    }
-
     public function getCategories()
     {
         $categories = $this->getDoctrine()->getManager()->getRepository(Category::class)->findAll();
@@ -282,81 +253,37 @@ class MessageController extends Controller
         $form = $this->createForm(CommenType::class, $comment);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
             $entityManager = $this->getDoctrine()->getManager();
             $comment->setDate(new \DateTime());
             if($comment->getUser() != null){
                 $comment->setUser($this->getDoctrine()->getManager()->getRepository(User::class)->find($comment->getUser()->getId()));
             }
             $comment->setMessage($this->getDoctrine()->getManager()->getRepository(Message::class)->find($comment->getMessage()->getId()));
-
+            $comment->setToken(bin2hex(random_bytes(10)));
 
             $entityManager->persist($comment);
             $entityManager->flush();
-
-
-
-            return new Response("Comment id: " . $id);
-        }
-        return new Response("Comment fault");
-    }
-
-    /**
-     * @Route("/message/comment/select", name="selectFormComment")
-     */
-    public function selectComment(Request $request){
-        $commentInfo = new Comment();
-        $selectCommentForm = $this->createForm(SelectCommentType::class, $commentInfo);
-
-
-        return $this->render('comment/select.html.twig', array(
-            'selectCommentFormObject' => $selectCommentForm));
-    }
-
-    /**
-     * @Route("/message/comment/update", name="updateFormComment")
-     */
-    public function updateComment(Request $request)
-    {
-
-        $form = $this->createForm(UpdateUserType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $userQuery = $entityManager->createQuery(
-                'SELECT u
-                FROM App\Entity\User u
-                WHERE u.username = :username'
-            )->setParameter('username', $user->getUsername());
-            $dbUser = $userQuery->execute();
-            if($dbUser==null){
-                return new Response("User not found");
+            if ($comment->getUser() == null){
+                $commentQuery = $entityManager->createQuery(
+                    'SELECT c
+                FROM App\Entity\Comment c
+                WHERE c.user IS NULL');
+            }else{
+                $commentUser = $comment->getUser();
+                $commentQuery = $entityManager->createQuery(
+                    'SELECT c
+                    FROM App\Entity\Comment c
+                    WHERE c.user = :user'
+                )->setParameter('user', $commentUser);
             }
-            $updateUser = $dbUser[0];
-            $updateUser->setRoles($user->getRoles());
-            $user = $updateUser;
-            $entityManager->flush();
-            return new Response('Updated user');
+            if($commentQuery->execute()==null){
+                return new Response("Comment not found");
+            }
+            $comments = $commentQuery->execute();
+            $commentId = array_reverse($comments)[0]->getId();
+            return new Response("Comment id: " . $commentId . "<br />Token: " . $comment->getToken());
         }
-        return new Response('Failed updating user');
-
-    }
-
-    /**
-     * @Route("/message/comment/delete", name="deleteFormComment")
-     */
-    public function deleteComment(int $id)
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-        $comment = $entityManager->getRepository('appBundle:Comment')->find($id);
-        if (!$comment)
-        {
-            throw $this->createNotFoundException(
-                'No comment found for id '.$id
-            );
-        }
-        $entityManager->remove($comment);
-        $entityManager->flush();
+        return new Response("Comment Not Posted");
     }
 }

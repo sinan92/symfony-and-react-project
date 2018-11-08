@@ -92,7 +92,7 @@
                                 {% endif %}
                             </div>
                             <div>
-                                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_POSTER') %}
+                                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_POSTER') or is_granted('ROLE_MODERATOR') %}
                                     {% set deleteMessageForm = deleteMessageFormObject.createView %}
                                     {{ form_start(deleteMessageForm, {'action': path('deleteMessage'), 'method': 'POST'}) }}
                                     {{ form_widget(deleteMessageForm.id, {'value' : m.id}) }}
