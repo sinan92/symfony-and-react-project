@@ -47,7 +47,7 @@ class CommentControllerTest extends WebTestCase
 
         $client->request('POST', '/message/comment/update');
 
-        $this->assertEquals(400, $client->getResponse()->getStatusCode());
+        $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
 
     public function testUpdateCommentWithModel()
@@ -74,9 +74,10 @@ class CommentControllerTest extends WebTestCase
 
         $client->request('DELETE', '/message/comment/delete');
 
-        $this->assertEquals(202, $client->getResponse()->getStatusCode());
+        $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
-    public function testCommentController_200_comment(){
+
+    public function testCommentController_GET_comment(){
         $client = static::createClient();
 
         $client->request('GET', '/comment');
@@ -85,7 +86,7 @@ class CommentControllerTest extends WebTestCase
 
     }
 
-    public function testCommentController_200_commentUpdate(){
+    public function testCommentController_GET_commentUpdate(){
         $client = static::createClient();
 
         $client->request('GET', '/comment/update');
@@ -94,7 +95,7 @@ class CommentControllerTest extends WebTestCase
 
     }
 
-    public function testCommentController_200_commentDelete(){
+    public function testCommentController_GET_commentDelete(){
         $client = static::createClient();
 
         $client->request('GET', '/comment/delete');
