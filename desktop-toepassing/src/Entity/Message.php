@@ -24,7 +24,7 @@ class Message
     private $content;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Category", cascade={"persist"}, inversedBy="messages")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Category", inversedBy="messages")
      */
     private $categories;
 

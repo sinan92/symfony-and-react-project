@@ -27,15 +27,13 @@
                 <div class="mdl-textfield mdl-js-textfield getmdl">
                     {{ form_widget(messageForm.content, { 'attr': {'class': 'mdl-textfield__input'} }) }}
                     <label for="message_content" class="mdl-textfield__label">Voeg bericht toe</label>
-                    {{ form_widget(messageForm.categories, { 'attr': {'class': ''} }) }}
 
                 </div>
-
-                {% set categoryForm = categoryFormObject.createView %}
-                    <div class="mdl-textfield mdl-js-textfield getmdl">
-                        {{ form_widget(categoryForm.name, { 'attr': {'class': 'mdl-textfield__input'} }) }}
-                        <label for="message_content" class="mdl-textfield__label">Voeg bericht toe</label>
-                    </div>
+              <select name="category">
+                  {% for m in messages %}
+                  <option value="categoryid">categoryname</option>
+                  {% endfor %}
+              </select>
 
                 {% if is_granted('ROLE_ADMIN') %}
                     <input type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" />
