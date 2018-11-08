@@ -5,7 +5,7 @@ const initialState = {
     message: null,
     messageSearchResults: [],
     success: null,
-}
+};
 
 const comments = (state = initialState, action) => {
     switch (action.type) {
@@ -13,7 +13,7 @@ const comments = (state = initialState, action) => {
             console.log("Test");
             const addedComment = state.messages.map(message => {
                 if(message.id === action.id){
-                    message.comments = [...message.comments, action.payload]
+                    message.comments = [...message.comments, action.payload];
                     return message
                 }
                 return message
@@ -25,6 +25,6 @@ const comments = (state = initialState, action) => {
         default:
             return state
     }
-}
+};
 
 export default comments

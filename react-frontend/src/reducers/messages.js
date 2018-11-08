@@ -82,17 +82,9 @@ const messages = (state = initialState, action) => {
                 messages: downvotedMessages
             };
         case types.POST_COMMENT_BY_MESSAGE_ID:
-            const addedComment = state.messages.map(message => {
-                if(message.id === action.id){
-                    message.comments = [...message.comments, action.payload]
-                    return message
-                }
-                return message
-            });
-            alert('Uw token is: ' + action.payload[0].token)
+            alert('Uw token is: ' + action.payload[0].token);
             return {
-                ...state,
-                //messages: addedComment
+                ...state
             };
         default:
             return state

@@ -42,17 +42,21 @@ class Home extends React.Component {
     }
 
     upvoteClick = (id) => {
-        this.props.actions.upvoteMessage(id)
+        if(this.props.loggedIn){
+            this.props.actions.upvoteMessage(id)
+        }
     };
 
     downvoteClick = (id) => {
-        this.props.actions.downvoteMessage(id)
+        if(this.props.loggedIn) {
+            this.props.actions.downvoteMessage(id)
+        }
     };
 
     render(){
         const {messages} = this.props;
 
-        var categories = this.props.categories.map((category, index) => <Category key={index} title={category.category}/>);
+        let categories = this.props.categories.map((category, index) => <Category key={index} title={category.category}/>);
 
         return (
             <div>
@@ -81,7 +85,8 @@ export default connect(store => ({
         message: store.messages.message,
         categories: store.messages.categories,
         selectedCategory: store.messages.selectedCategory,
-        search: store.messages.search
+        search: store.messages.search,
+        loggedIn: store.user.loggedIn
     }),
     (dispatch) => ({
         actions: bindActionCreators({...messages}, dispatch)

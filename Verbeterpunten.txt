@@ -1,0 +1,10 @@
+/ Login bevestigen met userlijst
+/ Upvote en downvote alleen toelaten voor ingelogde gebruikers
+/ Warnings
+/ JSLint errors
+
+Extras:
+/ Redux-persist
+- Berichten bewerken (met jQuery enablen)
+- Berichten verwijderen
+- Login werkend maken via backend

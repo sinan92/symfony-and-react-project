@@ -2,7 +2,7 @@ import * as types from './actionTypes';
 import axios from 'axios';
 
 export function postComment(messageId, comment) {
-    var bodyFormData = new FormData();
+    let bodyFormData = new FormData();
     bodyFormData.set('messageId', messageId);
     bodyFormData.set('comment', comment);
     return function (dispatch) {

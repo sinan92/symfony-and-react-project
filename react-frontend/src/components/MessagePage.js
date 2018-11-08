@@ -1,19 +1,13 @@
 import React from 'react'
-import Layout from './Layout';
-import Login from './Login';
 import connect from "react-redux/es/connect/connect";
 import {bindActionCreators} from "redux";
 import * as messages from "../actions/messages";
-import history from "../history";
 import CardWrapper from "../wrappers/CardWrapper";
-import Search from "./Search";
 import Message from "./Message";
-import Comment from "./Comment";
-import WriteComment from "./WriteComment";
 
 class MessagePage extends React.Component {
     constructor(props){
-        super(props)
+        super(props);
         this.props.actions.fetchMessageById(this.props.match.params.id)
     }
 
@@ -21,13 +15,13 @@ class MessagePage extends React.Component {
         this.setState({
             comment: event.target.value
         })
-    }
+    };
 
     addComment = (event) => {
         let comment = this.state.comment;
         let id = event.target.value;
         this.props.actions.postComment(id, comment);
-    }
+    };
 
     upvoteClick = (id) => {
         this.props.actions.upvoteMessage(id)

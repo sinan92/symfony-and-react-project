@@ -27,8 +27,13 @@ class Login extends React.Component {
 
     submitForm = () => {
         this.props.actions.loginUser(this.state.username, this.state.password);
-        history.push('/');
     };
+
+    componentWillReceiveProps(){
+        if(!this.props.loggedIn){
+            history.push('/');
+        }
+    }
 
     render(){
         return (

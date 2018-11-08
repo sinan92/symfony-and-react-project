@@ -9,16 +9,16 @@ const persistConfig = {
     key: 'root',
     storage,
     whitelist: ['user']
-}
+};
 
-const persistedReducer = persistReducer(persistConfig, rootReducer)
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export default function configureStore() {
     const middlewareEnhancer = applyMiddleware(thunkMiddleware);
     const composedEnhancers = compose(middlewareEnhancer);
 
     const store = createStore(persistedReducer, composedEnhancers);
-    let persistor = persistStore(store)
+    let persistor = persistStore(store);
 
     return {store, persistor};
 }

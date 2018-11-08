@@ -1,5 +1,7 @@
 import * as types from './actionTypes';
 
+
+
 export function loginUser(username, password) {
     return {
         type: types.LOGIN_USER,

@@ -1,6 +1,5 @@
 import React from 'react';
 import App from "./components/App";
-import CommentPage from "./components/CommentPage";
 import Home from "./components/Home";
 import Login from "./components/LoginPage"
 
