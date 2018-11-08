@@ -173,12 +173,11 @@ class Message
 
     public function addCategory(Category $category)
     {
-        $category->addMessage($this);
-        /*if (!$this->categories->contains($category)) {
+        if (!$this->categories->contains($category)) {
             $this->categories[] = $category;
         }
 
-        return $this;*/
+        return $this;
     }
 
     public function removeCategory(Category $category): self

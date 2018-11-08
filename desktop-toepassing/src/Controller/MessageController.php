@@ -111,6 +111,7 @@ class MessageController extends Controller
         $commentForm = $this->createForm(CommenType::class, $comment);
         // Form for creating searched message
         $searchMessage = new Message();
+        $categories = $this->getCategories();
         $messageSearchForm = $this->createForm(MessageSearchType::class, $searchMessage);
 
         $message = new Message();
@@ -146,6 +147,7 @@ class MessageController extends Controller
             'messageSearchFormObject' => $messageSearchForm,
             'commentFormObject' => $commentForm,
             'messageFormObject' => $messageForm,
+            'categories' => $categories,
             'categoryFormObject' => $categoryForm,
             'deleteMessageFormObject' => $deleteMessageForm,
             'upVoteMessageFormObject' => $upVoteMessageForm,
@@ -169,6 +171,7 @@ class MessageController extends Controller
     public function postMessage(Request $request)
     {
         $message = new Message();
+        $category = new Category();
         $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($request);
 
@@ -179,6 +182,8 @@ class MessageController extends Controller
             $message->setUpVotes(0);
             //$message->getCategories()->add(CategoryType::class);
             //$message->addCategory($form['category']->getData());
+            $message->addCategory($this->getDoctrine()->getManager()->getRepository(Category::class)->find($request->get('category')));
+
 
             if($message->getUser() != null) {
                 $message->setUser($this->getDoctrine()->getManager()->getRepository(User::class)->find($message->getUser()->getId()));
