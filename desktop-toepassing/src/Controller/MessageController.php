@@ -10,12 +10,15 @@ use App\Entity\User;
 use App\Entity\Message;
 use App\Form\DeleteAllMessagesFromPosterType;
 use App\Form\DeleteMessageType;
+use App\Form\SelectCommentType;
 use App\Form\VoteMessageType;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Form\MessageType;
 use App\Form\MessageSearchType;
 use App\Form\CommenType;
+use App\Repository\CommentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -75,35 +78,6 @@ class MessageController extends Controller
             return new Response('Deleted messages');
         }
         return new Response('Something is wrong with the form');
-    }
-
-    //Moderator kan alleen categorieen posten
-
-    /**
-     * @Route("/category/add", name="addCategory")
-     */
-    public function postCategory(Request $request)
-    {
-        $category = new Category();
-
-        $form = $this->createFormBuilder($category)
-            ->add('Name', TextType::class)
-            ->getForm();
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $category = $form->getData();
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($category);
-            $entityManager->flush();
-            return $this->redirectToRoute('addCategory');
-        }
-
-        return $this->render('category/category.html.twig', array(
-            'form' => $form->createView(),
-        ));
     }
 
     /**
@@ -316,57 +290,37 @@ class MessageController extends Controller
         $form = $this->createForm(CommenType::class, $comment);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
             $entityManager = $this->getDoctrine()->getManager();
             $comment->setDate(new \DateTime());
             if($comment->getUser() != null){
                 $comment->setUser($this->getDoctrine()->getManager()->getRepository(User::class)->find($comment->getUser()->getId()));
             }
             $comment->setMessage($this->getDoctrine()->getManager()->getRepository(Message::class)->find($comment->getMessage()->getId()));
-
+            $comment->setToken(bin2hex(random_bytes(10)));
 
             $entityManager->persist($comment);
             $entityManager->flush();
-
-            return $this->redirectToRoute('getAllMessages');
+            if ($comment->getUser() == null){
+                $commentQuery = $entityManager->createQuery(
+                    'SELECT c
+                FROM App\Entity\Comment c
+                WHERE c.user IS NULL');
+            }else{
+                $commentUser = $comment->getUser();
+                $commentQuery = $entityManager->createQuery(
+                    'SELECT c
+                    FROM App\Entity\Comment c
+                    WHERE c.user = :user'
+                )->setParameter('user', $commentUser);
+            }
+            if($commentQuery->execute()==null){
+                return new Response("Comment not found");
+            }
+            $comments = $commentQuery->execute();
+            $commentId = array_reverse($comments)[0]->getId();
+            return new Response("Comment id: " . $commentId . "<br />Token: " . $comment->getToken());
         }
-    }
-
-    //De gebruiker kan wijzigen en verwijderen adhv het
-    //token dat hoort bij het bericht 1pt
-    /**
-     * @Route("/message/comment/update", name="updateComment")
-     */
-    public function updateComment(int $id, string $newContent)
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-        $comment =  $entityManager->getRepository(Comment::class)->find($id);
-        if (!$comment)
-        {
-            throw $this->createNotFoundException(
-                'No comment found for id ' . $id
-            );
-        }
-        $comment->setContent($newContent);
-        $entityManager->flush();
-    }
-
-    //De gebruiker kan wijzigen en verwijderen adhv het
-    //token dat hoort bij het bericht 1pt
-    /**
-     * @Route("/message/comment/delete", name="deleteComment")
-     */
-    public function deleteComment(int $id)
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-        $comment = $entityManager->getRepository('appBundle:Comment')->find($id);
-        if (!$comment)
-        {
-            throw $this->createNotFoundException(
-                'No comment found for id '.$id
-            );
-        }
-        $entityManager->remove($comment);
-        $entityManager->flush();
+        return new Response("Comment Not Posted");
     }
 }

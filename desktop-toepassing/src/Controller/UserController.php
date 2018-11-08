@@ -67,8 +67,8 @@ class UserController extends Controller
             $entityManager->flush();
 
             return new Response('Created user');
-            return $this->redirectToRoute('getAllMessages');
         }
+        return new Response('Failed Creating User');
     }
 
     /**

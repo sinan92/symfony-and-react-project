@@ -10,12 +10,13 @@ namespace App\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class UpdateUserType  extends AbstractType
+class UpdateCommentType  extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('username');
-        $builder->add('roles');
+        $builder->add('token');
+        $builder->add('id');
+        $builder->add('content');
     }
 
     public function getBlockPrefix()
