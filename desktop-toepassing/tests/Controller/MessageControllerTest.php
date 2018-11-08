@@ -96,7 +96,7 @@ class MessageControllerTest extends WebTestCase
 
         $client->request('POST', '/message/downVoteMessage');
 
-        $this->assertEquals(201, $client->getResponse()->getStatusCode());
+        $this->assertEquals(302, $client->getResponse()->getStatusCode());
     }
 
     public function testDownVoteMessageWithModel()
@@ -124,7 +124,7 @@ class MessageControllerTest extends WebTestCase
 
         $client->request('POST', '/message/upVoteMessage');
 
-        $this->assertEquals(201, $client->getResponse()->getStatusCode());
+        $this->assertEquals(302, $client->getResponse()->getStatusCode());
     }
 
     public function testUpVoteMessageWithModel()
@@ -152,5 +152,14 @@ class MessageControllerTest extends WebTestCase
         $client->request('GET', '/message/delete');
 
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
+    }
+
+    public function noRouteFound()
+    {
+        $client = static::createClient();
+
+        $client->request('GET', '/thisIsNotAnRoute');
+
+        $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
 }
