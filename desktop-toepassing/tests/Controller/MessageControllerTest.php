@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class MessageControllerTest extends WebTestCase
 {
-    public function testDeleteAllMessagesFromPosterNoModel()
+    public function test_DeleteAllMessagesFromPoster_noModel_200()
     {
         $client = static::createClient();
 
@@ -19,7 +19,7 @@ class MessageControllerTest extends WebTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 
-    public function testDeleteAllMessagesFromPosterWithModel()
+    public function testDeleteAllMessagesFromPoster_withModel()
     {
         $messageId = uniqid();
 
@@ -43,7 +43,7 @@ class MessageControllerTest extends WebTestCase
         $this->assertEquals(500, $client->getResponse()->getStatusCode());
     }
 
-    public function testPostMessageWithModel()
+    public function testPostMessage_withModel()
     {
         $messageId = uniqid();
 
@@ -62,7 +62,7 @@ class MessageControllerTest extends WebTestCase
         $this->assertEquals($messageId, $data['id']);
     }
 
-    public function testUpdateMessageNoModel()
+    public function testUpdateMessage_noModel()
     {
         $client = static::createClient();
 
@@ -71,7 +71,7 @@ class MessageControllerTest extends WebTestCase
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
     }
 
-    public function testUpdateMessageWithModel()
+    public function testUpdateMessage_withModel()
     {
         $messageId = uniqid();
 
@@ -89,7 +89,7 @@ class MessageControllerTest extends WebTestCase
         $this->assertEquals($messageId, $data['id']);
     }
 
-    public function testDownVoteMessageNoModel()
+    public function testDownVoteMessage_noModel()
     {
         $client = static::createClient();
 
@@ -98,7 +98,7 @@ class MessageControllerTest extends WebTestCase
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
     }
 
-    public function testDownVoteMessageWithModel()
+    public function testDownVoteMessage_withModel()
     {
         $messageId = uniqid();
 
@@ -117,7 +117,7 @@ class MessageControllerTest extends WebTestCase
     }
 
 
-    public function testUpVoteMessageNoModel()
+    public function testUpVoteMessage_noModel()
     {
         $client = static::createClient();
 
@@ -126,7 +126,7 @@ class MessageControllerTest extends WebTestCase
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
     }
 
-    public function testUpVoteMessageWithModel()
+    public function testUpVoteMessage_withModel()
     {
         $messageId = uniqid();
 
