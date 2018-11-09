@@ -13,23 +13,23 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class CommentControllerTest extends WebTestCase
 {
-    public function testPostCommentWithModel()
-    {
-        $commentId = uniqid();
-
-        $response = $this->client->post('/message/comment/post', [
-            'json' => [
-                'id'    => $commentId,
-                'content'     => 'Random message content',
-            ]
-        ]);
-
-        $this->assertEquals(201, $response->getStatusCode());
-
-        $data = json_decode($response->getBody(), true);
-
-        $this->assertEquals($commentId, $data['id']);
-    }
+//    public function testPostCommentWithModel()
+//    {
+//        $commentId = uniqid();
+//
+//        $response = $this->client->post('/message/comment/post', [
+//            'json' => [
+//                'id'    => $commentId,
+//                'content'     => 'Random message content',
+//            ]
+//        ]);
+//
+//        $this->assertEquals(201, $response->getStatusCode());
+//
+//        $data = json_decode($response->getBody(), true);
+//
+//        $this->assertEquals($commentId, $data['id']);
+//    }
 
     public function testPostCommentNoModel()
     {
@@ -50,23 +50,23 @@ class CommentControllerTest extends WebTestCase
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
 
-    public function testUpdateCommentWithModel()
-    {
-        $messageId = uniqid();
-
-        $response = $this->client->post('/message/comment/update', [
-            'json' => [
-                'id'    => $messageId,
-                'upVotes'     => 33,
-            ]
-        ]);
-
-        $this->assertEquals(200, $response->getStatusCode());
-
-        $data = json_decode($response->getBody(), true);
-
-        $this->assertEquals($messageId, $data['id']);
-    }
+//    public function testUpdateCommentWithModel()
+//    {
+//        $messageId = uniqid();
+//
+//        $response = $this->client->post('/message/comment/update', [
+//            'json' => [
+//                'id'    => $messageId,
+//                'upVotes'     => 33,
+//            ]
+//        ]);
+//
+//        $this->assertEquals(200, $response->getStatusCode());
+//
+//        $data = json_decode($response->getBody(), true);
+//
+//        $this->assertEquals($messageId, $data['id']);
+//    }
 
     public function testDeleteComment()
     {
@@ -86,6 +86,15 @@ class CommentControllerTest extends WebTestCase
 
     }
 
+    public function testCommentController_POST_comment(){
+        $client = static::createClient();
+
+        $client->request('POST', '/comment');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+    }
+
     public function testCommentController_GET_commentUpdate(){
         $client = static::createClient();
 
@@ -94,11 +103,29 @@ class CommentControllerTest extends WebTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
     }
+    public function testCommentController_POST_commentUpdate(){
+
+    $client = static::createClient();
+
+    $client->request('POST', '/comment/update');
+
+    $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+}
 
     public function testCommentController_GET_commentDelete(){
         $client = static::createClient();
 
         $client->request('GET', '/comment/delete');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+    }
+
+    public function testCommentController_POST_commentDelete(){
+        $client = static::createClient();
+
+        $client->request('POST', '/comment/delete');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
